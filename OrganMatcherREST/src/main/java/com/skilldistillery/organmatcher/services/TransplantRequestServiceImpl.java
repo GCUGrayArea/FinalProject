@@ -12,12 +12,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.skilldistillery.organmatcher.entities.Patient;
-import com.skilldistillery.organmatcher.repositories.TransplantRequestServiceRepository;
+import com.skilldistillery.organmatcher.repositories.TransplantRequestRepository;
 
 public class TransplantRequestServiceImpl implements TransplantRequestService {
 
 	@Autowired
-	private TransplantRequestServiceRepository trRepo;
+	private TransplantRequestRepository trRepo;
 	
 	//LIST ALL
 //	@Override
@@ -69,18 +69,4 @@ public class TransplantRequestServiceImpl implements TransplantRequestService {
 //	 return deleted;
 //	}
 }
-
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private int id;
-@ManyToOne
-@JoinColumn(name = "recipient_id")
-private Patient recipient;
-@ManyToOne
-@JoinColumn(name = "donor_id")
-private Patient donor;
-@Column(name = "organ_type_id")
-private Integer organType;
-@CreationTimestamp
-@Column(name ="created_at")
-private LocalDateTime createdAt;
 
