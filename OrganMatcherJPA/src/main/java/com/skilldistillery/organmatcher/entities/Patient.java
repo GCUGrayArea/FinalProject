@@ -108,6 +108,7 @@ public class Patient {
 	public void setTransplantTypes(List<TransplantType> transplantTypes) {
 		this.transplantTypes = transplantTypes;
 	}
+	//TODO add ID field to HLA table in DB and to HLA class so we can test this
 	public List<Hla> getHlaProteins() {
 		return hlaProteins;
 	}
