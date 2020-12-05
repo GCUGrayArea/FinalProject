@@ -42,7 +42,7 @@ class TransplantTypeTest {
 
 	@Test
 	void test() {
-//		assertNotNull(transplantType);
+		assertNotNull(transplantType);
 		
 	}
 
