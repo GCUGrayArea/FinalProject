@@ -44,6 +44,19 @@ public class BloodType {
 		this.rh = rh;
 	}
 	
+	public boolean canAccept( BloodType other ) {
+		//X (AB) can accept any group, but must match otherwise
+		if ( this.bloodGroup != 'X' && this.bloodGroup != other.getBloodGroup() ) {
+			return false;
+		}
+		//negative people can't accept positive blood
+		if ( !this.isRh() && other.isRh() ) {
+			return false;
+		}
+
+		return true; //if ABO and Rh haven't disqualified
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

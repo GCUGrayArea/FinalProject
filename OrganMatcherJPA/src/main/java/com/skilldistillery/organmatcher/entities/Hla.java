@@ -1,5 +1,6 @@
 package com.skilldistillery.organmatcher.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +14,7 @@ public class Hla {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+	@Column(name = "protein_class")
 	private String proteinClass;
 	
 	private int allele;
