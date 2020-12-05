@@ -18,10 +18,10 @@ public class Hla {
 	private String proteinClass;
 	
 	private int allele;
-//	
-//	@ManyToOne
-//	@JoinColumn(name="patient_id")
-//	private Patient patient;
+	
+	@ManyToOne
+	@JoinColumn(name="patient_id")
+	private Patient patient;
 
 	public Hla() {
 		super();
@@ -52,13 +52,13 @@ public class Hla {
 		this.allele = allele;
 	}
 
-//	public Patient getPatient() {
-//		return patient;
-//	}
-//
-//	public void setPatient(Patient patient) {
-//		this.patient = patient;
-//	}
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 
 	@Override
 	public String toString() {
