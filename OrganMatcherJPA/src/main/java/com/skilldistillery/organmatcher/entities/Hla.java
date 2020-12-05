@@ -1,25 +1,31 @@
 package com.skilldistillery.organmatcher.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-@Table(name="transplant_type")
 @Entity
-public class TransplantType {
+public class Hla {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private String organ;
+	private String proteinClass;
+	
+	private int allele;
+//	
+//	@ManyToOne
+//	@JoinColumn(name="patient_id")
+//	private Patient patient;
 
-	public TransplantType() {
+	public Hla() {
 		super();
 	}
+
 
 	public int getId() {
 		return id;
@@ -29,17 +35,33 @@ public class TransplantType {
 		this.id = id;
 	}
 
-	public String getOrgan() {
-		return organ;
+	public String getProteinClass() {
+		return proteinClass;
 	}
 
-	public void setOrgan(String organ) {
-		this.organ = organ;
+	public void setProteinClass(String proteinClass) {
+		this.proteinClass = proteinClass;
 	}
+
+	public int getAllele() {
+		return allele;
+	}
+
+	public void setAllele(int allele) {
+		this.allele = allele;
+	}
+
+//	public Patient getPatient() {
+//		return patient;
+//	}
+//
+//	public void setPatient(Patient patient) {
+//		this.patient = patient;
+//	}
 
 	@Override
 	public String toString() {
-		return "TransplantType [id=" + id + ", organ=" + organ + "]";
+		return "Hla [id=" + id + ", proteinClass=" + proteinClass + ", allele=" + allele + "]";
 	}
 
 	@Override
@@ -58,14 +80,12 @@ public class TransplantType {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TransplantType other = (TransplantType) obj;
+		Hla other = (Hla) obj;
 		if (id != other.id)
 			return false;
 		return true;
 	}
 
-	
-	
 	
 	
 }
