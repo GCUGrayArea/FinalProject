@@ -1,6 +1,7 @@
 package com.skilldistillery.organmatcher.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Patient {
@@ -32,6 +34,11 @@ public class Patient {
 	@ManyToOne
 	@JoinColumn( name = "address_id" )
 	private Address address;
+	@ManyToMany
+	  @JoinTable(name="donor_role",
+	    joinColumns=@JoinColumn(name="transplant_type_id"),
+	    inverseJoinColumns=@JoinColumn(name="patient_id"))
+	private List<TransplantType> transplatTypes;
 	
 	public Patient() {
 		super();
@@ -118,6 +125,12 @@ public class Patient {
 	public String toString() {
 		return "Patient [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDate=" + birthDate
 				+ ", sex=" + sex + ", weightKg=" + weightKg + ", bloodType=" + bloodType + ", notes=" + notes + "]";
+	}
+	public List<TransplantType> getTransplatTypes() {
+		return transplatTypes;
+	}
+	public void setTransplatTypes(List<TransplantType> transplatTypes) {
+		this.transplatTypes = transplatTypes;
 	}
 	
 }
