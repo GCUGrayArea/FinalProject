@@ -21,12 +21,14 @@ public class User {
 	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="username")
+
 	private String username;
 	
 	private String role;
 	
 	private String password;
+	
+	private boolean enabled;
 
 	public User() {
 		super();
@@ -106,6 +108,14 @@ public class User {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 	
 }
