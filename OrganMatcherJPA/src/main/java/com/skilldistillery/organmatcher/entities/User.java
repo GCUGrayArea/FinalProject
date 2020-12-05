@@ -14,7 +14,6 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name="user_name")
 	private String username;
 	public int getId() {
 		return id;
