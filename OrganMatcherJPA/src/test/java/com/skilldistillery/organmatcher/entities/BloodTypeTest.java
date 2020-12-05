@@ -12,8 +12,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class TransplantTypeTest {
-	
+class BloodTypeTest {
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
 	private BloodType bloodType;
@@ -43,7 +43,7 @@ class TransplantTypeTest {
 	@Test
 	void testBindings() {
 		assertEquals('A' , bloodType.getBloodGroup() );
-		assertEquals(true, bloodType.isRh() );
+		assertTrue( bloodType.isRh() );
 	}
 
 }
