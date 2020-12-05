@@ -1,9 +1,14 @@
 package com.skilldistillery.organmatcher.entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+
 
 @Entity
 public class Address {
@@ -15,6 +20,8 @@ public class Address {
 	private String city;
 	private String state;
 	private String zip;
+	@OneToMany(mappedBy = "address")
+	private List<Patient> patients;
 	
 	public Address() {
 		super();

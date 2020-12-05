@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Patient {
@@ -15,15 +17,19 @@ public class Patient {
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private int id;
+	@Column(name = "first_name")
 	private String firstName;
+	@Column(name = "last_name")
 	private String lastName;
 	@Column( name = "birth_date" )
 	private LocalDate birthDate;
 	private String sex;
 	@Column( name = "weight_kg")
 	private int weightKg;
+	@ManyToOne
 	@JoinColumn( name = "blood_type_id" )
 	private BloodType bloodType;
+	@ManyToOne
 	@JoinColumn( name = "address_id" )
 	private Address address;
 	
