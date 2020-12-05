@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Patient {
@@ -38,7 +39,9 @@ public class Patient {
 	  @JoinTable(name="donor_role",
 	    joinColumns=@JoinColumn(name="transplant_type_id"),
 	    inverseJoinColumns=@JoinColumn(name="patient_id"))
-	private List<TransplantType> transplatTypes;
+	private List<TransplantType> transplantTypes;
+	@OneToMany( mappedBy = "patient" )
+	private List<Hla> hlaProteins;
 	
 	public Patient() {
 		super();
@@ -99,6 +102,34 @@ public class Patient {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
+	public List<TransplantType> getTransplantTypes() {
+		return transplantTypes;
+	}
+	public void setTransplantTypes(List<TransplantType> transplantTypes) {
+		this.transplantTypes = transplantTypes;
+	}
+	public List<Hla> getHlaProteins() {
+		return hlaProteins;
+	}
+	public void setHlaProteins(List<Hla> hlaProteins) {
+		this.hlaProteins = hlaProteins;
+	}
+	
+	public int hlaCompatibility( Patient other ) {
+		int hlaMatches = 0;
+		
+		for ( Hla myHla : this.hlaProteins ) {
+			for ( Hla theirHla : other.getHlaProteins() ) {
+				if ( myHla.getProteinClass().equals( theirHla.getProteinClass() ) && myHla.getAllele() == theirHla.getAllele() ) {
+					hlaMatches++;
+					break;
+					//breaks *INNER* loop as soon as it finds a match for a given protein
+				}
+			}
+		}
+		
+		return hlaMatches;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -125,12 +156,6 @@ public class Patient {
 	public String toString() {
 		return "Patient [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDate=" + birthDate
 				+ ", sex=" + sex + ", weightKg=" + weightKg + ", bloodType=" + bloodType + ", notes=" + notes + "]";
-	}
-	public List<TransplantType> getTransplatTypes() {
-		return transplatTypes;
-	}
-	public void setTransplatTypes(List<TransplantType> transplatTypes) {
-		this.transplatTypes = transplatTypes;
 	}
 	
 }
