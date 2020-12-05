@@ -11,10 +11,14 @@
     </provider>
     
     <class>com.skilldistillery.organmatcher.entities.User</class>
+
     <class>com.skilldistillery.organmatcher.entities.Patient</class>
     <class>com.skilldistillery.organmatcher.entities.BloodType</class>
     <class>com.skilldistillery.organmatcher.entities.Address</class>
-    
+    <class>com.skilldistillery.organmatcher.entities.TransplantRequest</class>
+
+ 
+
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/organmatcherdb?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain"/>
       <property name="javax.persistence.jdbc.user" value="organ"/>
