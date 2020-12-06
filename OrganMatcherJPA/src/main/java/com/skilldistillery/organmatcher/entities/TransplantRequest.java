@@ -25,8 +25,10 @@ public class TransplantRequest {
 	@ManyToOne
 	@JoinColumn(name = "donor_id")
 	private Patient donor;
-	@Column(name = "organ_type_id")
-	private Integer organType;
+	
+	@ManyToOne
+	@JoinColumn(name = "organ_type_id")
+	private TransplantType organType;
 	@CreationTimestamp
 	@Column(name ="created_at")
 	private LocalDateTime createdAt;
@@ -67,14 +69,6 @@ public class TransplantRequest {
 	}
 
 
-	public Integer getOrganType() {
-		return organType;
-	}
-
-
-	public void setOrganType(Integer organType) {
-		this.organType = organType;
-	}
 
 
 	public LocalDateTime getCreatedAt() {
@@ -115,6 +109,16 @@ public class TransplantRequest {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+
+	public TransplantType getOrganType() {
+		return organType;
+	}
+
+
+	public void setOrganType(TransplantType organType) {
+		this.organType = organType;
 	}
 
 }

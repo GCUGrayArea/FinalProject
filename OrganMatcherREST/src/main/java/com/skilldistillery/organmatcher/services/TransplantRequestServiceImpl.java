@@ -1,29 +1,33 @@
 package com.skilldistillery.organmatcher.services;
 
-import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.skilldistillery.organmatcher.entities.Patient;
+import com.skilldistillery.organmatcher.entities.TransplantRequest;
 import com.skilldistillery.organmatcher.repositories.TransplantRequestRepository;
-
+@Service
 public class TransplantRequestServiceImpl implements TransplantRequestService {
 
 	@Autowired
 	private TransplantRequestRepository trRepo;
 	
 	//LIST ALL
+	@Override
+	public List<TransplantRequest> index() {
+		return trRepo.findAll();
+	}
+
 //	@Override
-//	public Set<TransplantRequestService> list() {
-//		// TODO Auto-generated method stub
-//		return trRepo.findAll();
+//	public List<TransplantRequest> findByUnmatched() {
+//		return trRepo.findByDonorIdIsNull();
+//	}
+
+//	@Override
+//	public List<TransplantRequest> findForOrgan() {
+//		return trRepo.findByDonorIsNullAndOrganTypeId();
 //	}
 	
 	//SHOW

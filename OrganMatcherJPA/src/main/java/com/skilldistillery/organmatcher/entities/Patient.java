@@ -40,8 +40,8 @@ public class Patient {
 	    joinColumns=@JoinColumn(name="transplant_type_id"),
 	    inverseJoinColumns=@JoinColumn(name="patient_id"))
 	private List<TransplantType> transplantTypes;
-	@OneToMany( mappedBy = "patient" )
-	private List<Hla> hlaProteins;
+//	@OneToMany( mappedBy = "patient" )
+//	private List<Hla> hlaProteins;
 	
 	public Patient() {
 		super();
@@ -109,28 +109,28 @@ public class Patient {
 		this.transplantTypes = transplantTypes;
 	}
 	//TODO add ID field to HLA table in DB and to HLA class so we can test this
-	public List<Hla> getHlaProteins() {
-		return hlaProteins;
-	}
-	public void setHlaProteins(List<Hla> hlaProteins) {
-		this.hlaProteins = hlaProteins;
-	}
-	
-	public int hlaCompatibility( Patient other ) {
-		int hlaMatches = 0;
-		
-		for ( Hla myHla : this.hlaProteins ) {
-			for ( Hla theirHla : other.getHlaProteins() ) {
-				if ( myHla.getProteinClass().equals( theirHla.getProteinClass() ) && myHla.getAllele() == theirHla.getAllele() ) {
-					hlaMatches++;
-					break;
-					//breaks *INNER* loop as soon as it finds a match for a given protein
-				}
-			}
-		}
-		
-		return hlaMatches;
-	}
+//	public List<Hla> getHlaProteins() {
+//		return hlaProteins;
+//	}
+//	public void setHlaProteins(List<Hla> hlaProteins) {
+//		this.hlaProteins = hlaProteins;
+//	}
+//	
+//	public int hlaCompatibility( Patient other ) {
+//		int hlaMatches = 0;
+//		
+//		for ( Hla myHla : this.hlaProteins ) {
+//			for ( Hla theirHla : other.getHlaProteins() ) {
+//				if ( myHla.getProteinClass().equals( theirHla.getProteinClass() ) && myHla.getAllele() == theirHla.getAllele() ) {
+//					hlaMatches++;
+//					break;
+//					//breaks *INNER* loop as soon as it finds a match for a given protein
+//				}
+//			}
+//		}
+//		
+//		return hlaMatches;
+//	}
 	
 	@Override
 	public int hashCode() {

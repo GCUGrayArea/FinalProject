@@ -1,10 +1,12 @@
 package com.skilldistillery.organmatcher.entities;
 
-import javax.persistence.Column;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Table(name="transplant_type")
@@ -16,6 +18,8 @@ public class TransplantType {
 	private int id;
 	
 	private String organ;
+	@OneToMany(mappedBy = "organType")
+	private List<TransplantRequest> transplantRequests;
 
 	public TransplantType() {
 		super();
