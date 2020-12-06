@@ -7,6 +7,6 @@ import com.skilldistillery.organmatcher.entities.TransplantRequest;
 public interface TransplantRequestService {
 	
 List<TransplantRequest> index();
-//List<TransplantRequest> findByUnmatched();
-//List<TransplantRequest> findForOrgan();
+List<TransplantRequest> findByUnmatched();
+List<TransplantRequest> findForOrgan(int id);
 }

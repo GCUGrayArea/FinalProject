@@ -33,6 +33,10 @@ public class TransplantRequest {
 	@Column(name ="created_at")
 	private LocalDateTime createdAt;
 	
+	@Column(name= "approval_status")
+	private String approvalStatus;
+	
+	
 	
 	public TransplantRequest() {
 		super();

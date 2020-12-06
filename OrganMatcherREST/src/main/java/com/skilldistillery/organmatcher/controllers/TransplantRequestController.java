@@ -24,9 +24,9 @@ public List<TransplantRequest> index(){
 	return trs.index();
 	
 }
-@GetMapping("/transplant/organ")
+@GetMapping("/transplant/unmatched")
 public List<TransplantRequest> findUnmatched(){
-	return null;
+	return trs.findByUnmatched();
 	
 }
 }
