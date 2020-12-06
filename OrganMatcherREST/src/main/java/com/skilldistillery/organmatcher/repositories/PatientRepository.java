@@ -10,6 +10,6 @@ import com.skilldistillery.organmatcher.entities.Patient;
 
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
 	public List<Patient> findByBloodTypeId( int typeId );
-	@Query("SELECT * FROM Patient p JOIN FETCH p.transplantTypes t WHERE p.bloodType.id = :typeId AND :transplantId IN t.id")
-	public List<Patient> findByBloodTypeAndOrganType( @Param("typeId") int typeId , @Param("organType") int transplantId );
+//	@Query("SELECT * FROM Patient p JOIN FETCH p.transplantTypes t WHERE p.bloodType.id = :typeId AND :transplantId IN t.id")
+//	public List<Patient> findByBloodTypeAndOrganType( @Param("typeId") int typeId , @Param("organType") int transplantId );
 }
