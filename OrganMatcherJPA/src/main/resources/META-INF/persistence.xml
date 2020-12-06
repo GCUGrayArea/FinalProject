@@ -17,6 +17,7 @@
     <class>com.skilldistillery.organmatcher.entities.BloodType</class>
     <class>com.skilldistillery.organmatcher.entities.Address</class>
     <class>com.skilldistillery.organmatcher.entities.TransplantRequest</class>
+    <class>com.skilldistillery.organmatcher.entities.ProteinClass</class>
 
  
 

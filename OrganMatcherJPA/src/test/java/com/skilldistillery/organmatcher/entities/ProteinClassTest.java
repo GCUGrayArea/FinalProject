@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class HlaTest {
-	
+class ProteinClassTest {
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Hla hla;
+	private ProteinClass protein;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -25,27 +25,25 @@ class HlaTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-//		emf.close();
+		emf.close();
 	}
 
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		hla = em.find(Hla.class, 1);
+		protein = em.find(ProteinClass.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		hla = null;
+		protein = null;
 	}
-
+	
 	@Test
-	void test() {
-		assertNotNull(hla);
-		assertEquals( 3 , hla.getAllele() );
-		assertEquals( 1 , hla.getPatient().getId() );
-		assertEquals( 1 , hla.getProteinClass().getId() );		
+	void testMappings() throws Exception {
+		assertEquals("a" , protein.getProteinClass() );
+		assertNull( protein.getDescription() );
 	}
 
 }

@@ -1,12 +1,12 @@
 package com.skilldistillery.organmatcher.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Hla {
@@ -14,8 +14,9 @@ public class Hla {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "protein_class")
-	private String proteinClass;
+	@ManyToOne
+	@JoinColumn(name = "protein_class_id")
+	private ProteinClass proteinClass;
 	
 	private int allele;
 	
@@ -36,11 +37,11 @@ public class Hla {
 		this.id = id;
 	}
 
-	public String getProteinClass() {
+	public ProteinClass getProteinClass() {
 		return proteinClass;
 	}
 
-	public void setProteinClass(String proteinClass) {
+	public void setProteinClass(ProteinClass proteinClass) {
 		this.proteinClass = proteinClass;
 	}
 
