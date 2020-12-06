@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.organmatcher.entities.Patient;
 import com.skilldistillery.organmatcher.entities.Patient;
 import com.skilldistillery.organmatcher.services.PatientService;
 
@@ -53,5 +56,25 @@ public class PatientController {
 //			res.setStatus(404);
 //		}
 		return resultList;
+	}
+	
+	@PutMapping("/patients/{id}")
+	public Patient updatePatient(@RequestBody Patient patient, @PathVariable int id, HttpServletResponse response) {
+	//@PutMapping("tr/{id}")
+	//public Patient updatePatient(@RequestBody Patient patient, @PathVariable int id, HttpServletResponse response, Principal principal) {
+//		patient = trs.update(principal.getName(), id, patient);
+		patient = patientSvc.update(patient, id);
+
+		try {
+			if (patient == null) {
+
+				response.setStatus(404);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			response.setStatus(400);
+			patient = null;
+		}
+		return patient;
 	}
 }
