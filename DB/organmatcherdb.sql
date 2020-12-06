@@ -200,6 +200,17 @@ CREATE TABLE IF NOT EXISTS `donor_role` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `blood_type_match`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `blood_type_match` ;
+
+CREATE TABLE IF NOT EXISTS `blood_type_match` (
+  `recipient_type_id` INT NOT NULL,
+  `can_accept_type_id` INT NOT NULL)
+ENGINE = InnoDB;
+
 SET SQL_MODE = '';
 GRANT USAGE ON *.* TO organ@localhost;
  DROP USER organ@localhost;
@@ -363,5 +374,35 @@ USE `organmatcherdb`;
 INSERT INTO `donor_role` (`transplant_type_id`, `patient_id`) VALUES (1, 2);
 INSERT INTO `donor_role` (`transplant_type_id`, `patient_id`) VALUES (2, 4);
 INSERT INTO `donor_role` (`transplant_type_id`, `patient_id`) VALUES (3, 6);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `blood_type_match`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `organmatcherdb`;
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (1, 1);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (1, 2);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (2, 2);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (3, 3);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (3, 4);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (4, 4);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (5, 1);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (5, 2);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (5, 3);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (5, 4);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (5, 5);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (5, 6);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (5, 7);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (5, 8);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (6, 2);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (6, 4);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (6, 6);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (6, 8);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (7, 7);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (7, 8);
+INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (8, 8);
 
 COMMIT;
