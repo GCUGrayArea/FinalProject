@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,6 +23,13 @@ public class TransplantType {
 	private String organ;
 	@OneToMany(mappedBy = "organType")
 	private List<TransplantRequest> transplantRequests;
+	@ManyToMany
+	@JoinTable(
+			name = "donor_role" ,
+			joinColumns = @JoinColumn( name = "transplant_type_id" ) ,
+			inverseJoinColumns = @JoinColumn( name = "patient_id" ) )
+	private List<Patient> donors;
+	
 
 	public TransplantType() {
 		super();

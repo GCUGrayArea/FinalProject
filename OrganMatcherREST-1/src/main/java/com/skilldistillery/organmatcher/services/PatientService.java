@@ -8,5 +8,5 @@ public interface PatientService {
 	public List<Patient> index();
 	public Patient patientById( int id );
 	public List<Patient> patientsByBloodTypeId( int id );
-	public List<Patient> patientsByBloodAndTransplantType( int bloodId , int transplantId );
+	public List<Patient> patientsByBloodAndTransplantType( int bloodId , String organ );
 }
