@@ -1,6 +1,7 @@
 package com.skilldistillery.organmatcher.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,47 +31,62 @@ public class TransplantRequestServiceImpl implements TransplantRequestService {
 		return trRepo.findByDonorIsNullAndOrganTypeId(id);
 	}
 	
-	//SHOW
-//	@Override
-//	public TransplantRequestService show() {
-//		return trRepo.findById(id);
-//		
-//	}
 
-	//CREATE
-//	@Override
-//	public TransplantRequestService create(TransplantRequestService transplantRequestService) {
-//		brepo.saveAndFlush(transplantRequestService);
-//		return transplantRequestService;
-//	}
+	@Override
+	public List<TransplantRequest> findUnapprovedRequests() {
+		return trRepo.findByDonorIsNotNullAndApprovalStatusIsNull();
+	}
+	
+	//SHOW
+	@Override
+	public TransplantRequest show(int id) {
+
+		Optional<TransplantRequest> transplantRequestOpt= trRepo.findById(id);
+		TransplantRequest transplantRequest = null;
+		if(transplantRequestOpt.get() != null) {
+			transplantRequest =transplantRequestOpt.get();
+		}
+		return transplantRequest;
+		}
+	
+
+	@Override
+	public TransplantRequest create(TransplantRequest transplantRequest) {
+		trRepo.saveAndFlush(transplantRequest);
+		return transplantRequest;
+	}
 
 	
 	//UPDATE
-//	@Override
-//	public TransplantRequestService update(TransplantRequestService transplantRequestService, int id) {
-//		// TODO Auto-generated method stub
-//		TransplantRequestService transplantRequestServiceToUpdate = trRepo.findById(id);
-//		if (transplantRequestServiceToUpdate != null) {
-//			if(transplantRequestService.getID() != null) {transplantRequestServiceToUpdate.setID(transplantRequestService.getID());}
-//			if(transplantRequestService.getPatient() != null ) {transplantRequestServiceToUpdate.setPatient(transplantRequestService.getPatient());}
-//			if(transplantRequestService.getDonor() !=null) {transplantRequestServiceToUpdate.setDonor(transplantRequestService.getDonor());}
-//			if(transplantRequestService.getOrganType() != null) {transplantRequestServiceToUpdate.setOrganType(transplantRequestService.getOrganType());}
-//			if(transplantRequestService.getCreatedAt() != null) {transplantRequestServiceToUpdate.setCreatedAt(transplantRequestService.getCreatedAt());}
-//			trRepo.saveAndFlush(transplantRequestServiceToUpdate);
-//		}
-//		return transplantRequestServiceToUpdate;
-//	}
+	@Override
+	public TransplantRequest update(TransplantRequest transplantRequest, int id) {
+		// TODO Auto-generated method stub
+		Optional<TransplantRequest> tRequestOpt = trRepo.findById(id);
+		if (tRequestOpt != null) {
+			TransplantRequest transplantRequestToUpdate = tRequestOpt.get();
+			if(transplantRequest.getId() != 0) {transplantRequestToUpdate.setId(transplantRequest.getId());}
+			if(transplantRequest.getRecipient() != null ) {transplantRequestToUpdate.setRecipient(transplantRequest.getRecipient());}
+			if(transplantRequest.getDonor() !=null) {transplantRequestToUpdate.setDonor(transplantRequest.getDonor());}
+			if(transplantRequest.getOrganType() != null) {transplantRequestToUpdate.setOrganType(transplantRequest.getOrganType());}
+			if(transplantRequest.getCreatedAt() != null) {transplantRequestToUpdate.setCreatedAt(transplantRequest.getCreatedAt());}
+			if(transplantRequest.getApprovalStatus() != null) {transplantRequestToUpdate.setApprovalStatus(transplantRequest.getApprovalStatus());}
+			trRepo.saveAndFlush(transplantRequestToUpdate);
+			return transplantRequestToUpdate;
+		}
+		return null;
+	}
 	
 	//DELETE
-//	@Override
-//	public boolean destroy() {
-//		boolean deleted =false;
-//		TransplantRequestService transplantRequestService =trRepo.findById(id);
-//		if(transplantRequestService != null) {
-//			trRepo.delete(transplantRequestService);
-//		 deleted= true;
-//		}
-//	 return deleted;
-//	}
+	@Override
+	public boolean destroy(int id) {
+		boolean deleted =false;
+		Optional<TransplantRequest> transplantRequestOpt =trRepo.findById(id);
+		if(transplantRequestOpt != null) {
+			TransplantRequest transplantRequest = transplantRequestOpt.get();
+			trRepo.delete(transplantRequest);
+		 deleted= true;
+		}
+	 return deleted;
+	}
 }
 
