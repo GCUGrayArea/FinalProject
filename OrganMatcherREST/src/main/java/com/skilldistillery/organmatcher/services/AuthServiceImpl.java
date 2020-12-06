@@ -11,20 +11,21 @@ import com.skilldistillery.organmatcher.repositories.UserRepository;
 @Service
 public class AuthServiceImpl implements AuthService {
  
-	@Autowired
-	private PasswordEncoder encoder;
+//	@Autowired
+//	private PasswordEncoder encoder;
 	@Autowired
 	private UserRepository userRepo;
 	
 	
 	@Override
 	public User register(User user) {
-		user.setPassword(encoder.encode(user.getPassword()));
-		user.setEnabled(true);
-		user.setRole("user");
-		userRepo.saveAndFlush(user);
-		
-		return user;
+//		user.setPassword(encoder.encode(user.getPassword()));
+//		user.setEnabled(true);
+//		user.setRole("user");
+//		userRepo.saveAndFlush(user);
+//		
+//		return user;
+		return null;
 	}
 
 
