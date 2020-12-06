@@ -1,0 +1,17 @@
+<table class="table table-striped ">
+  <thead>
+  </thead>
+  <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>sex</th><th>Weight</th><th>Blood Type</th></tr>
+  <tbody>
+
+    <tr *ngFor="let p of patients" >
+      <td>{{p.id}}</td>
+      <td>{{p.firstName}} {{p.lastName}}</td>
+      <td>{{p.birthDate}}</td>
+      <td>{{p.sex}}</td>
+      <td>{{p.weightKg}}</td>
+      <td>{{p.bloodType.bloodGroup}}</td>
+    </tr>
+  </tbody>
+
+</table>
