@@ -1,5 +1,6 @@
 package com.skilldistillery.organmatcher.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.organmatcher.entities.Patient;
+import com.skilldistillery.organmatcher.entities.TransplantType;
 import com.skilldistillery.organmatcher.repositories.PatientRepository;
 
 @Service
@@ -33,7 +35,19 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public List<Patient> patientsByBloodAndTransplantType(int bloodId, int transplantId) {
-		return repo.findByBloodTypeAndOrganType(bloodId, transplantId );
+		List<Patient> listToFilter = repo.findByBloodTypeId(bloodId);
+		List<Patient> resultList = new ArrayList<Patient>();
+		for ( Patient p : listToFilter ) {
+			for ( TransplantType t : p.getTransplantTypes() ) {
+				if ( t.getId() == transplantId ) {
+					resultList.add(p);
+					break;
+				}
+			}
+		}
+		
+		return resultList;
+		
 	}
 
 	

@@ -25,7 +25,7 @@ class HlaTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		emf.close();
+//		emf.close();
 	}
 
 	@BeforeEach
@@ -43,8 +43,9 @@ class HlaTest {
 	@Test
 	void test() {
 		assertNotNull(hla);
-
-		
+		assertEquals( 3 , hla.getAllele() );
+		assertEquals( 1 , hla.getPatient().getId() );
+		assertEquals( 1 , hla.getProteinClass().getId() );		
 	}
 
 }

@@ -37,11 +37,11 @@ public class Patient {
 	private Address address;
 	@ManyToMany
 	  @JoinTable(name="donor_role",
-	    joinColumns=@JoinColumn(name="transplant_type_id"),
-	    inverseJoinColumns=@JoinColumn(name="patient_id"))
+	    joinColumns=@JoinColumn(name="patient_id"),
+	    inverseJoinColumns=@JoinColumn(name="transplant_type_id"))
 	private List<TransplantType> transplantTypes;
-//	@OneToMany( mappedBy = "patient" )
-//	private List<Hla> hlaProteins;
+	@OneToMany( mappedBy = "patient" )
+	private List<Hla> hlaProteins;
 	
 	public Patient() {
 		super();

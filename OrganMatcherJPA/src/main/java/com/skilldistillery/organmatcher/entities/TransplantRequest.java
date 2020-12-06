@@ -33,6 +33,10 @@ public class TransplantRequest {
 	@Column(name ="created_at")
 	private LocalDateTime createdAt;
 	
+	@Column(name= "approval_status")
+	private String approvalStatus;
+	
+	
 	
 	public TransplantRequest() {
 		super();
@@ -71,6 +75,16 @@ public class TransplantRequest {
 
 
 
+	public String getApprovalStatus() {
+		return approvalStatus;
+	}
+
+
+	public void setApprovalStatus(String approvalStatus) {
+		this.approvalStatus = approvalStatus;
+	}
+
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -81,11 +95,7 @@ public class TransplantRequest {
 	}
 
 
-	@Override
-	public String toString() {
-		return "TransplantRequest [id=" + id + ", recipient=" + recipient + ", donor=" + donor + ", organType="
-				+ organType + ", createdAt=" + createdAt + "]";
-	}
+
 
 
 	@Override
@@ -94,6 +104,13 @@ public class TransplantRequest {
 		int result = 1;
 		result = prime * result + id;
 		return result;
+	}
+
+
+	@Override
+	public String toString() {
+		return "TransplantRequest [id=" + id + ", recipient=" + recipient + ", donor=" + donor + ", organType="
+				+ organType + ", createdAt=" + createdAt + ", approvalStatus=" + approvalStatus + "]";
 	}
 
 
