@@ -97,8 +97,10 @@ CREATE TABLE IF NOT EXISTS `hla` (
   `allele` SMALLINT(5) NOT NULL,
   `patient_id` INT NOT NULL,
   `protein_class_id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   INDEX `fk_hla_patient1_idx` (`patient_id` ASC),
   INDEX `fk_hla_protein_class1_idx` (`protein_class_id` ASC),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_hla_patient1`
     FOREIGN KEY (`patient_id`)
     REFERENCES `patient` (`id`)
@@ -277,42 +279,42 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `organmatcherdb`;
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (3, 1, 1);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (4, 1, 2);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (5, 1, 3);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (6, 1, 4);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (7, 1, 5);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (8, 1, 6);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (3, 2, 1);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (4, 2, 2);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (5, 2, 3);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (6, 2, 4);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (7, 2, 5);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (8, 2, 6);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (9, 3, 1);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (10, 3, 2);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (11, 3, 3);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (12, 3, 4);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (13, 3, 5);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (14, 3, 6);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (9, 4, 1);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (10, 4, 2);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (11, 4, 3);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (12, 4, 4);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (13, 4, 5);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (14, 4, 6);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (15, 5, 1);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (16, 5, 2);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (17, 5, 3);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (18, 5, 4);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (19, 5, 5);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (20, 5, 6);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (15, 6, 1);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (16, 6, 2);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (17, 6, 3);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (18, 6, 4);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (19, 6, 5);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`) VALUES (21, 6, 6);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (3, 1, 1, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (4, 1, 2, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (5, 1, 3, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (6, 1, 4, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (7, 1, 5, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (8, 1, 6, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (3, 2, 1, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (4, 2, 2, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (5, 2, 3, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (6, 2, 4, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (7, 2, 5, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (8, 2, 6, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (9, 3, 1, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (10, 3, 2, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (11, 3, 3, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (12, 3, 4, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (13, 3, 5, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (14, 3, 6, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (9, 4, 1, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (10, 4, 2, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (11, 4, 3, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (12, 4, 4, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (13, 4, 5, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (14, 4, 6, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (15, 5, 1, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (16, 5, 2, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (17, 5, 3, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (18, 5, 4, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (19, 5, 5, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (20, 5, 6, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (15, 6, 1, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (16, 6, 2, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (17, 6, 3, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (18, 6, 4, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (19, 6, 5, DEFAULT);
+INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (21, 6, 6, DEFAULT);
 
 COMMIT;
 
