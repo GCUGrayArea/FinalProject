@@ -31,10 +31,10 @@ public class PatientServiceImpl implements PatientService {
 		return repo.findByBloodTypeId( id );
 	}
 
-	@Override
-	public List<Patient> patientsByBloodAndTransplantType(int bloodId, int transplantId) {
-		return repo.findByBloodTypeAndOrganType(bloodId, transplantId );
-	}
+//	@Override
+//	public List<Patient> patientsByBloodAndTransplantType(int bloodId, int transplantId) {
+//		return repo.findByBloodTypeAndOrganType(bloodId, transplantId );
+//	}
 
 	
 	
