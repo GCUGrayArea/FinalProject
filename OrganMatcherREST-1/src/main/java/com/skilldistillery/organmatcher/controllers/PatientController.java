@@ -2,7 +2,6 @@ package com.skilldistillery.organmatcher.controllers;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,12 +46,12 @@ public class PatientController {
 		return resultList;
 	}
 	
-	@GetMapping( "patients/transplant-type/{tid}/blood-type/{bid} " )
-	public List<Patient> patientsByBloodAndTransplantType( @PathVariable int tid , @PathVariable int bid, HttpServletResponse res ) {
-		List<Patient> resultList = patientSvc.patientsByBloodAndTransplantType(bid, tid);
-		if ( resultList.size() == 0 ) {
-			res.setStatus(404);
-		}
+	@GetMapping( "patients/transplant-type/{organ}/blood-type/{bloodId}" )
+	public List<Patient> patientsByBloodAndTransplantType( @PathVariable String organ , @PathVariable int bloodId, HttpServletResponse res ) {
+		List<Patient> resultList = patientSvc.patientsByBloodAndTransplantType(bloodId, organ);
+//		if ( resultList.size() == 0 ) {
+//			res.setStatus(404);
+//		}
 		return resultList;
 	}
 }

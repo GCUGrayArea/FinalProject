@@ -33,13 +33,18 @@ public class PatientServiceImpl implements PatientService {
 		return repo.findByBloodTypeId( id );
 	}
 
+//	@Override
+//	public List<Patient> patientsByBloodAndTransplantType(int bloodId, String organ) {
+//		return repo.findByBloodTypeAndOrganType(bloodId, organ);
+//	}
+
 	@Override
-	public List<Patient> patientsByBloodAndTransplantType(int bloodId, int transplantId) {
+	public List<Patient> patientsByBloodAndTransplantType( int bloodId , String organ ) {
 		List<Patient> listToFilter = repo.findByBloodTypeId(bloodId);
 		List<Patient> resultList = new ArrayList<Patient>();
 		for ( Patient p : listToFilter ) {
 			for ( TransplantType t : p.getTransplantTypes() ) {
-				if ( t.getId() == transplantId ) {
+				if ( t.getOrgan().equalsIgnoreCase( organ ) ) {
 					resultList.add(p);
 					break;
 				}

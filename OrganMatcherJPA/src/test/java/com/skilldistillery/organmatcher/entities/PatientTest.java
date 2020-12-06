@@ -51,7 +51,7 @@ class PatientTest {
 		assertEquals( 1 , patient.getBloodType().getId() );
 		assertNotNull( patient.getAddress() );
 		assertEquals( 1 , patient.getAddress().getId() );
-		assertTrue( patient.getTransplantTypes().size()>0 );
+		assertEquals( 1, patient.getTransplantTypes().size() );
 	}
 
 }
