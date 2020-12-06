@@ -2,17 +2,21 @@ package com.skilldistillery.organmatcher.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.organmatcher.entities.Patient;
 import com.skilldistillery.organmatcher.entities.Patient;
 import com.skilldistillery.organmatcher.entities.Patient;
 import com.skilldistillery.organmatcher.services.PatientService;
@@ -58,6 +62,27 @@ public class PatientController {
 		return resultList;
 	}
 	
+
+	@PostMapping("/patients")
+	//public Patient createNewPatient(@RequestBody Patient patient, HttpServletResponse response,
+//			HttpServletRequest request, Principal principal) {
+	public Patient createNewPatient(@RequestBody Patient patient, HttpServletResponse response,
+			HttpServletRequest request) {
+//		patient = trs.create(principal.getName(), patient);
+		patient = patientSvc.create(patient);
+
+		if (patient == null) {
+			response.setStatus(404);
+		} else {
+			response.setStatus(201);
+			StringBuffer url = request.getRequestURL();
+			url.append("/").append(patient.getId());
+			response.setHeader("Location", url.toString());
+
+		}
+		return patient;
+	}
+	
 	@PutMapping("/patients/{id}")
 	public Patient updatePatient(@RequestBody Patient patient, @PathVariable int id, HttpServletResponse response) {
 	//@PutMapping("tr/{id}")
@@ -76,5 +101,22 @@ public class PatientController {
 			patient = null;
 		}
 		return patient;
+	}
+	
+	@DeleteMapping("/patients/{id}")
+	public void deleteTodo(@PathVariable Integer id, HttpServletResponse response) {
+		try {
+
+			boolean deleted = patientSvc.destroy(id);
+			if (deleted) {
+				response.setStatus(204);
+			} else {
+				response.setStatus(404);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			response.setStatus(400);
+		}
+
 	}
 }

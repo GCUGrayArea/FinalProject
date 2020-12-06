@@ -10,4 +10,6 @@ public interface PatientService {
 	public List<Patient> patientsByBloodTypeId( int id );
 	public List<Patient> patientsByBloodAndTransplantType( int bloodId , String organ );
 	Patient update(Patient patient, int id);
+	Patient create(Patient patient);
+	boolean destroy(int id);
 }
