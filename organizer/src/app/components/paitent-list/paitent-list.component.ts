@@ -9,6 +9,8 @@ import { Patient } from 'src/app/models/patient';
 })
 export class PaitentListComponent implements OnInit {
 patients : Patient[] = [];
+selected = null;
+id=null;
   constructor(private patientService: PatientService) { }
 
   ngOnInit(): void {
@@ -27,5 +29,13 @@ patients : Patient[] = [];
       }
     );
   }
+  findById(){
 
+  }
+displayPatient(patient: Patient){
+  this.selected = patient;
+}
+displayTable(): void {
+  this.selected = null;
+}
 }

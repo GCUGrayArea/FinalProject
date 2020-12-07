@@ -1,3 +1,4 @@
+import { Address } from './address';
 import { BloodType } from './blood-type';
 export class Patient {
 
@@ -8,7 +9,7 @@ export class Patient {
 	 sex: String;
 	 weightKg: number;
 	 bloodType: BloodType;
-   // Address address;
+	 address: Address;
    // List<TransplantType> transplantTypes;
 
    constructor(
@@ -18,7 +19,8 @@ export class Patient {
      birthDate?: String,
      sex?: String,
      weightKg?: number,
-     bloodType?: BloodType){
+     bloodType?: BloodType,
+     address?:Address){
 
 
     this.id= id,
@@ -27,6 +29,7 @@ export class Patient {
 	 this.birthDate= birthDate ,
 	 this.sex= sex,
    this.weightKg= weightKg,
-   this.bloodType= bloodType
+   this.bloodType= bloodType,
+   this.address= address
    }
 }
