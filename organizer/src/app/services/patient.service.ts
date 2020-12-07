@@ -24,7 +24,7 @@ index(): Observable<Patient[]> {
     }),
     catchError((err: any) => {
       console.log(err);
-      return throwError('TodoService.index(): Error retrieving todo list');
+      return throwError('PatientService.index(): Error retrieving todo list');
     })
   );
 }
