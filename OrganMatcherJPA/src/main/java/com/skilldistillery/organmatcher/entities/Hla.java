@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Hla {
 
@@ -22,6 +24,7 @@ public class Hla {
 	
 	@ManyToOne
 	@JoinColumn(name="patient_id")
+	@JsonIgnore
 	private Patient patient;
 
 	public Hla() {
