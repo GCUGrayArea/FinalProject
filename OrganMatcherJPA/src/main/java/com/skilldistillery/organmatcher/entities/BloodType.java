@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Table( name = "blood_type" )
 @Entity
 public class BloodType {
@@ -19,6 +21,8 @@ public class BloodType {
 	@Column( name = "blood_group" )
 	private char bloodGroup;
 	private boolean rh;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "bloodType")
 	private List<Patient> patients;
 	
@@ -44,6 +48,13 @@ public class BloodType {
 		this.rh = rh;
 	}
 	
+	
+	public List<Patient> getPatients() {
+		return patients;
+	}
+	public void setPatients(List<Patient> patients) {
+		this.patients = patients;
+	}
 	public boolean canAccept( BloodType other ) {
 		//X (AB) can accept any group, but must match otherwise
 		if ( this.bloodGroup != 'X' && this.bloodGroup != other.getBloodGroup() ) {
