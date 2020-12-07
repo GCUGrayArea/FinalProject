@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.organmatcher.entities.Patient;
 import com.skilldistillery.organmatcher.entities.Patient;
+import com.skilldistillery.organmatcher.entities.Patient;
 import com.skilldistillery.organmatcher.entities.TransplantType;
 import com.skilldistillery.organmatcher.repositories.PatientRepository;
 
@@ -56,6 +57,13 @@ public class PatientServiceImpl implements PatientService {
 		
 	}
 	
+
+	@Override
+	public Patient create(Patient patient) {
+		repo.saveAndFlush(patient);
+		return patient;
+	}
+	
 	@Override
 	public Patient update(Patient patient, int id) {
 		// TODO Auto-generated method stub
@@ -76,6 +84,19 @@ public class PatientServiceImpl implements PatientService {
 			return patientToUpdate;
 		}
 		return null;
+	}
+	
+
+	@Override
+	public boolean destroy(int id) {
+		boolean deleted =false;
+		Optional<Patient> patientOpt =repo.findById(id);
+		if(patientOpt != null) {
+			Patient patient = patientOpt.get();
+			repo.delete(patient);
+		 deleted= true;
+		}
+	 return deleted;
 	}
 
 	
