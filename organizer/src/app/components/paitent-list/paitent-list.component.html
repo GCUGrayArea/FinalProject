@@ -7,7 +7,19 @@
     </form>
   </div>
 
-  <table class="table table-striped ">
+
+    <label for="cars">Find patient by blood type:</label>
+    <form action="">
+
+    <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
+      <option *ngFor="let t of bloodTypes" value = {{t.id}}>{{t.bloodGroup}} {{t.rh ? "+" :  "-"}}</option>
+
+
+    </select>
+      <input type="submit" value="Search"  (click)="findByBloodTypeId(selectedType.id)" />
+    </form>
+
+    <table class="table table-striped ">
     <thead>
     </thead>
     <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th></tr>
@@ -19,12 +31,13 @@
         <td>{{p.birthDate}}</td>
         <td>{{p.sex}}</td>
         <td>{{p.weightKg}}</td>
-        <td>{{p.bloodType.bloodGroup}}</td>
+        <td>{{p.bloodType.bloodGroup}} {{p.bloodType.rh ? "+" :  "-"}}</td>
         <td>{{p.address.zip}}</td>
       </tr>
     </tbody>
 
   </table>
+  <button (click)="displayTable()"  *ngIf="filtered">Back</button>
 
 </div>
 
@@ -37,7 +50,7 @@
   <table class="table table-striped ">
     <thead>
     </thead>
-    <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th></tr>
+    <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th></tr>
     <tbody>
 
       <tr>

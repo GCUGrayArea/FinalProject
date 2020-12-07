@@ -52,4 +52,26 @@ show(id : number): Observable<Patient>{
       })
     );
   }
+showByBloodTypeId(id : number): Observable<Patient[]>{
+    // const credentials= this.authService.getCredentials();
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //      'Authorization': `Basic ${credentials}`,
+    //      'X-Requested-With': 'XMLHttpRequest'
+    //    })
+    //   };
+    //   if(!this.authService.checkLogin()){
+    //     this.router.navigateByUrl('login')
+    //   }
+    return this.http.get<Patient[]>(`${this.url}/blood-type/${id}`).pipe(
+      tap((res) => {
+        //localStorage.setItem('credentials' , credentials);
+        return res;
+      }),
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('TodoService.index(): Error retrieving todo list');
+      })
+    );
+  }
 }

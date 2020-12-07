@@ -9,7 +9,7 @@ import com.skilldistillery.organmatcher.entities.TransplantRequest;
 public interface TransplantRequestRepository extends JpaRepository<TransplantRequest, Integer> {
 //	@Query("SELECT t from TransplantRequest t join fetch t.donor WHERE t.donor is null")
 //	  List<TransplantRequest> queryByDonorIsNull();
-public List<TransplantRequest> findByDonorIsNull();
-public List<TransplantRequest> findByDonorIsNullAndOrganTypeId(int id);
-public List<TransplantRequest> findByDonorIsNotNullAndApprovalStatusIsNull();
+//public List<TransplantRequest> findByDonorIsNull();
+//public List<TransplantRequest> findByDonorIsNullAndOrganTypeId(int id);
+//public List<TransplantRequest> findByDonorIsNotNullAndApprovalStatusIsNull();
 }
