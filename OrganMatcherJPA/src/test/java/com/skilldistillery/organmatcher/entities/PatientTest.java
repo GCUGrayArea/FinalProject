@@ -52,6 +52,7 @@ class PatientTest {
 		assertNotNull( patient.getAddress() );
 		assertEquals( 1 , patient.getAddress().getId() );
 		assertEquals( 1, patient.getTransplantTypes().size() );
+		assertEquals( 1, patient.getHlaProteins().size() );
 	}
 
 }
