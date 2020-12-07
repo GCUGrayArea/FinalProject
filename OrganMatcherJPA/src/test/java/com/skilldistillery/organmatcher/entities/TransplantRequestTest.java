@@ -42,6 +42,7 @@ class TransplantRequestTest {
 	@Test
 	void test() {
 		assertNotNull(tr);
+		assertNotNull(tr.getRecipient());
 		assertEquals("bonemarrow", tr.getOrganType().getOrgan());
 		assertNull( tr.getDonor());
 	}

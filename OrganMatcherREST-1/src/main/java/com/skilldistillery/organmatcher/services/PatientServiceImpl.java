@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.organmatcher.entities.Patient;
 import com.skilldistillery.organmatcher.entities.Patient;
+import com.skilldistillery.organmatcher.entities.Patient;
 import com.skilldistillery.organmatcher.entities.TransplantType;
 import com.skilldistillery.organmatcher.repositories.PatientRepository;
 
@@ -41,19 +42,28 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public List<Patient> patientsByBloodAndTransplantType( int bloodId , String organ ) {
-		List<Patient> listToFilter = repo.findByBloodTypeId(bloodId);
-		List<Patient> resultList = new ArrayList<Patient>();
-		for ( Patient p : listToFilter ) {
-			for ( TransplantType t : p.getTransplantTypes() ) {
-				if ( t.getOrgan().equalsIgnoreCase( organ ) ) {
-					resultList.add(p);
-					break;
-				}
-			}
-		}
+//		List<Patient> listToFilter = repo.findByBloodTypeId(bloodId);
+//		List<Patient> resultList = new ArrayList<Patient>();
+//		for ( Patient p : listToFilter ) {
+//			for ( TransplantType t : p.getTransplantTypes() ) {
+//				if ( t.getOrgan().equalsIgnoreCase( organ ) ) {
+//					resultList.add(p);
+//					break;
+//				}
+//			}
+//		}
+//		
+//		return resultList;
 		
-		return resultList;
+		return repo.findByBloodTypeIdAndTransplantTypes_Organ(bloodId, organ);
 		
+	}
+	
+
+	@Override
+	public Patient create(Patient patient) {
+		repo.saveAndFlush(patient);
+		return patient;
 	}
 	
 	@Override
@@ -76,6 +86,19 @@ public class PatientServiceImpl implements PatientService {
 			return patientToUpdate;
 		}
 		return null;
+	}
+	
+
+	@Override
+	public boolean destroy(int id) {
+		boolean deleted =false;
+		Optional<Patient> patientOpt =repo.findById(id);
+		if(patientOpt != null) {
+			Patient patient = patientOpt.get();
+			repo.delete(patient);
+		 deleted= true;
+		}
+	 return deleted;
 	}
 
 	

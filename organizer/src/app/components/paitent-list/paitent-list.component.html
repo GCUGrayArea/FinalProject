@@ -1,0 +1,56 @@
+<div *ngIf="!selected">
+  <div>
+    <form>
+      Find patient by id <br>
+      <input  type="text" name="id" placeholder="id" [(ngModel)]="id"/><br />
+      <input type="submit" value="Search"  (click)="findById()" />
+    </form>
+  </div>
+
+  <table class="table table-striped ">
+    <thead>
+    </thead>
+    <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th></tr>
+    <tbody>
+
+      <tr *ngFor="let p of patients" (click)="displayPatient(p)">
+        <td>{{p.id}}</td>
+        <td>{{p.firstName}} {{p.lastName}}</td>
+        <td>{{p.birthDate}}</td>
+        <td>{{p.sex}}</td>
+        <td>{{p.weightKg}}</td>
+        <td>{{p.bloodType.bloodGroup}}</td>
+        <td>{{p.address.zip}}</td>
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>
+
+
+
+<div *ngIf="selected">
+<div>
+  <h1>{{selected.firstName}} {{selected.lastName}}</h1>
+</div>
+  <table class="table table-striped ">
+    <thead>
+    </thead>
+    <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th></tr>
+    <tbody>
+
+      <tr>
+        <td>{{selected.id}}</td>
+        <td>{{selected.firstName}} {{selected.lastName}}</td>
+        <td>{{selected.birthDate}}</td>
+        <td>{{selected.sex}}</td>
+        <td>{{selected.weightKg}}</td>
+        <td>{{selected.bloodType.bloodGroup}}</td>
+        <td>{{selected.address.zip}}</td>
+      </tr>
+    </tbody>
+
+  </table>
+  <button (click)="displayTable()">Back</button>
+</div>
