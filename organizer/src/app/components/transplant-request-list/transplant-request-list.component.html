@@ -1,1 +1,118 @@
-<p>transplant-request-list works!</p>
+  <div *ngIf="!selected">
+  <table>
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>FIRST NAME</td>
+        <td>LAST NAME</td>
+        <!-- <td>ORGAN TYPE</td> -->
+        <td>DONOR</td>
+        <td>APPROVAL STATUS</td>
+        <td></td>
+
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let tRequest of transplantRequest">
+        <td>{{tRequest.id}}</td>
+        <td>{{tRequest.recipient.firstName}}</td>
+        <td>{{tRequest.recipient.lastName}}</td>
+
+        <td><button (click) = "selected=transplantRequest" > UPDATE</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- <div> -->
+<!-- <p >CREATE</p>
+
+  <form>
+    <p> ID </p><input type="number" name="id"  placeholder="Id" [(ngModel)]="newTransplantRequest.id"/><br />
+    <p> RECIPIENT </p><input type="text" name="recipient"  [(ngModel)]="newTransplantRequest.recipient" /><br />
+    <p> DONOR </p><input type="text" name="donor"  [(ngModel)]="newTransplantRequest.donor"/><br />
+    <p> CREATED AT </p><input type="text" name="createdAt"  placeholder="YYYY-MM-DD"[(ngModel)]="newTransplantRequest.createdAt" /><br />
+    <p> APPROVAL STATUS </p><select type="text" name="approvalStatus"  [(ngModel)]="newTransplantRequest.approvalStatus" >
+
+    <button (click)="addTransplantRequest(newTransplantRequest)" class="btn btn-link">SUBMIT</button>
+  </form>
+    </div>
+  </div> -->
+
+
+<!--
+<div *ngIf="selected"  >
+  <div class="container">
+    <div class="row">
+      <div class="col">
+      </div>
+      <div class="col">
+        <div *ngIf="selected"  style="text-align: center;" >
+          <p class="largerHeader">SESSION INFO</p>
+
+          <p class="create">ID: {{selected.id}}</p>
+                <p class="create">FIRST NAME: {{selected.firstName}}</p>
+                <p class="create">LAST NAME: {{selected.lastName}}</p>
+                <p class="create">EMAIL: {{selected.email}}</p>
+                <p class="create">DATE: {{selected.date}}</p>
+                <p class="create">PHOTO TYPE: {{selected.photoType}}</p>
+                <p class="create">LOCATION: {{selected.location}}</p>
+                <p class="create">DURATION: {{selected.duration}}</p>
+                <p class="create">NOTES: {{selected.notes}}</p>
+                <button (click)="setUpdatedBooking()" class="btn btn-link">UPDATE</button>
+                <button (click)="selected =null" class="btn btn-link">RETURN HOME</button>
+
+
+        </div>
+
+      </div>
+      <div class="col">
+      </div>
+    </div>
+  </div>
+</div>
+
+<br><br>
+
+<div *ngIf="selected && updatedBooking">
+  <p class="largerHeader">UPDATE THIS SESSION </p>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+      </div>
+      <div class="col">
+
+    <form>
+      <p class="formP"> FIRST NAME </p><input type="text" name="firstName"  [(ngModel)]="updatedBooking.firstName"/><br />
+      <p class="formP"> LAST NAME </p><input type="text" name="lastName"  [(ngModel)]="updatedBooking.lastName" /><br />
+      <p class="formP"> EMAIL </p><input type="text" name="email"  [(ngModel)]="updatedBooking.email"/><br />
+      <p class="formP"> DATE </p><input type="text" name="date"  placeholder="YYYY-MM-DD"[(ngModel)]="updatedBooking.date" /><br />
+      <p class="formP"> PHOTO TYPE </p><select type="text" name="photoType"  [(ngModel)]="updatedBooking.photoType" >
+      <option value="Portrait Session">Portrait Session</option>
+      <option value="Wedding">Wedding</option>
+      <option value="Newborn Session">Newborn Session</option></select><br /><br />
+      <p class="formP"> LOCATION </p><input type="text" name="location"  [(ngModel)]="updatedBooking.location" /><br />
+      <p class="formP"> DURATION </p><input type="number" name="duration" [(ngModel)]="updatedBooking.duration" /><br />
+      <p class="formP"> NOTES </p><input type="text" name="notes"  [(ngModel)]="updatedBooking.notes" /><br /><br />
+      <div style="text-align: center;">
+      <button (click)="updateBooking(updatedBooking)" class="btn btn-link">SUBMIT</button>
+      </div>
+    </form>
+      </div>
+      <div class="col">
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div style="text-align: center;" *ngIf="selected">
+  <form>
+    <p class="largerHeader"  >DELETE SESSION </p>
+    <button (click)="deleteBooking(selected.id)" class="btn btn-link">DELETE</button>
+
+  </form>
+</div> -->
