@@ -21,21 +21,21 @@ public class TransplantRequestServiceImpl implements TransplantRequestService {
 		return trRepo.findAll();
 	}
 
-	@Override
-	public List<TransplantRequest> findByUnmatched() {
-		return trRepo.findByDonorIsNull();
-	}
-
-	@Override
-	public List<TransplantRequest> findForOrgan(int id) {
-		return trRepo.findByDonorIsNullAndOrganTypeId(id);
-	}
-	
-
-	@Override
-	public List<TransplantRequest> findUnapprovedRequests() {
-		return trRepo.findByDonorIsNotNullAndApprovalStatusIsNull();
-	}
+//	@Override
+//	public List<TransplantRequest> findByUnmatched() {
+//		return trRepo.findByDonorIsNull();
+//	}
+//
+//	@Override
+//	public List<TransplantRequest> findForOrgan(int id) {
+//		return trRepo.findByDonorIsNullAndOrganTypeId(id);
+//	}
+//	
+//
+//	@Override
+//	public List<TransplantRequest> findUnapprovedRequests() {
+//		return trRepo.findByDonorIsNotNullAndApprovalStatusIsNull();
+//	}
 	
 	//SHOW
 	@Override
