@@ -51,8 +51,8 @@ class PatientTest {
 		assertEquals( 1 , patient.getBloodType().getId() );
 		assertNotNull( patient.getAddress() );
 		assertEquals( 1 , patient.getAddress().getId() );
-		assertEquals( 1, patient.getTransplantTypes().size() );
-		assertEquals( 1, patient.getHlaProteins().size() );
+		assertEquals( 0, patient.getTransplantTypes().size() );
+		assertEquals( 6, patient.getHlaProteins().size() );
 	}
 
 }

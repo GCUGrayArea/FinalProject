@@ -31,17 +31,17 @@ public List<TransplantRequest> index(){
 	return trs.index();
 	
 }
-@GetMapping("/transplant/unmatched")
-public List<TransplantRequest> findUnmatched(){
-	return trs.findByUnmatched();
-	
-}
-
-@GetMapping("/transplant/unapproved")
-public List<TransplantRequest> findUnapproved(){
-	return trs.findUnapprovedRequests();
-	
-}
+//@GetMapping("/transplant/unmatched")
+//public List<TransplantRequest> findUnmatched(){
+//	return trs.findByUnmatched();
+//	
+//}
+//
+//@GetMapping("/transplant/unapproved")
+//public List<TransplantRequest> findUnapproved(){
+//	return trs.findUnapprovedRequests();
+//	
+//}
 
 @GetMapping("/transplant/{id}")
 public TransplantRequest findSingleTransplantRequest(@PathVariable Integer id){
