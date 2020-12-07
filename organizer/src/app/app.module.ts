@@ -11,12 +11,14 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { TransplantRequestService } from './services/transplant-request.service';
 import { TransplantRequestListComponent } from './components/transplant-request-list/transplant-request-list.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     PaitentListComponent,
     TransplantRequestListComponent,
-    NavBarComponent
+    NavBarComponent,
+
   ],
   imports: [
     BrowserModule,
