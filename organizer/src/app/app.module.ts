@@ -18,7 +18,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     PaitentListComponent,
     TransplantRequestListComponent,
-    NavBarComponent,
+    NavBarComponent
 
   ],
   imports: [
