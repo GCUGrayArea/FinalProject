@@ -28,7 +28,7 @@
         <td>{{tRequest.id}}</td>
         <td>{{tRequest.recipient.firstName}} {{tRequest.recipient.lastName}}</td>
         <td>{{tRequest.organType.organ}}</td>
-        <td>{{tRequest.donor.firstName}} {{tRequest.donor.lastName}}</td>
+        <td><div *ngIf="tRequest.donor">{{tRequest.donor.firstName}} {{tRequest.donor.lastName}}</div></td>
         <td>{{tRequest.approvalStatus}}</td>
         <td>{{tRequest.createdAt}}</td>
       </tr>
@@ -63,7 +63,7 @@
                 <td>{{selected.id}}</td>
                 <td>{{selected.recipient.firstName}} {{selected.recipient.lastName}}</td>
                 <td>{{selected.organType.organ}}</td>
-                <td>{{selected.donor.firstName}} {{selected.donor.lastName}}</td>
+                <td><div *ngIf="selected.donor">{{selected.donor.firstName}} {{selected.donor.lastName}}</div></td>
                 <td>{{selected.approvalStatus}}</td>
                 <td>{{selected.createdAt}}</td>
               </tr>
