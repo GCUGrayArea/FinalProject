@@ -1,3 +1,4 @@
+import { TransplantRequest } from 'src/app/models/transplant-request';
 import { Patient } from './../models/patient';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
@@ -21,6 +22,19 @@ index(): Observable<Patient[]> {
     tap((res) => {
       //localStorage.setItem('credentials' , credentials);
       return res;
+    }),
+    catchError((err: any) => {
+      console.log(err);
+      return throwError('PatientService.index(): Error retrieving todo list');
+    })
+  );
+}
+indexViableDonors(tr: TransplantRequest): Observable<Patient[]> {
+
+  return this.http.get<Patient[]>(`${this.url}/transplant-type/${tr.organType.organ}/blood-type/${tr.recipient.bloodType.id}`).pipe(
+    tap((res) => {
+      //localStorage.setItem('credentials' , credentials);
+      return tr.recipient.sortDonorsByHlaCompatibility(res);
     }),
     catchError((err: any) => {
       console.log(err);

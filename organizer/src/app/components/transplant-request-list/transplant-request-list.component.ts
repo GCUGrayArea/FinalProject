@@ -1,4 +1,6 @@
+import { PatientService } from './../../services/patient.service';
 import { Component, OnInit } from '@angular/core';
+import { Patient } from 'src/app/models/patient';
 import { TransplantRequest } from 'src/app/models/transplant-request';
 import { TransplantRequestService } from 'src/app/services/transplant-request.service';
 
@@ -14,10 +16,12 @@ export class TransplantRequestListComponent implements OnInit {
   selected: TransplantRequest = null;
   newTransplantRequest: TransplantRequest = new TransplantRequest();
   updatedTransplantRequest: TransplantRequest = null;
+  viableDonors : Patient[] = [];
 
 
   constructor(
-    private tSvc: TransplantRequestService) { }
+    private tSvc: TransplantRequestService,
+    private patientService: PatientService) { }
 
   ngOnInit(): void {
     this.loadTransplantRequest();
@@ -89,5 +93,16 @@ console.log(err);
 
   setUpdatedTransplantRequest() {
     this.updatedTransplantRequest = Object.assign({}, this.selected);
+  }
+  loadViableDonors(tr:TransplantRequest){
+    this.patientService.indexViableDonors(tr).subscribe(
+      data => {
+        this.viableDonors = data;
+      },
+      fail => {
+        console.error('PatientListComponent.reload(): error getting patients');
+        console.error(fail);
+      }
+    );
   }
 }
