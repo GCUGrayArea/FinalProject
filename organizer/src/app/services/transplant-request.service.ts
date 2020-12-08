@@ -2,7 +2,7 @@ import { TransplantRequest } from './../models/transplant-request';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +54,28 @@ export class TransplantRequestService {
       catchError((err: any) => {
         console.log(err);
         return throwError('transplantService.destroy(): Error deleting todo');
+      })
+    );
+  }
+  showOrganType(id : number): Observable<TransplantRequest[]>{
+    // const credentials= this.authService.getCredentials();
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //      'Authorization': `Basic ${credentials}`,
+    //      'X-Requested-With': 'XMLHttpRequest'
+    //    })
+    //   };
+    //   if(!this.authService.checkLogin()){
+    //     this.router.navigateByUrl('login')
+    //   }
+    return this.http.get<TransplantRequest[]>(`${this.url}/organ/${id}`).pipe(
+      tap((res) => {
+        //localStorage.setItem('credentials' , credentials);
+        return res;
+      }),
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('TodoService.index(): Error retrieving todo list');
       })
     );
   }

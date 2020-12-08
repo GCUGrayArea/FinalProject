@@ -1,5 +1,16 @@
   <div *ngIf="!selected">
-  <table class="table table-striped ">
+    <label for="patients">Find patient by blood type:</label>
+    <form action="">
+
+    <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedType">
+      <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
+
+
+    </select>
+      <input type="submit" value="Search"  (click)="findByOrgan(selectedType.id)" />
+    </form>
+
+    <table class="table table-striped ">
     <thead>
       <tr>
         <th>ID</th>
@@ -13,7 +24,7 @@
     </thead>
     <tbody>
 
-      <tr *ngFor="let tRequest of transplantRequest" (click)="selected = tRequest">
+      <tr *ngFor="let tRequest of transplantRequests" (click)="selected = tRequest">
         <td>{{tRequest.id}}</td>
         <td>{{tRequest.recipient.firstName}} {{tRequest.recipient.lastName}}</td>
         <td>{{tRequest.organType.organ}}</td>
@@ -23,6 +34,7 @@
       </tr>
     </tbody>
   </table>
+  <button (click)="displayTable()"  *ngIf="filtered">Back</button>
 </div>
 
 
@@ -60,12 +72,13 @@
               </div>
 
               <button ngif="selected" (click)="loadViableDonors(selected)">Find Viable Donors</button>
-
+              <button (click)="displayTable()"  ngif="selected">Back</button>
               <table class="table table-striped " *ngIf="selected.donor == null">
                 <thead>
                 </thead>
                 <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th></tr>
                 <tbody>
+
 
                   <tr *ngFor="let p of viableDonors">
                     <td>{{p.id}}</td>

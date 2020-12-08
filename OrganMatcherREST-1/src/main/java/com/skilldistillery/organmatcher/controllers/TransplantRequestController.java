@@ -31,6 +31,12 @@ public List<TransplantRequest> index(){
 	return trs.index();
 	
 }
+@GetMapping("/transplant/organ/{id}")
+public List<TransplantRequest> findForOrgan(@PathVariable Integer id){
+	return trs.findForOrgan(id);
+	
+}
+
 //@GetMapping("/transplant/unmatched")
 //public List<TransplantRequest> findUnmatched(){
 //	return trs.findByUnmatched();
