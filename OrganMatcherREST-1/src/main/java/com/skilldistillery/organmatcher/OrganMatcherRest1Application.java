@@ -14,7 +14,7 @@ public class OrganMatcherRest1Application {
 	}
 
 	@Bean
-	public PasswordEncoder getEncoder() {
+	public PasswordEncoder configurePasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 }

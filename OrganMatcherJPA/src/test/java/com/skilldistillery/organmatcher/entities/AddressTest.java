@@ -43,9 +43,7 @@ class AddressTest {
 	@Test
 	void test() {
 		assertNotNull(address);
-		assertEquals("1600 Pennsylvania",  address.getStreet1());
-
-		
+		assertEquals("8783 Idaho Rd",  address.getStreet1());
 	}
 
 }
