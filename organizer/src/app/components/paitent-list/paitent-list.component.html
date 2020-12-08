@@ -1,13 +1,25 @@
 <div *ngIf="!selected">
   <div>
     <form>
-      Find patient by id <br>
+      Find patient by id: <br>
       <input  type="text" name="id" placeholder="id" [(ngModel)]="id"/><br />
-      <input type="submit" value="Search"  (click)="findById()" />
+      <input type="submit" value="Search"  (click)="findById(id)" />
     </form>
   </div>
 
-  <table class="table table-striped ">
+
+    <label for="cars">Find patient by blood type:</label>
+    <form action="">
+
+    <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
+      <option *ngFor="let t of bloodTypes" value = {{t.id}}>{{t.bloodGroup}} {{t.rh ? "+" :  "-"}}</option>
+
+
+    </select>
+      <input type="submit" value="Search"  (click)="findByBloodTypeId(selectedType.id)" />
+    </form>
+
+    <table class="table table-striped ">
     <thead>
     </thead>
     <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th></tr>
@@ -19,13 +31,39 @@
         <td>{{p.birthDate}}</td>
         <td>{{p.sex}}</td>
         <td>{{p.weightKg}}</td>
-        <td>{{p.bloodType.bloodGroup}}</td>
+        <td>{{p.bloodType.bloodGroup}} {{p.bloodType.rh ? "+" :  "-"}}</td>
         <td>{{p.address.zip}}</td>
       </tr>
     </tbody>
 
   </table>
+  <button (click)="displayTable()"  *ngIf="filtered">Back</button>
 
+
+  <div class="border">
+    <button class="btn btn-md btn-outline-primary" (click)="open(content)">
+      <i class="fa fa-user"></i>Create new Patient</button>
+  </div>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">New Patient</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <input type="text" name="title" placeholder="title" [(ngModel)]="newPatient.firstName" /><br />
+        <div class="border text-center">
+          <button (click)="onSubmit(newPatient)" data-dismiss="modal" class="btn btn-info">Submit</button>
+          </div>
+      </form>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">cancel</button>
+    </div>
+  </ng-template>
 </div>
 
 
@@ -37,7 +75,7 @@
   <table class="table table-striped ">
     <thead>
     </thead>
-    <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th></tr>
+    <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th></tr>
     <tbody>
 
       <tr>
@@ -53,4 +91,5 @@
 
   </table>
   <button (click)="displayTable()">Back</button>
+
 </div>
