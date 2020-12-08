@@ -34,7 +34,7 @@ indexViableDonors(tr: TransplantRequest): Observable<Patient[]> {
   return this.http.get<Patient[]>(`${this.url}/transplant-type/${tr.organType.organ}/blood-type/${tr.recipient.bloodType.id}`).pipe(
     tap((res) => {
       //localStorage.setItem('credentials' , credentials);
-      return tr.recipient.sortDonorsByHlaCompatibility(res);
+     return tr.recipient.sortDonorsByHlaCompatibility(res);
     }),
     catchError((err: any) => {
       console.log(err);

@@ -111,7 +111,7 @@ console.log(err);
         this.viableDonors = data;
       },
       fail => {
-        console.error('PatientListComponent.reload(): error getting patients');
+        console.error('TRComponent.reload(): error getting patients');
         console.error(fail);
       }
     );
