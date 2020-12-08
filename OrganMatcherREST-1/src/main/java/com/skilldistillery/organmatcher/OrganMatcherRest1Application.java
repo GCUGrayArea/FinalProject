@@ -13,8 +13,4 @@ public class OrganMatcherRest1Application {
 		SpringApplication.run(OrganMatcherRest1Application.class, args);
 	}
 
-	@Bean
-	public PasswordEncoder getEncoder() {
-		return new BCryptPasswordEncoder();
-	}
 }
