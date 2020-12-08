@@ -1,6 +1,6 @@
 
   <nav class="navbar navbar-expand-lg navbar-light ">
-    <a class="navbar-brand" [routerLink]="['/patient']">HOME</a>
+    <a class="navbar-brand" [routerLink]="['/home']">ORGANIZR</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,27 +9,25 @@
         <!-- <li class="nav-item active">
           <a class="nav-link" [routerLink]="['/home']"> <span class="sr-only">(current)</span></a>
         </li> -->
+        <!-- <li class="nav-item" >
+          <a class="nav-link" [routerLink]="['/home']">HOME</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/about']">ABOUT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/register']">REGISTER</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/transplantRequest']">TRANSPLANT REQUEST</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/patient']">PATIENT</a>
         </li>
-        <!-- <li class="nav-item" *ngIf=" loggedIn()" >
-          <a class="nav-link" [routerLink]="['/todo']">TODO</a>
-        </li>
-        <li class="nav-item" *ngIf="! loggedIn()">
-          <a class="nav-link" [routerLink]="['/login']">LOGIN</a>
-          <!-- <app-login></app-login> -->
-        <!-- </li>
-        <li class="nav-item" *ngIf="! loggedIn()">
-          <a class="nav-link" [routerLink]="['/register']">REGISTER</a>
-        </li>
-        <li class="nav-item" *ngIf=" loggedIn()">
-          <!-- <app-logout></app-logout> -->
-          <!-- <a class="nav-link" [routerLink]="['/logout']">LOGOUT</a> -->
 
-        <!-- </li> -->
+
+
+
       </ul>
     </div>
   </nav>
