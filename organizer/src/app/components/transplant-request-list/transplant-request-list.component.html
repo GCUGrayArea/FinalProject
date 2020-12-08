@@ -31,30 +31,56 @@
 <div *ngIf="selected">
 
         <div *ngIf="selected"  style="text-align: center;" >
-          <p>PATIENT</p>
+          <h1>{{selected.recipient.firstName}} {{selected.recipient.lastName}}</h1>
 
-          <p>ID: {{selected.id}}</p>
-                <p>FIRST NAME: {{selected.recipient.firstName}}</p>
-                <p>LAST NAME: {{selected.recipient.lastName}}</p>
-                <p>BIRTH DATE: {{selected.recipient.birthDate}}</p>
-                <p>SEX: {{selected.recipient.sex}}</p>
-                <p>WEIGHT: {{selected.recipient.weightKg}}</p>
-                <!-- <p>BLOOD GROUP: {{selected.recipient.bloodType.bloodGroup}}</p>
-                <p>BLOOD RH: {{selected.recipient.bloodType.rh}}</p>
-                <p>ADDRESS: {{selected.recipient.address.street1}}</p>
-                <p>{selected.recipient.address.street2}}</p>
-                <p>{{selected.recipient.address.city}}</p>
-                <p>{{selected.recipient.address.state}}</p>
-                <p>{{selected.recipient.address.zip}}</p> -->
-                <!-- <p>ADDRESS: {{selected.recipient.transplantType.organ}}</p> -->
-                <!-- <p>{{selected.recipient.notes}}</p> -->
-                <!-- <p>{{selected.createdAt}}</p> -->
-                <!-- <p>{{selected.approvalStatus}}</p> -->
-                <!-- <button (click)="setUpdatedBooking()" class="btn btn-link">UPDATE</button> -->
-                <button (click)="selected =null" >RETURN HOME</button>
+          <table class="table table-striped ">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>RECIPIENT</th>
+                <th>ORGAN TYPE</th>
+                <th>DONOR</th>
+                <th>APPROVAL STATUS</th>
+                <th>CREATED AT</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr>
+                <td>{{selected.id}}</td>
+                <td>{{selected.recipient.firstName}} {{selected.recipient.lastName}}</td>
+                <td>{{selected.organType.organ}}</td>
+                <td>{{selected.donor.firstName}} {{selected.donor.lastName}}</td>
+                <td>{{selected.approvalStatus}}</td>
+                <td>{{selected.createdAt}}</td>
+              </tr>
+            </tbody>
+          </table>
               </div>
 
               <button ngif="selected" (click)="loadViableDonors(selected)">Find Viable Donors</button>
+
+              <table class="table table-striped " *ngIf="selected.donor == null">
+                <thead>
+                </thead>
+                <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th></tr>
+                <tbody>
+
+                  <tr *ngFor="let p of viableDonors">
+                    <td>{{p.id}}</td>
+                    <td>{{p.firstName}} {{p.lastName}}</td>
+                    <td>{{p.birthDate}}</td>
+                    <td>{{p.sex}}</td>
+                    <td>{{p.weightKg}}</td>
+                    <td>{{p.bloodType.bloodGroup}} {{p.bloodType.rh ? "+" :  "-"}}</td>
+                    <td>{{p.address.zip}}</td>
+                    <!-- <td><button ngif="selected" (click)="addDonor(p, selected)">Add this patient as a donor</button></td> -->
+                    <td>  <input (change)="updateTransplantRequest(selected)" type="checkbox" name="donor" [(ngModel)]="selected.donor"></td>
+                  </tr>
+                </tbody>
+
+              </table>
 
 </div>
 

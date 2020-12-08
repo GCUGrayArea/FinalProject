@@ -105,4 +105,7 @@ console.log(err);
       }
     );
   }
+  addDonor(patient: Patient, tr : TransplantRequest){
+
+  }
 }
