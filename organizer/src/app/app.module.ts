@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { TransplantRequestService } from './services/transplant-request.service';
 import { TransplantRequestListComponent } from './components/transplant-request-list/transplant-request-list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { TransplantRequestListComponent } from './components/transplant-request-
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [TransplantRequestService, PatientService],
   bootstrap: [AppComponent]

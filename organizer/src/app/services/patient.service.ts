@@ -74,4 +74,16 @@ showByBloodTypeId(id : number): Observable<Patient[]>{
       })
     );
   }
+
+  create(data) {
+    console.log(data)
+    return this.http.post<Patient>(this.url, data)
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('KABOOM');
+        })
+      );
+  }
+
 }

@@ -2,6 +2,7 @@
 <projectDescription>
 	<name>OrganMatcherREST-1</name>
 	<comment>Project OrganMatcherREST-1 created by Buildship.</comment>
+
 	<projects>
 	</projects>
 	<buildSpec>
@@ -26,11 +27,13 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+
 			<name>org.springframework.ide.eclipse.core.springbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+
 			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
 			<arguments>
 			</arguments>
@@ -43,5 +46,6 @@
 		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 		<nature>org.springframework.ide.eclipse.core.springnature</nature>
+
 	</natures>
 </projectDescription>

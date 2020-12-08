@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { PatientService } from './../../services/patient.service';
 import { Component, OnInit } from '@angular/core';
 import { Patient } from 'src/app/models/patient';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-paitent-list',
@@ -10,9 +11,11 @@ import { Patient } from 'src/app/models/patient';
   styleUrls: ['./paitent-list.component.css']
 })
 export class PaitentListComponent implements OnInit {
+  closeResult: string;
   patients: Patient[] = [];
   selected = null;
   id = null;
+  newPatient= new Patient();
   bloodTypes: BloodType[] = [
     new BloodType(1, 'A', true),
     new BloodType(2, 'A', false),
@@ -22,10 +25,10 @@ export class PaitentListComponent implements OnInit {
     new BloodType(6, 'X', false),
     new BloodType(7, 'O', true),
     new BloodType(8, 'O', false)
-  ]
+  ];
   selectedType = new BloodType();
   filtered = false;
-  constructor(private patientService: PatientService, private router: Router) { }
+  constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.reload();
@@ -110,6 +113,34 @@ export class PaitentListComponent implements OnInit {
         this.selectedType = this.bloodTypes[i];
       }
     }
+  }
+  open(content) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+  onSubmit(book) {
+    this.patientService.create(book).subscribe(
+      data => {
+        this.reload();
+      },
+      err => console.error('Observer got an error: ' + err)
+      );
+
+      this.modalService.dismissAll(); //dismiss the modal
+      this.newPatient = new Patient();
+
   }
 }
 
