@@ -3,11 +3,12 @@
     <thead>
       <tr>
         <td>ID</td>
-        <td>FIRST NAME</td>
-        <td>LAST NAME</td>
+        <td>NAME</td>
+
         <!-- <td>ORGAN TYPE</td> -->
         <td>DONOR</td>
         <td>APPROVAL STATUS</td>
+        <td>ORGAN TYPE</td>
         <td></td>
 
       </tr>
@@ -16,18 +17,20 @@
 
       <tr *ngFor="let tRequest of transplantRequest">
         <td>{{tRequest.id}}</td>
-        <td>{{tRequest.recipient.firstName}}</td>
-        <td>{{tRequest.recipient.lastName}}</td>
+        <td>{{tRequest.recipient.firstName}} {{tRequest.recipient.lastName}}</td>
+        <td> {{tRequest.recipient.firstName}}</td>
+        <!-- <td>{{tRequest.transplantType.organ}}</td> -->
 
-        <td><button (click) = "selected=transplantRequest" > UPDATE</button></td>
+        <td><button (click) = "selected=tRequest" > SELECT</button></td>
+
       </tr>
     </tbody>
   </table>
 </div>
 
 
-<!-- <div> -->
-<!-- <p >CREATE</p>
+<!-- <div>
+<p >CREATE</p>
 
   <form>
     <p> ID </p><input type="number" name="id"  placeholder="Id" [(ngModel)]="newTransplantRequest.id"/><br />
@@ -42,40 +45,36 @@
   </div> -->
 
 
-<!--
-<div *ngIf="selected"  >
-  <div class="container">
-    <div class="row">
-      <div class="col">
-      </div>
-      <div class="col">
+
+<div *ngIf="selected">
+
         <div *ngIf="selected"  style="text-align: center;" >
-          <p class="largerHeader">SESSION INFO</p>
+          <p>PATIENT</p>
 
-          <p class="create">ID: {{selected.id}}</p>
-                <p class="create">FIRST NAME: {{selected.firstName}}</p>
-                <p class="create">LAST NAME: {{selected.lastName}}</p>
-                <p class="create">EMAIL: {{selected.email}}</p>
-                <p class="create">DATE: {{selected.date}}</p>
-                <p class="create">PHOTO TYPE: {{selected.photoType}}</p>
-                <p class="create">LOCATION: {{selected.location}}</p>
-                <p class="create">DURATION: {{selected.duration}}</p>
-                <p class="create">NOTES: {{selected.notes}}</p>
-                <button (click)="setUpdatedBooking()" class="btn btn-link">UPDATE</button>
-                <button (click)="selected =null" class="btn btn-link">RETURN HOME</button>
-
-
-        </div>
-
-      </div>
-      <div class="col">
-      </div>
-    </div>
-  </div>
+          <p>ID: {{selected.id}}</p>
+                <p>FIRST NAME: {{selected.recipient.firstName}}</p>
+                <p>LAST NAME: {{selected.recipient.lastName}}</p>
+                <p>BIRTH DATE: {{selected.recipient.birthDate}}</p>
+                <p>SEX: {{selected.recipient.sex}}</p>
+                <p>WEIGHT: {{selected.recipient.weightKg}}</p>
+                <!-- <p>BLOOD GROUP: {{selected.recipient.bloodType.bloodGroup}}</p>
+                <p>BLOOD RH: {{selected.recipient.bloodType.rh}}</p>
+                <p>ADDRESS: {{selected.recipient.address.street1}}</p>
+                <p>{selected.recipient.address.street2}}</p>
+                <p>{{selected.recipient.address.city}}</p>
+                <p>{{selected.recipient.address.state}}</p>
+                <p>{{selected.recipient.address.zip}}</p> -->
+                <!-- <p>ADDRESS: {{selected.recipient.transplantType.organ}}</p> -->
+                <!-- <p>{{selected.recipient.notes}}</p> -->
+                <!-- <p>{{selected.createdAt}}</p> -->
+                <!-- <p>{{selected.approvalStatus}}</p> -->
+                <!-- <button (click)="setUpdatedBooking()" class="btn btn-link">UPDATE</button> -->
+                <button (click)="selected =null" >RETURN HOME</button>
+                </div>
 </div>
 
-<br><br>
 
+<!--
 <div *ngIf="selected && updatedBooking">
   <p class="largerHeader">UPDATE THIS SESSION </p>
   <div class="container">
@@ -115,4 +114,4 @@
     <button (click)="deleteBooking(selected.id)" class="btn btn-link">DELETE</button>
 
   </form>
-</div> -->
+</div> --> -->
