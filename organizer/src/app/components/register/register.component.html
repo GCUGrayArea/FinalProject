@@ -1,1 +1,8 @@
-<p>register works!</p>
+<h4>Set up a new Organizer account</h4>
+<form>
+  <input type="text" [(ngModel)]="user.firstName" name="email" placeholder="email">
+  <input type="text" [(ngModel)]="user.lastName" name="email" placeholder="email">
+  <input type="text" [(ngModel)]="user.username" name="username" placeholder="username">
+  <input type="text" [(ngModel)]="user.password" name="password" placeholder="password">
+  <input type="submit" (click)="register(user)" value="register">
+</form>
