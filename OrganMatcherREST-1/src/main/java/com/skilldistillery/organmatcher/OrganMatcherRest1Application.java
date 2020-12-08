@@ -17,4 +17,5 @@ public class OrganMatcherRest1Application {
 	public PasswordEncoder configurePasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 }
