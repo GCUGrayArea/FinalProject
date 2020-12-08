@@ -48,7 +48,7 @@ export class Patient {
     return matches;
   }
 
-  sortDonorsByHlaCompatibility( donors: Patient[] ): Patient[] {
+  public sortDonorsByHlaCompatibility( donors: Patient[] ): Patient[] {
     return donors.sort(
       ( a , b ) => {
         return (( this.hlaCompatibility(a) < this.hlaCompatibility(b) ) ? -1 : ( this.hlaCompatibility(a) > this.hlaCompatibility(b) ) ? 1 : 0);
