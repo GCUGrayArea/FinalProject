@@ -11,6 +11,11 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { TransplantRequestService } from './services/transplant-request.service';
 import { TransplantRequestListComponent } from './components/transplant-request-list/transplant-request-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AboutComponent } from './components/about/about.component';
+import { HomeComponent } from './components/home/home.component';
+import { ErrorComponent } from './components/error/error.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -19,6 +24,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PaitentListComponent,
     TransplantRequestListComponent,
     NavBarComponent,
+    AboutComponent,
+    HomeComponent,
+    ErrorComponent,
+    RegisterComponent,
+    LoginComponent,
 
   ],
   imports: [
