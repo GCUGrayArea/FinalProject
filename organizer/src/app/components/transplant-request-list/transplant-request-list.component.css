@@ -1,0 +1,14 @@
+.denied {
+  background-color: red;
+}
+.pending {
+  background-color: yellow;
+}
+.approved {
+  background-color: green;
+}
+/* .completed{
+text-decoration: line-through;
+text-decoration-color: rgb(1, 29, 20);
+color: rgb(190, 164, 164);
+} */
