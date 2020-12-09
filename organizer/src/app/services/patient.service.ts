@@ -1,5 +1,5 @@
+import { Patient } from 'src/app/models/patient';
 import { TransplantRequest } from 'src/app/models/transplant-request';
-import { Patient } from './../models/patient';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -99,5 +99,31 @@ showByBloodTypeId(id : number): Observable<Patient[]>{
         })
       );
   }
+
+  update(patient: Patient, id: number) {
+    const httpOptions = {
+      headers: {
+        'Content-type': 'application/json'
+      }
+    };
+    return this.http.put<Patient[]>(this.url + '/' + id, patient, httpOptions).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('PatientService: Error updating patient');
+      })
+    );
+  }
+
+  destroy(patientId: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.url}/${patientId}`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('PatientService.destroy(): Error deleting patient');
+      })
+    );
+  }
+
+
+
 
 }
