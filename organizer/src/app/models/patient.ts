@@ -40,6 +40,10 @@ export class Patient {
     var matches: number = 0;
     for ( let hla of this.hlaProteins ) {
       for ( let otherHla of donor.hlaProteins ) {
+      console.log(hla.proteinClass);
+      console.log(otherHla.proteinClass);
+      console.log(hla.allele);
+      console.log(otherHla.allele);
         if ( hla.proteinClass === otherHla.proteinClass && hla.allele === otherHla.allele ) {
           matches++;
         }
