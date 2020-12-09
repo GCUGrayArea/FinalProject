@@ -185,6 +185,8 @@ export class PaitentListComponent implements OnInit {
     this.selected=null;
   }
 
-
+setNewPatientBloodType(){
+  this.newPatient.bloodType= this.selectedType;
+}
 }
 

@@ -72,6 +72,16 @@
         <input type="text" name="sex" placeholder="sex" [(ngModel)]="newPatient.sex" /><br />
         Weight: <br>
         <input type="text" name="weight" placeholder="weight" [(ngModel)]="newPatient.weightKg" /><br />
+        <form action="">
+
+          <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
+            <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
+
+
+          </select>
+            <input type="submit" value="Set Patient BloodType"  (click)="setNewPatientBloodType()" >
+          </form>
+
         <!-- <input type="text" name="title" placeholder="bloodType" [(ngModel)]="newPatient.bloodType.id" /><br /> -->
 
 
@@ -108,7 +118,7 @@
       <p>DOB: {{selected.birthDate}} <p>
       <p>Sex: {{selected.sex}} </p>
       <p>Weight(kilograms): {{selected.weightKg}} <p>
-      <p>Blood Type: {{selected.bloodType.bloodGroup}} <p>
+      <p>Blood Type: {{selected.bloodType.bloodGroup}} {{selected.bloodType.rh ? "+" :  "-"}} <p>
       <p>Zip: {{selected.address.zip}} <p>
         <button (click)="displayTable()">Back</button>
 
@@ -145,8 +155,8 @@
         <input type="text" name="sex" placeholder="sex" [(ngModel)]="editPatient.sex" /><br />
         Weight: <br>
         <input type="number" name="weight" placeholder="weight" [(ngModel)]="editPatient.weightKg" /><br />
-        <!-- <input type="text" name="bloodType" placeholder="Blood Type" [(ngModel)]="editPatient.bloodType.bloodGroup" /><br /> -->
-        <!-- <input type="text" name="rh" placeholder="" [(ngModel)]="editPatient.bloodType.rh" /><br /> -->
+        <input type="text" name="bloodType" placeholder="Blood Type" [(ngModel)]="editPatient.bloodType.bloodGroup" /><br />
+        <input type="text" name="rh" placeholder="" [(ngModel)]="editPatient.bloodType.rh" /><br />
 
         <!-- <input type="text" name="title" placeholder="bloodType" [(ngModel)]="newPatient.bloodType.id" /><br /> -->
 
