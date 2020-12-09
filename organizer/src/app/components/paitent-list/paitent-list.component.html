@@ -55,9 +55,9 @@
     <div class="modal-body">
       <form class = "form-group">
         First Name: <br>
-        <input type="text" name="title" placeholder="name" [(ngModel)]="newPatient.firstName" /><br />
+        <input type="text" name="title" placeholder="firstName" [(ngModel)]="newPatient.firstName" /><br />
         Last Name:  <br>
-        <input type="text" name="title" placeholder="name" [(ngModel)]="newPatient.lastName" /><br />
+        <input type="text" name="title" placeholder="lastName" [(ngModel)]="newPatient.lastName" /><br />
         <div class="form-group">
           <div class="input-group">
           <label>DOB:</label>
@@ -69,9 +69,9 @@
           </div>
         </div>
         Sex: <br>
-        <input type="text" name="title" placeholder="sex" [(ngModel)]="newPatient.sex" /><br />
+        <input type="text" name="sex" placeholder="sex" [(ngModel)]="newPatient.sex" /><br />
         Weight: <br>
-        <input type="text" name="title" placeholder="weight" [(ngModel)]="newPatient.weightKg" /><br />
+        <input type="text" name="weight" placeholder="weight" [(ngModel)]="newPatient.weightKg" /><br />
         <!-- <input type="text" name="title" placeholder="bloodType" [(ngModel)]="newPatient.bloodType.id" /><br /> -->
 
 
@@ -116,20 +116,45 @@
 
   <div class="border">
     <button class="btn btn-md btn-outline-primary" (click)="open(content)">
-      <i class="fa fa-user"></i>Update Patient Record</button>
+      <i class="fa fa-user" ></i>Update Patient Record</button>
   </div>
   <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Updating Patient</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update Patient</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
     <div class="modal-body">
       <form>
-        <input type="text" name="title" placeholder="title" [(ngModel)]="editPatient.firstName" /><br />
+        First Name: <br>
+        <input type="text" name="firstName" placeholder="First Name" [(ngModel)]="editPatient.firstName" /><br />
+        Last Name:  <br>
+        <input type="text" name="lastName" placeholder="Last Name" [(ngModel)]="editPatient.lastName" /><br />
+        <div class="form-group">
+          <div class="input-group">
+          <label>DOB:</label>
+            <input class="form-control" placeholder="yyyy-mm-dd"
+            name="dp" [(ngModel)]="editPatient.birthDate" type="date">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar"  type="button"></button>
+            </div>
+          </div>
+        </div>
+        Sex: <br>
+        <input type="text" name="sex" placeholder="sex" [(ngModel)]="editPatient.sex" /><br />
+        Weight: <br>
+        <input type="number" name="weight" placeholder="weight" [(ngModel)]="editPatient.weightKg" /><br />
+        <!-- <input type="text" name="bloodType" placeholder="Blood Type" [(ngModel)]="editPatient.bloodType.bloodGroup" /><br /> -->
+        <!-- <input type="text" name="rh" placeholder="" [(ngModel)]="editPatient.bloodType.rh" /><br /> -->
+
+        <!-- <input type="text" name="title" placeholder="bloodType" [(ngModel)]="newPatient.bloodType.id" /><br /> -->
+
+
+        <!-- <hr/> -->
+
         <div class="border text-center">
-          <button (click)="onSubmit(newPatient)" data-dismiss="modal" class="btn btn-info">Submit</button>
+          <button (click)="updatePatient(editPatient)" data-dismiss="modal" class="btn btn-info">Submit</button>
           </div>
       </form>
 
@@ -139,5 +164,29 @@
     </div>
   </ng-template>
 
+
+
+  <button class="btn btn-outline-primary mb-2 mr-2" (click)="openDelete(contentDelete, selected)">delete</button>
+  <ng-template #contentDelete let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Confirm Delete</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h2>Are you sure you want to delete this record.</h2>
+      <div class="border text-center">
+        <button data-dismiss="modal" class="btn btn-danger" (click)="deletePatient(selected.id)">Yes, Delete!</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+  </ng-template>
 </div>
+
+
+
 </div>
+
