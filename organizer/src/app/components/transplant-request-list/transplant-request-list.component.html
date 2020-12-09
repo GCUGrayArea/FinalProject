@@ -71,8 +71,8 @@
           </table>
               </div>
 
-              <button ngif="selected" (click)="loadViableDonors(selected)">Find Viable Donors</button>
-              <button (click)="displayTable()"  ngif="selected">Back</button>
+              <button *ngIf="selected" (click)="loadViableDonors(selected)">Find Viable Donors</button>
+              <button (click)="displayTable()"  *ngIf="selected">Back</button>
               <table class="table table-striped " *ngIf="selected.donor == null">
                 <thead>
                 </thead>
