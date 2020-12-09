@@ -9,6 +9,10 @@ export class NavBarComponent implements OnInit {
 
   constructor() { }
 
+  loggedIn(): boolean {
+    return localStorage.getItem('credentials') ? true : false;
+  }
+
   ngOnInit(): void {
   }
 
