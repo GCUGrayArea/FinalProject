@@ -30,8 +30,7 @@ import { LogoutComponent } from './logout/logout.component';
     ErrorComponent,
     RegisterComponent,
     LoginComponent,
-    LogoutComponent,
-
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
