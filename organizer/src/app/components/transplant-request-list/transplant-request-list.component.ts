@@ -126,9 +126,7 @@ console.log(err);
       }
     );
   }
-  addDonor(patient: Patient, tr : TransplantRequest){
 
-  }
   selectOrganType(id) {
     console.log(id);
     console.log(this.selectedType);
@@ -181,5 +179,26 @@ console.log(err);
   } else if(tr.approvalStatus == 'approved'){
     return 'approved';
   }
+}
+findByDonorIsNull(){
+  this.tSvc.indexDonorIsNull().subscribe(
+    data=>{
+        data.forEach(tr =>{
+         const p : Patient = new Patient();
+         Object.assign(p, tr.recipient);
+         tr.recipient = p;
+        })
+
+      this.transplantRequests=data;
+    console.log('TransplantRequestListComponent.loadTransplantRequest(): transplantRequest retrieved');
+    },
+
+    err=>{
+      console.error('TransplantRequestListComponent.loadTransplantRequest(): retreive failed');
+console.log(err);
+
+    });
+
+
 }
 }

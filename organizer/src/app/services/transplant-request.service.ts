@@ -79,6 +79,15 @@ export class TransplantRequestService {
       })
     );
   }
+  indexDonorIsNull(): Observable<TransplantRequest[]> {
+    return this.http.get<TransplantRequest[]>(this.url + '/unmatched'  )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('retrieval failed');
+        })
+      );
+  }
 
   constructor(
     private http: HttpClient
