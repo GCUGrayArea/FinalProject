@@ -37,17 +37,22 @@ public List<TransplantRequest> findForOrgan(@PathVariable Integer id){
 	
 }
 
-//@GetMapping("/transplant/unmatched")
-//public List<TransplantRequest> findUnmatched(){
-//	return trs.findByUnmatched();
-//	
-//}
+@GetMapping("/transplant/unmatched")
+public List<TransplantRequest> findUnmatched(){
+	return trs.findByUnmatched();
+	
+}
 //
-//@GetMapping("/transplant/unapproved")
-//public List<TransplantRequest> findUnapproved(){
-//	return trs.findUnapprovedRequests();
-//	
-//}
+@GetMapping("/transplant/unapproved")
+public List<TransplantRequest> findUnapproved(){
+	return trs.findUnapprovedRequests();
+	
+}
+@GetMapping("/transplant/status/{status}")
+public List<TransplantRequest> findUnapproved(@PathVariable String status){
+	return trs.findByApprovalStatus(status);
+	
+}
 
 @GetMapping("/transplant/{id}")
 public TransplantRequest findSingleTransplantRequest(@PathVariable Integer id){

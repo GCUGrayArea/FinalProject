@@ -12,6 +12,7 @@ export class LogoutComponent implements OnInit {
 
   logout(): void {
     localStorage.removeItem('credentials');
+    localStorage.removeItem('userRole');
     this.router.navigateByUrl('home');
   }
 

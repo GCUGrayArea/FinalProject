@@ -2,7 +2,7 @@
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
 -- Schema organmatcherdb
@@ -214,7 +214,7 @@ ENGINE = InnoDB;
 SET SQL_MODE = '';
 GRANT USAGE ON *.* TO organ@localhost;
  DROP USER organ@localhost;
-SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+SET SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 CREATE USER 'organ'@'localhost' IDENTIFIED BY 'organ';
 
 GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'organ'@'localhost';
@@ -346,7 +346,7 @@ INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (50,
 INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (51, 2, 9, 3);
 INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (52, 1, 9, 4);
 INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (53, 3, 9, 5);
-INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (54, 3, 9, 6);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (54, 1, 9, 6);
 
 COMMIT;
 
@@ -356,9 +356,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `organmatcherdb`;
-INSERT INTO `auth_user` (`id`, `first_name`, `last_name`, `username`, `role`, `password`, `enabled`) VALUES (1, 'admin', 'admin', 'admin', 'admin', 'admin', 1);
-INSERT INTO `auth_user` (`id`, `first_name`, `last_name`, `username`, `role`, `password`, `enabled`) VALUES (2, 'John', 'Smith', 'rando', 'user', 'rando', 1);
-INSERT INTO `auth_user` (`id`, `first_name`, `last_name`, `username`, `role`, `password`, `enabled`) VALUES (3, 'Andrew', 'Wilkons', 'awo', 'user', 'awo', 1);
+INSERT INTO `auth_user` (`id`, `first_name`, `last_name`, `username`, `role`, `password`, `enabled`) VALUES (1, 'admin', 'admin', 'admin', 'admin', '$2a$10$KS0mxYpEE26liNlRiQfMTekZ9NXhepkqhYWjIPMs9rSrOAhb39zo6', 1);
+INSERT INTO `auth_user` (`id`, `first_name`, `last_name`, `username`, `role`, `password`, `enabled`) VALUES (2, 'John', 'Smith', 'rando', 'user', '$2a$10$NMhupucK.Zd5XuT56zkY/eftXpniTdnZgudRPLaUkU3Rg4K72MVdG', 1);
+INSERT INTO `auth_user` (`id`, `first_name`, `last_name`, `username`, `role`, `password`, `enabled`) VALUES (3, 'Andrew', 'Wilkons', 'awo', 'user', '$2a$10$VQ7bHJrzhrhhwcGOChVaCuVJTDSSrfSxeIlilwK93WfSU0MP6m.vu', 1);
 
 COMMIT;
 
@@ -432,4 +432,3 @@ INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUE
 INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (8, 8);
 
 COMMIT;
-

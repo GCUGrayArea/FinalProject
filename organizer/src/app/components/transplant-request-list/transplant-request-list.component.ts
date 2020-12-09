@@ -6,6 +6,7 @@ import { Patient } from 'src/app/models/patient';
 import { TransplantRequest } from 'src/app/models/transplant-request';
 import { TransplantRequestService } from 'src/app/services/transplant-request.service';
 import { Router } from '@angular/router';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-transplant-request-list',
@@ -28,19 +29,54 @@ export class TransplantRequestListComponent implements OnInit {
   ];
   filtered = false;
   patientToAdd =new Patient()
+  approvalStatus =  ['pending', 'approved', 'denied']
+  status=null;
+  review : TransplantRequest= null;
+  closeResult: string;
+
 
   constructor(
     private tSvc: TransplantRequestService,
     private patientService: PatientService,
-    private router: Router) { }
+    private router: Router,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.loadTransplantRequest();
     // this.averageDuration();
   }
 
-  loadTransplantRequest(): void{
+  adminActive(): boolean {
+    return localStorage.getItem('userRole') === 'admin' ;
+
+  }
+
+  approved(): boolean {
+    return this.selected.approvalStatus === 'approved';
+  }
+
+  loadTransplantRequest(): void {
     this.tSvc.index().subscribe(
+      data=>{
+          data.forEach(tr =>{
+           const p : Patient = new Patient();
+           Object.assign(p, tr.recipient);
+           tr.recipient = p;
+          })
+
+        this.transplantRequests=data;
+      console.log('TransplantRequestListComponent.loadTransplantRequest(): transplantRequest retrieved');
+      },
+
+      err=>{
+        console.error('TransplantRequestListComponent.loadTransplantRequest(): retreive failed');
+console.log(err);
+
+      });
+
+  }
+  loadByApprovalStatus(status){
+    this.tSvc.indexByApprovalStatus(status).subscribe(
       data=>{
           data.forEach(tr =>{
            const p : Patient = new Patient();
@@ -126,9 +162,7 @@ console.log(err);
       }
     );
   }
-  addDonor(patient: Patient, tr : TransplantRequest){
 
-  }
   selectOrganType(id) {
     console.log(id);
     console.log(this.selectedType);
@@ -137,6 +171,16 @@ console.log(err);
     for (var i = 0; i < this.organTypes.length; i++) {
       if (this.organTypes[i].id == id) {
         this.selectedType = this.organTypes[i];
+      }
+    }
+  }
+  selectStatus(status: string) {
+
+
+    this.selectedType = null;
+    for (var i = 0; i < this.organTypes.length; i++) {
+      if (this.approvalStatus[i] == status) {
+        this.status = this.approvalStatus[i];
       }
     }
   }
@@ -181,5 +225,56 @@ console.log(err);
   } else if(tr.approvalStatus == 'approved'){
     return 'approved';
   }
+}
+findByDonorIsNull(){
+  this.tSvc.indexDonorIsNull().subscribe(
+    data=>{
+        data.forEach(tr =>{
+         const p : Patient = new Patient();
+         Object.assign(p, tr.recipient);
+         tr.recipient = p;
+        })
+
+      this.transplantRequests=data;
+    console.log('TransplantRequestListComponent.loadTransplantRequest(): transplantRequest retrieved');
+    },
+
+    err=>{
+      console.error('TransplantRequestListComponent.loadTransplantRequest(): retreive failed');
+console.log(err);
+
+    });
+
+
+}
+open(content, tRequest) {
+  this.review= tRequest;
+  console.log(this.review);
+  this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    this.closeResult = `Closed with: ${result}`;
+  }, (reason) => {
+    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  });
+}
+private getDismissReason(reason: any): string {
+  if (reason === ModalDismissReasons.ESC) {
+    return 'by pressing ESC';
+  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    return 'by clicking on a backdrop';
+  } else {
+    return `with: ${reason}`;
+  }
+}
+onSubmit(tr : TransplantRequest, id: number) {
+  this.tSvc.update(tr).subscribe(
+    data => {
+      this.loadTransplantRequest();
+    },
+    err => console.error('Observer got an error: ' + err)
+    );
+
+    this.modalService.dismissAll(); //dismiss the modal
+
+
 }
 }

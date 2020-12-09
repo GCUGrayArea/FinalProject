@@ -28,6 +28,7 @@ public class AuthController {
 
 	    if (user == null || svc.getUser( user.getUsername() ) != null ) {
 	        res.setStatus(400);
+	        return null;
 	    }
 
 	    user = svc.register(user);

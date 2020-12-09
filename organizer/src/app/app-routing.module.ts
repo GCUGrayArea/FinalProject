@@ -7,6 +7,7 @@ import { TransplantRequestListComponent } from './components/transplant-request-
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PaitentListComponent } from './components/paitent-list/paitent-list.component';
+// import { RegisterPatientComponent } from './components/register-patient/register-patient.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -16,8 +17,8 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: '**', component: ErrorComponent }
-
+  { path: '**', component: ErrorComponent } ,
+  // { path: 'register-patient' , component: RegisterPatientComponent }
 ];
 
 @NgModule({

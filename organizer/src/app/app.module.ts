@@ -16,7 +16,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
-import { LogoutComponent } from './logout/logout.component';
+import { LogoutComponent } from './components/logout/logout.component';
+
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { LogoutComponent } from './logout/logout.component';
     ErrorComponent,
     RegisterComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
