@@ -38,6 +38,11 @@ public class TransplantRequestServiceImpl implements TransplantRequestService {
 		return trRepo.findByDonorIsNotNullAndApprovalStatusIsNull();
 	}
 	
+	@Override
+	public List<TransplantRequest> findByApprovalStatus( String status ) {
+		return trRepo.findByDonorIsNotNullAndApprovalStatus(status);
+	}
+	
 	//SHOW
 	@Override
 	public TransplantRequest show(int id) {
