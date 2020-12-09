@@ -16,6 +16,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 @NgModule({
@@ -23,17 +24,13 @@ import { LoginComponent } from './components/login/login.component';
     AppComponent,
     PaitentListComponent,
     TransplantRequestListComponent,
-<<<<<<< HEAD
     NavBarComponent,
     AboutComponent,
     HomeComponent,
     ErrorComponent,
     RegisterComponent,
     LoginComponent,
-=======
-    NavBarComponent
->>>>>>> bfdfbbd352eb1408b6bf7898d7f7cb6c34e5dc91
-
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
