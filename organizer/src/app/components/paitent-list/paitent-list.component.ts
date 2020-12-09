@@ -96,6 +96,9 @@ export class PaitentListComponent implements OnInit {
 
 
 
+  loggedIn(): boolean {
+    return localStorage.getItem('credentials') ? true : false;
+  }
 
   displayPatient(patient: Patient) {
     this.selected = patient;
