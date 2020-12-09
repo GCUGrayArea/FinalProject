@@ -1,4 +1,3 @@
-import { TransplantRequest } from './../../models/transplant-request';
 
 import { TransplantType } from './../../models/transplant-type';
 import { PatientService } from './../../services/patient.service';
@@ -267,7 +266,7 @@ private getDismissReason(reason: any): string {
   }
 }
 onSubmit(tr : TransplantRequest, id: number) {
-  this.tSvc.update(tr, id).subscribe(
+  this.tSvc.update(tr).subscribe(
     data => {
       this.loadTransplantRequest();
     },

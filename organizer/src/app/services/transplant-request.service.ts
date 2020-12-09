@@ -41,13 +41,13 @@ export class TransplantRequestService {
         })
       );
   }
-  update(transplantRequest: TransplantRequest, id :number) {
+  update(transplantRequest: TransplantRequest, ) {
     const httpOptions = {
       headers: {
         'Content-type': 'application/json'
       }
     };
-    return this.http.put<TransplantRequest[]>(this.url + '/' + id, transplantRequest, httpOptions).pipe(
+    return this.http.put<TransplantRequest[]>(this.url + '/' + transplantRequest.id, transplantRequest, httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('Transplant Service: Error retrieving todo list');
