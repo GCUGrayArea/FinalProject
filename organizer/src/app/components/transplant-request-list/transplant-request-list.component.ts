@@ -27,7 +27,7 @@ export class TransplantRequestListComponent implements OnInit {
     new TransplantType(3, 'teeth'),
   ];
   filtered = false;
-
+  patientToAdd =new Patient()
 
   constructor(
     private tSvc: TransplantRequestService,
@@ -41,7 +41,14 @@ export class TransplantRequestListComponent implements OnInit {
 
   loadTransplantRequest(): void{
     this.tSvc.index().subscribe(
-      data=>{this.transplantRequests=data;
+      data=>{
+          data.forEach(tr =>{
+           const p : Patient = new Patient();
+           Object.assign(p, tr.recipient);
+           tr.recipient = p;
+          })
+
+        this.transplantRequests=data;
       console.log('TransplantRequestListComponent.loadTransplantRequest(): transplantRequest retrieved');
       },
 
@@ -108,7 +115,10 @@ console.log(err);
   loadViableDonors(tr:TransplantRequest){
     this.patientService.indexViableDonors(tr).subscribe(
       data => {
-        this.viableDonors = data;
+        console.log(tr);
+        console.log(tr.recipient);
+
+        this.viableDonors = tr.recipient.sortDonorsByHlaCompatibility(data);
       },
       fail => {
         console.error('TRComponent.reload(): error getting patients');
@@ -156,4 +166,20 @@ console.log(err);
     this.loadTransplantRequest();
     this.filtered =false;
   }
+  setDonor(p){
+    this.patientToAdd = p;
+    this.selected.donor=this.patientToAdd;
+    this.selected.approvalStatus = 'pending';
+    this.updateTransplantRequest(this.selected);
+ }
+ chooseBackground(tr) {
+
+  if (tr.approvalStatus == 'denied') {
+    return 'denied';
+  } else if (tr.approvalStatus == 'pending') {
+    return 'pending';
+  } else if(tr.approvalStatus == 'approved'){
+    return 'approved';
+  }
+}
 }

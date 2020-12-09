@@ -32,10 +32,10 @@ index(): Observable<Patient[]> {
 indexViableDonors(tr: TransplantRequest): Observable<Patient[]> {
 
   return this.http.get<Patient[]>(`${this.url}/transplant-type/${tr.organType.organ}/blood-type/${tr.recipient.bloodType.id}`).pipe(
-    tap((res) => {
-      //localStorage.setItem('credentials' , credentials);
-     return tr.recipient.sortDonorsByHlaCompatibility(res);
-    }),
+    // tap((res) => {
+    //   //localStorage.setItem('credentials' , credentials);
+    //  return res;
+    // }),
     catchError((err: any) => {
       console.log(err);
       return throwError('PatientService.index(): Error retrieving todo list');

@@ -42,11 +42,10 @@ class PatientTest {
 	
 	@Test
 	void testMappings() {
-		assertEquals( "Fred" , patient.getFirstName() );
-		assertEquals( "Bob" , patient.getLastName() );
-		assertNull( patient.getBirthDate() );
-		assertEquals( "male" , patient.getSex() );
-		assertEquals( 180 , patient.getWeightKg() );
+		assertEquals( "Terry" , patient.getFirstName() );
+		assertEquals( "GOLDEN" , patient.getLastName() );
+		assertEquals( "M" , patient.getSex() );
+		assertEquals( 55 , patient.getWeightKg() );
 		assertNotNull( patient.getBloodType() );
 		assertEquals( 1 , patient.getBloodType().getId() );
 		assertNotNull( patient.getAddress() );

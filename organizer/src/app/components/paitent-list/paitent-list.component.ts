@@ -28,6 +28,8 @@ export class PaitentListComponent implements OnInit {
   ];
   selectedType = new BloodType();
   filtered = false;
+  editPatient = new Patient();
+
   constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -130,8 +132,8 @@ export class PaitentListComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  onSubmit(book) {
-    this.patientService.create(book).subscribe(
+  onSubmit(patient : Patient) {
+    this.patientService.create(patient).subscribe(
       data => {
         this.reload();
       },
@@ -142,5 +144,6 @@ export class PaitentListComponent implements OnInit {
       this.newPatient = new Patient();
 
   }
+
 }
 

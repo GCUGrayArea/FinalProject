@@ -43,7 +43,7 @@ class ProteinClassTest {
 	@Test
 	void testMappings() throws Exception {
 		assertEquals("a" , protein.getProteinClass() );
-		assertNull( protein.getDescription() );
+		assertNotNull( protein.getDescription() );
 	}
 
 }
