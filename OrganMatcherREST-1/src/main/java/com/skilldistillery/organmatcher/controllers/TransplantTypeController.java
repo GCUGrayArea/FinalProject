@@ -52,15 +52,15 @@ public class TransplantTypeController {
 //		transplantType = tts.create(principal.getOrgan(), transplantType);
 		transplantType = tts.create(transplantType);
 
-		if (transplantType == null) {
-			response.setStatus(404);
-		} else {
-			response.setStatus(201);
-			StringBuffer url = request.getRequestURL();
-			url.append("/").append(transplantType.getId());
-			response.setHeader("Location", url.toString());
-
-		}
+//		if (transplantType == null) {
+//			response.setStatus(404);
+//		} else {
+//			response.setStatus(201);
+//			StringBuffer url = request.getRequestURL();
+//			url.append("/").append(transplantType.getId());
+//			response.setHeader("Location", url.toString());
+//
+//		}
 		return transplantType;
 	}
 		
