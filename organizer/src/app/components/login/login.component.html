@@ -2,13 +2,19 @@
 <br> -->
 <br><br><br>
 <!-- <div style="text-align: center;"> -->
-  <div background="">
+  <!-- <div background="">
   <img src="https://www.roadlesstraveledstore.com/wp-content/uploads/2019/04/ResearchAustralia_home006-e1498803804566.jpg"
     class="Responsive image"
     style="height: 400px; width: 1000px; opacity: 100%">
-</div>
+</div> -->
 
-<div style ="text-align: center;">
+
+
+<div class="Responsive image" style="height: 400px; width:1000px; background:url(https://www.roadlesstraveledstore.com/wp-content/uploads/2019/04/ResearchAustralia_home006-e1498803804566.jpg)"> <div style ="text-align: center;">
+  <br><br><br><br><br>
+
+  <p><strong>Need an account? <a [routerLink]="['/register']"><u>Register</u></a></strong></p>
+
   <input type="text" [(ngModel)]="user.username" name="username" placeholder="username"><br>
   <input type="password" [(ngModel)]="user.password" name="password" placeholder="password"><br>
   <input type="submit" (click)="login(user)" value="Submit">
