@@ -17,6 +17,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { RegisterPatientComponent } from './components/register-patient/register-patient.component';
 
 
 
@@ -32,6 +33,7 @@ import { LogoutComponent } from './components/logout/logout.component';
     RegisterComponent,
     LoginComponent,
     LogoutComponent,
+    RegisterPatientComponent
   ],
   imports: [
     BrowserModule,

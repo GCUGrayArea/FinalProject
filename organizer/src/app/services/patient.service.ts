@@ -25,7 +25,7 @@ index(): Observable<Patient[]> {
     }),
     catchError((err: any) => {
       console.log(err);
-      return throwError('PatientService.index(): Error retrieving todo list');
+      return throwError('PatientService.index(): Error retrieving patient list');
     })
   );
 }
@@ -38,7 +38,7 @@ indexViableDonors(tr: TransplantRequest): Observable<Patient[]> {
     // }),
     catchError((err: any) => {
       console.log(err);
-      return throwError('PatientService.index(): Error retrieving todo list');
+      return throwError('PatientService.index(): Error retrieving patient list');
     })
   );
 }
@@ -62,7 +62,7 @@ show(id : number): Observable<Patient>{
       }),
       catchError((err: any) => {
         console.log(err);
-        return throwError('TodoService.index(): Error retrieving todo list');
+        return throwError('PatientService.index(): Error retrieving patient list');
       })
     );
   }
@@ -84,7 +84,7 @@ showByBloodTypeId(id : number): Observable<Patient[]>{
       }),
       catchError((err: any) => {
         console.log(err);
-        return throwError('TodoService.index(): Error retrieving todo list');
+        return throwError('PatientService.index(): Error retrieving patient list');
       })
     );
   }
@@ -95,7 +95,7 @@ showByBloodTypeId(id : number): Observable<Patient[]>{
       .pipe(
         catchError((err: any) => {
           console.log(err);
-          return throwError('KABOOM');
+          return throwError('PATIENT CREATION FAILED');
         })
       );
   }
