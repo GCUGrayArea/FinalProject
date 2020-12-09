@@ -76,7 +76,7 @@
               <table class="table table-striped " *ngIf="selected.donor == null">
                 <thead>
                 </thead>
-                <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th><th>Add</th></tr>
+                <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th><th>Add</th><th>HLA Compatibility</th></tr>
                 <tbody>
 
 
@@ -88,9 +88,8 @@
                     <td>{{p.weightKg}}</td>
                     <td>{{p.bloodType.bloodGroup}} {{p.bloodType.rh ? "+" :  "-"}}</td>
                     <td>{{p.address.zip}}</td>
-                    <!-- <td><button ngif="selected" (click)="addDonor(p, selected)">Add this patient as a donor</button></td> -->
-                    <!-- <td>  <input (change)="updateTransplantRequest(selected)" type="checkbox" name="donor" [(ngModel)]="selected.donor"></td> -->
                     <td>  <input (click)="setDonor(p)" type="checkbox" name="donor" [(ngModel)]="selected.donor"></td>
+                    <td>{{selected.recipient.hlaCompatibility(p)}}/{{selected.recipient.hlaProteins.length}}</td>
                   </tr>
                 </tbody>
 
