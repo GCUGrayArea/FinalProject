@@ -96,6 +96,9 @@ export class PaitentListComponent implements OnInit {
 
 
 
+  loggedIn(): boolean {
+    return localStorage.getItem('credentials') ? true : false;
+  }
 
   displayPatient(patient: Patient) {
     this.selected = patient;
@@ -144,6 +147,44 @@ export class PaitentListComponent implements OnInit {
       this.newPatient = new Patient();
 
   }
+
+  updatePatient(patient: Patient) {
+    // this.todos[todo.id - 1] = Object.assign({}, todo);
+    // this.selected = Object.assign({}, todo);
+    this.patientService.update(patient, this.selected.id).subscribe(
+      (good) => {
+        this.reload();
+        if (this.selected != null) {
+          this.selected = Object.assign({}, patient);
+        }
+      },
+      (bad) => {
+        console.error(bad);
+      }
+    );
+    this.modalService.dismissAll(); //dismiss the modal
+    this.editPatient = null;
+  }
+
+  openDelete(targetModal, patient: Patient) {
+    this.modalService.open(targetModal, {
+      backdrop: 'static',
+      size: 'lg'
+    });
+  }
+
+  deletePatient(id: number) {
+    this.patientService.destroy(id).subscribe(
+      (good) => {
+        this.reload();
+      },
+      (bad) => {
+        console.error(bad);
+      }
+    );
+    this.selected=null;
+  }
+
 
 }
 

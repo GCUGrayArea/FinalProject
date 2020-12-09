@@ -20,6 +20,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { RegisterPatientComponent } from './components/register-patient/register-patient.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
