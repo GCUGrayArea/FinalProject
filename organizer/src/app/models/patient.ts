@@ -38,21 +38,27 @@ export class Patient {
   }
 
   hlaCompatibility( donor: Patient ): number {
-    var matches: number = 0;
+    let matches: number = 0;
     for ( let hla of this.hlaProteins ) {
       for ( let otherHla of donor.hlaProteins ) {
-        if ( hla.proteinClass === otherHla.proteinClass && hla.allele === otherHla.allele ) {
+      console.log(hla.proteinClass.id);
+      console.log(otherHla.proteinClass.id);
+      console.log(hla.allele);
+      console.log(otherHla.allele);
+        if ( hla.proteinClass.id === otherHla.proteinClass.id && hla.allele === otherHla.allele ) {
           matches++;
+          break;
         }
       }
     }
+    console.log(matches);
     return matches;
   }
 
   public sortDonorsByHlaCompatibility( donors: Patient[] ): Patient[] {
     return donors.sort(
       ( a , b ) => {
-        return (( this.hlaCompatibility(a) < this.hlaCompatibility(b) ) ? -1 : ( this.hlaCompatibility(a) > this.hlaCompatibility(b) ) ? 1 : 0);
+        return (( this.hlaCompatibility(a) < this.hlaCompatibility(b) ) ? 1 : ( this.hlaCompatibility(a) > this.hlaCompatibility(b) ) ? -1 : 0);
       }
     )
   }

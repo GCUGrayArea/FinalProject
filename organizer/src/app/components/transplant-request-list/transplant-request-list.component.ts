@@ -39,7 +39,15 @@ export class TransplantRequestListComponent implements OnInit {
     // this.averageDuration();
   }
 
-  loadTransplantRequest(): void{
+  adminActive(): boolean {
+    return localStorage.getItem('userRole') === 'admin';
+  }
+
+  approved(): boolean {
+    return this.selected.approvalStatus === 'approved';
+  }
+
+  loadTransplantRequest(): void {
     this.tSvc.index().subscribe(
       data=>{
           data.forEach(tr =>{
