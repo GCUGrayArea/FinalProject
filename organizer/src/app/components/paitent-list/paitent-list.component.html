@@ -1,4 +1,5 @@
 <div *ngIf="!selected">
+<!-- <div *ngIf="!selected && loggedIn()"> -->
   <div>
     <form>
       Find patient by id: <br>
@@ -87,6 +88,14 @@
     </div>
   </ng-template>
 </div>
+
+<!-- <div *ngIf="selected && !loggedIn()">
+  <blockquote>You must be signed in to access this information.</blockquote>
+  <ul>
+  <li><button type="button" class="btn btn-outline-dark" [routerLink]="['/register']">REGISTER</a>
+    <app-login></app-login></li>
+  </ul>
+</div> -->
 
 
 
