@@ -14,9 +14,7 @@ public interface TransplantRequestService {
 	
 	List<TransplantRequest> findByUnmatched();
 	List<TransplantRequest> findForOrgan(int id);
-	List<TransplantRequest> findPendingRequests();
-	List<TransplantRequest> findRejectedRequests();
-	List<TransplantRequest> findApprovedRequests();
+	List<TransplantRequest> findByApprovalStatus( String status );
 	List<TransplantRequest> findUnapprovedRequests();
 
 }

@@ -39,18 +39,8 @@ public class TransplantRequestServiceImpl implements TransplantRequestService {
 	}
 	
 	@Override
-	public List<TransplantRequest> findPendingRequests() {
-		return trRepo.findByDonorIsNotNullAndApprovalStatus('pending');
-	}
-	
-	@Override
-	public List<TransplantRequest> findRejectedRequests() {
-		return trRepo.findByDonorIsNotNullAndApprovalStatus('rejected');
-	}
-	
-	@Override
-	public List<TransplantRequest> findApprovedRequests() {
-		return trRepo.findByDonorIsNotNullAndApprovalStatus('approved');
+	public List<TransplantRequest> findByApprovalStatus( String status ) {
+		return trRepo.findByDonorIsNotNullAndApprovalStatus(status);
 	}
 	
 	//SHOW
