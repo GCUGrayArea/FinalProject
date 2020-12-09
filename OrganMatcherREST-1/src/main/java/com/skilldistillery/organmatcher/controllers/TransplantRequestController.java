@@ -48,6 +48,11 @@ public List<TransplantRequest> findUnapproved(){
 	return trs.findUnapprovedRequests();
 	
 }
+@GetMapping("/transplant/status/{status}")
+public List<TransplantRequest> findUnapproved(@PathVariable String status){
+	return trs.findByApprovalStatus(status);
+	
+}
 
 @GetMapping("/transplant/{id}")
 public TransplantRequest findSingleTransplantRequest(@PathVariable Integer id){

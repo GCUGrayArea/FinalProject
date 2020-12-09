@@ -9,14 +9,21 @@ import { catchError, tap } from 'rxjs/operators';
 })
 export class TransplantRequestService {
  private baseUrl = 'http://localhost:8192/';
-    // private baseUrl = 'BookingsTracker/';
-     // private baseUrl = 'BookingsTracker/';
-    //  private baseUrl =environment.baseUrl;
+
 
   private url = this.baseUrl + 'api/transplant';
 
  index(): Observable<TransplantRequest[]> {
     return this.http.get<TransplantRequest[]>(this.url )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('retrieval failed');
+        })
+      );
+  }
+ indexByApprovalStatus(status: string): Observable<TransplantRequest[]> {
+    return this.http.get<TransplantRequest[]>(this.url + '/status/'+ status)
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -34,13 +41,13 @@ export class TransplantRequestService {
         })
       );
   }
-  update(transplantRequest: TransplantRequest) {
+  update(transplantRequest: TransplantRequest, id :number) {
     const httpOptions = {
       headers: {
         'Content-type': 'application/json'
       }
     };
-    return this.http.put<TransplantRequest[]>(this.url + '/' + transplantRequest.id, transplantRequest, httpOptions).pipe(
+    return this.http.put<TransplantRequest[]>(this.url + '/' + id, transplantRequest, httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('Transplant Service: Error retrieving todo list');
