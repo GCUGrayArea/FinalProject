@@ -14,7 +14,7 @@ export class AuthService {
 
   constructor( private http: HttpClient ) { }
 
-  login(username, password): Observable<User> {
+  login(username: string, password: string): Observable<User> {
     console.log( username,  password );
     // Make credentials
     const credentials = this.generateBasicAuthCredentials(username, password);

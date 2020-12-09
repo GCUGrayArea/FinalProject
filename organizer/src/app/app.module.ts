@@ -16,6 +16,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { LoginComponent } from './components/login/login.component';
     ErrorComponent,
     RegisterComponent,
     LoginComponent,
+    LogoutComponent,
 
   ],
   imports: [
