@@ -2,7 +2,7 @@
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
 -- Schema organmatcherdb
@@ -51,13 +51,13 @@ DROP TABLE IF EXISTS `patient` ;
 
 CREATE TABLE IF NOT EXISTS `patient` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(100) NOT NULL,
-  `last_name` VARCHAR(100) NOT NULL,
+  `first_name` VARCHAR(100) NULL,
+  `last_name` VARCHAR(100) NULL,
   `birth_date` DATE NULL,
-  `sex` VARCHAR(45) NOT NULL,
+  `sex` VARCHAR(45) NULL,
   `weight_kg` INT NULL,
-  `blood_type_id` INT NOT NULL,
-  `address_id` INT NOT NULL,
+  `blood_type_id` INT NULL,
+  `address_id` INT NULL,
   `notes` TEXT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_patient_blood_type1_idx` (`blood_type_id` ASC),
@@ -94,10 +94,10 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `hla` ;
 
 CREATE TABLE IF NOT EXISTS `hla` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `allele` SMALLINT(5) NOT NULL,
   `patient_id` INT NOT NULL,
   `protein_class_id` INT NOT NULL,
-  `id` INT NOT NULL AUTO_INCREMENT,
   INDEX `fk_hla_patient1_idx` (`patient_id` ASC),
   INDEX `fk_hla_protein_class1_idx` (`protein_class_id` ASC),
   PRIMARY KEY (`id`),
@@ -214,7 +214,7 @@ ENGINE = InnoDB;
 SET SQL_MODE = '';
 GRANT USAGE ON *.* TO organ@localhost;
  DROP USER organ@localhost;
-SET SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 CREATE USER 'organ'@'localhost' IDENTIFIED BY 'organ';
 
 GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'organ'@'localhost';
@@ -245,12 +245,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `organmatcherdb`;
-INSERT INTO `address` (`id`, `street1`, `street2`, `city`, `state`, `zip`) VALUES (1, '1600 Pennsylvania', NULL, 'Washington', 'DC', '20002');
-INSERT INTO `address` (`id`, `street1`, `street2`, `city`, `state`, `zip`) VALUES (2, '153 Mulberry Lane', NULL, 'Houston', 'TX', '77001');
-INSERT INTO `address` (`id`, `street1`, `street2`, `city`, `state`, `zip`) VALUES (3, '123 Main St', NULL, 'Somewhere', 'KS', '65536');
-INSERT INTO `address` (`id`, `street1`, `street2`, `city`, `state`, `zip`) VALUES (4, '330 Laststop Ave', NULL, 'Anchorage', 'AK', '99502');
-INSERT INTO `address` (`id`, `street1`, `street2`, `city`, `state`, `zip`) VALUES (5, '260 Wingstop', NULL, 'Birth', 'AR', '71612');
-INSERT INTO `address` (`id`, `street1`, `street2`, `city`, `state`, `zip`) VALUES (6, '3240 Englishville', NULL, 'San Diego', 'CA', '22434');
+INSERT INTO `address` (`id`, `street1`, `street2`, `city`, `state`, `zip`) VALUES (1, '8783 Idaho Rd', '', 'Boise', 'WV', '31966');
+INSERT INTO `address` (`id`, `street1`, `street2`, `city`, `state`, `zip`) VALUES (2, '1769 New York Ct', '', 'Lansing', 'ME', '51');
+INSERT INTO `address` (`id`, `street1`, `street2`, `city`, `state`, `zip`) VALUES (3, '2495 Ohio St', '', 'Nashville', 'AR', '34109');
+INSERT INTO `address` (`id`, `street1`, `street2`, `city`, `state`, `zip`) VALUES (4, '3423 Minnesota Blvd', '', 'Des Moines', 'AR', '69881');
+INSERT INTO `address` (`id`, `street1`, `street2`, `city`, `state`, `zip`) VALUES (5, '3691 Nebraska Pl', '', 'Harrisburg', 'AL', '8500');
+INSERT INTO `address` (`id`, `street1`, `street2`, `city`, `state`, `zip`) VALUES (6, '7242 Wisconsin Blvd', '', 'Santa Fe', 'NM', '76275');
 
 COMMIT;
 
@@ -260,12 +260,15 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `organmatcherdb`;
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (1, 'Fred', 'Bob', NULL, 'male', 180, 1, 1, NULL);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (2, 'Bob', 'Fred', NULL, 'male', 270, 1, 2, NULL);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (3, 'James', 'Charles', NULL, 'male', 150, 2, 3, NULL);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (4, 'Charlotte', 'Manson', NULL, 'female', 160, 2, 4, NULL);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (5, 'Jackie', 'Burkhart', NULL, 'female', 130, 3, 5, NULL);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (6, 'Ashley', 'Kutcher', NULL, 'female', 150, 3, 6, NULL);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (1, 'Terry', 'GOLDEN', '1966-07-12', 'M', 55, 1, 1, NULL);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (2, 'Jane', 'MALDONADO', '2008-02-05', 'F', 88, 1, 2, NULL);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (3, 'Deacon', 'MURPHY', '1988-06-22', 'F', 60, 3, 3, NULL);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (4, 'Addison', 'JUAREZ', '1961-10-13', 'M', 62, 3, 4, NULL);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (5, 'Miles', 'AVERY', '2009-09-14', 'F', 110, 5, 5, NULL);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (6, 'Carl', 'DELEON', '2003-09-01', 'F', 110, 5, 6, NULL);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (7, 'Kevin', 'Carns', '2001-02-19', 'M', 61, 1, 1, NULL);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (8, 'Angela', 'Bekker', '1994-02-13', 'F', 89, 3, 2, NULL);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `birth_date`, `sex`, `weight_kg`, `blood_type_id`, `address_id`, `notes`) VALUES (9, 'Dirk', 'Radick', '1956-05-03', 'M', 52, 5, 3, NULL);
 
 COMMIT;
 
@@ -275,12 +278,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `organmatcherdb`;
-INSERT INTO `protein_class` (`id`, `protein_class`, `description`) VALUES (1, 'a', NULL);
-INSERT INTO `protein_class` (`id`, `protein_class`, `description`) VALUES (2, 'b', NULL);
-INSERT INTO `protein_class` (`id`, `protein_class`, `description`) VALUES (3, 'c', NULL);
-INSERT INTO `protein_class` (`id`, `protein_class`, `description`) VALUES (4, 'd', NULL);
-INSERT INTO `protein_class` (`id`, `protein_class`, `description`) VALUES (5, 'e', NULL);
-INSERT INTO `protein_class` (`id`, `protein_class`, `description`) VALUES (6, 'f', NULL);
+INSERT INTO `protein_class` (`id`, `protein_class`, `description`) VALUES (1, 'a', 'MAJOR-A');
+INSERT INTO `protein_class` (`id`, `protein_class`, `description`) VALUES (2, 'b', 'MAJOR-B');
+INSERT INTO `protein_class` (`id`, `protein_class`, `description`) VALUES (3, 'c', 'MAJOR-C');
+INSERT INTO `protein_class` (`id`, `protein_class`, `description`) VALUES (4, 'd', 'MINOR-D');
+INSERT INTO `protein_class` (`id`, `protein_class`, `description`) VALUES (5, 'e', 'MINOR-E');
+INSERT INTO `protein_class` (`id`, `protein_class`, `description`) VALUES (6, 'f', 'MINOR-F');
 
 COMMIT;
 
@@ -290,42 +293,60 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `organmatcherdb`;
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (3, 1, 1, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (4, 1, 2, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (5, 1, 3, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (6, 1, 4, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (7, 1, 5, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (8, 1, 6, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (3, 2, 1, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (4, 2, 2, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (5, 2, 3, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (6, 2, 4, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (7, 2, 5, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (8, 2, 6, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (9, 3, 1, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (10, 3, 2, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (11, 3, 3, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (12, 3, 4, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (13, 3, 5, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (14, 3, 6, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (9, 4, 1, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (10, 4, 2, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (11, 4, 3, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (12, 4, 4, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (13, 4, 5, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (14, 4, 6, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (15, 5, 1, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (16, 5, 2, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (17, 5, 3, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (18, 5, 4, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (19, 5, 5, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (20, 5, 6, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (15, 6, 1, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (16, 6, 2, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (17, 6, 3, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (18, 6, 4, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (19, 6, 5, DEFAULT);
-INSERT INTO `hla` (`allele`, `patient_id`, `protein_class_id`, `id`) VALUES (21, 6, 6, DEFAULT);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (1, 2, 1, 1);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (2, 5, 1, 2);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (3, 2, 1, 3);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (4, 3, 1, 4);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (5, 5, 1, 5);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (6, 2, 1, 6);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (7, 2, 2, 1);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (8, 5, 2, 2);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (9, 2, 2, 3);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (10, 3, 2, 4);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (11, 5, 2, 5);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (12, 2, 2, 6);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (13, 4, 3, 1);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (14, 1, 3, 2);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (15, 5, 3, 3);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (16, 2, 3, 4);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (17, 2, 3, 5);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (18, 4, 3, 6);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (19, 4, 4, 1);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (20, 1, 4, 2);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (21, 5, 4, 3);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (22, 2, 4, 4);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (23, 2, 4, 5);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (24, 4, 4, 6);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (25, 2, 5, 1);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (26, 2, 5, 2);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (27, 2, 5, 3);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (28, 1, 5, 4);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (29, 3, 5, 5);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (30, 2, 5, 6);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (31, 2, 6, 1);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (32, 2, 6, 2);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (33, 2, 6, 3);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (34, 1, 6, 4);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (35, 3, 6, 5);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (36, 2, 6, 6);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (37, 2, 7, 1);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (38, 5, 7, 2);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (39, 2, 7, 3);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (40, 3, 7, 4);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (41, 5, 7, 5);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (42, 1, 7, 6);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (43, 4, 8, 1);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (44, 1, 8, 2);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (45, 5, 8, 3);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (46, 2, 8, 4);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (47, 2, 8, 5);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (48, 3, 8, 6);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (49, 2, 9, 1);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (50, 2, 9, 2);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (51, 2, 9, 3);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (52, 1, 9, 4);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (53, 3, 9, 5);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (54, 3, 9, 6);
 
 COMMIT;
 
@@ -335,9 +356,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `organmatcherdb`;
-INSERT INTO `auth_user` (`id`, `first_name`, `last_name`, `username`, `role`, `password`, `enabled`) VALUES (1, 'admin', 'admin', 'admin', 'admin', 'admin', NULL);
-INSERT INTO `auth_user` (`id`, `first_name`, `last_name`, `username`, `role`, `password`, `enabled`) VALUES (2, 'John', 'Smith', 'rando', 'user', 'rando', NULL);
-INSERT INTO `auth_user` (`id`, `first_name`, `last_name`, `username`, `role`, `password`, `enabled`) VALUES (3, 'Andrew', 'Wilkons', 'awo', 'user', 'awo', NULL);
+INSERT INTO `auth_user` (`id`, `first_name`, `last_name`, `username`, `role`, `password`, `enabled`) VALUES (1, 'admin', 'admin', 'admin', 'admin', 'admin', 1);
+INSERT INTO `auth_user` (`id`, `first_name`, `last_name`, `username`, `role`, `password`, `enabled`) VALUES (2, 'John', 'Smith', 'rando', 'user', 'rando', 1);
+INSERT INTO `auth_user` (`id`, `first_name`, `last_name`, `username`, `role`, `password`, `enabled`) VALUES (3, 'Andrew', 'Wilkons', 'awo', 'user', 'awo', 1);
 
 COMMIT;
 
@@ -374,6 +395,11 @@ USE `organmatcherdb`;
 INSERT INTO `donor_role` (`transplant_type_id`, `patient_id`) VALUES (1, 2);
 INSERT INTO `donor_role` (`transplant_type_id`, `patient_id`) VALUES (2, 4);
 INSERT INTO `donor_role` (`transplant_type_id`, `patient_id`) VALUES (3, 6);
+INSERT INTO `donor_role` (`transplant_type_id`, `patient_id`) VALUES (1, 7);
+INSERT INTO `donor_role` (`transplant_type_id`, `patient_id`) VALUES (2, 8);
+INSERT INTO `donor_role` (`transplant_type_id`, `patient_id`) VALUES (3, 9);
+INSERT INTO `donor_role` (`transplant_type_id`, `patient_id`) VALUES (2, 2);
+INSERT INTO `donor_role` (`transplant_type_id`, `patient_id`) VALUES (3, 4);
 
 COMMIT;
 
@@ -406,3 +432,4 @@ INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUE
 INSERT INTO `blood_type_match` (`recipient_type_id`, `can_accept_type_id`) VALUES (8, 8);
 
 COMMIT;
+

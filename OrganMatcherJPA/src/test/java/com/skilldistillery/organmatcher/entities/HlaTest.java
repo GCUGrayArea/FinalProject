@@ -43,7 +43,7 @@ class HlaTest {
 	@Test
 	void test() {
 		assertNotNull(hla);
-		assertEquals( 3 , hla.getAllele() );
+		assertEquals( 2 , hla.getAllele() );
 		assertEquals( 1 , hla.getPatient().getId() );
 		assertEquals( 1 , hla.getProteinClass().getId() );		
 	}

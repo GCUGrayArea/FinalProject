@@ -1,117 +1,102 @@
   <div *ngIf="!selected">
-  <table>
+    <label for="patients">Find Requests by Organ Type:</label>
+    <form action="">
+
+    <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedType">
+      <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
+
+
+    </select>
+      <input type="submit" value="Search"  (click)="findByOrgan(selectedType.id)" />
+    </form>
+
+    <table class="table table-striped ">
     <thead>
       <tr>
-        <td>ID</td>
-        <td>NAME</td>
-
-        <!-- <td>ORGAN TYPE</td> -->
-        <td>DONOR</td>
-        <td>APPROVAL STATUS</td>
-        <td>ORGAN TYPE</td>
-        <td></td>
+        <th>ID</th>
+        <th>RECIPIENT</th>
+        <th>ORGAN TYPE</th>
+        <th>DONOR</th>
+        <th>APPROVAL STATUS</th>
+        <th>CREATED AT</th>
 
       </tr>
     </thead>
     <tbody>
 
-      <tr *ngFor="let tRequest of transplantRequest">
+      <tr *ngFor="let tRequest of transplantRequests" (click)="selected = tRequest">
         <td>{{tRequest.id}}</td>
         <td>{{tRequest.recipient.firstName}} {{tRequest.recipient.lastName}}</td>
-        <td> {{tRequest.recipient.firstName}}</td>
-        <!-- <td>{{tRequest.transplantType.organ}}</td> -->
-
-        <td><button (click) = "selected=tRequest" > SELECT</button></td>
-
+        <td>{{tRequest.organType.organ}}</td>
+        <td><div *ngIf="tRequest.donor">{{tRequest.donor.firstName}} {{tRequest.donor.lastName}}</div></td>
+        <td [ngClass]= "chooseBackground(tRequest)" >{{tRequest.approvalStatus}}</td>
+        <td>{{tRequest.createdAt}}</td>
       </tr>
     </tbody>
   </table>
+  <button (click)="displayTable()"  *ngIf="filtered">Back</button>
 </div>
 
-
-<!-- <div>
-<p >CREATE</p>
-
-  <form>
-    <p> ID </p><input type="number" name="id"  placeholder="Id" [(ngModel)]="newTransplantRequest.id"/><br />
-    <p> RECIPIENT </p><input type="text" name="recipient"  [(ngModel)]="newTransplantRequest.recipient" /><br />
-    <p> DONOR </p><input type="text" name="donor"  [(ngModel)]="newTransplantRequest.donor"/><br />
-    <p> CREATED AT </p><input type="text" name="createdAt"  placeholder="YYYY-MM-DD"[(ngModel)]="newTransplantRequest.createdAt" /><br />
-    <p> APPROVAL STATUS </p><select type="text" name="approvalStatus"  [(ngModel)]="newTransplantRequest.approvalStatus" >
-
-    <button (click)="addTransplantRequest(newTransplantRequest)" class="btn btn-link">SUBMIT</button>
-  </form>
-    </div>
-  </div> -->
 
 
 
 <div *ngIf="selected">
 
         <div *ngIf="selected"  style="text-align: center;" >
-          <p>PATIENT</p>
+          <h1>{{selected.recipient.firstName}} {{selected.recipient.lastName}}</h1>
 
-          <p>ID: {{selected.id}}</p>
-                <p>FIRST NAME: {{selected.recipient.firstName}}</p>
-                <p>LAST NAME: {{selected.recipient.lastName}}</p>
-                <p>BIRTH DATE: {{selected.recipient.birthDate}}</p>
-                <p>SEX: {{selected.recipient.sex}}</p>
-                <p>WEIGHT: {{selected.recipient.weightKg}}</p>
-                <!-- <p>BLOOD GROUP: {{selected.recipient.bloodType.bloodGroup}}</p>
-                <p>BLOOD RH: {{selected.recipient.bloodType.rh}}</p>
-                <p>ADDRESS: {{selected.recipient.address.street1}}</p>
-                <p>{selected.recipient.address.street2}}</p>
-                <p>{{selected.recipient.address.city}}</p>
-                <p>{{selected.recipient.address.state}}</p>
-                <p>{{selected.recipient.address.zip}}</p> -->
-                <!-- <p>ADDRESS: {{selected.recipient.transplantType.organ}}</p> -->
-                <!-- <p>{{selected.recipient.notes}}</p> -->
-                <!-- <p>{{selected.createdAt}}</p> -->
-                <!-- <p>{{selected.approvalStatus}}</p> -->
-                <!-- <button (click)="setUpdatedBooking()" class="btn btn-link">UPDATE</button> -->
-                <button (click)="selected =null" >RETURN HOME</button>
-                </div>
+          <table class="table table-striped ">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>RECIPIENT</th>
+                <th>ORGAN TYPE</th>
+                <th>DONOR</th>
+                <th>APPROVAL STATUS</th>
+                <th>CREATED AT</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr>
+                <td>{{selected.id}}</td>
+                <td>{{selected.recipient.firstName}} {{selected.recipient.lastName}}</td>
+                <td>{{selected.organType.organ}}</td>
+                <td><div *ngIf="selected.donor">{{selected.donor.firstName}} {{selected.donor.lastName}}</div></td>
+                <td >{{selected.approvalStatus}}</td>
+                <td>{{selected.createdAt}}</td>
+              </tr>
+            </tbody>
+          </table>
+              </div>
+
+              <button ngif="selected" (click)="loadViableDonors(selected)">Find Viable Donors</button>
+              <button (click)="displayTable()"  ngif="selected">Back</button>
+              <table class="table table-striped " *ngIf="selected.donor == null">
+                <thead>
+                </thead>
+                <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th><th>Add</th></tr>
+                <tbody>
+
+
+                  <tr *ngFor="let p of viableDonors">
+                    <td>{{p.id}}</td>
+                    <td>{{p.firstName}} {{p.lastName}}</td>
+                    <td>{{p.birthDate}}</td>
+                    <td>{{p.sex}}</td>
+                    <td>{{p.weightKg}}</td>
+                    <td>{{p.bloodType.bloodGroup}} {{p.bloodType.rh ? "+" :  "-"}}</td>
+                    <td>{{p.address.zip}}</td>
+                    <!-- <td><button ngif="selected" (click)="addDonor(p, selected)">Add this patient as a donor</button></td> -->
+                    <!-- <td>  <input (change)="updateTransplantRequest(selected)" type="checkbox" name="donor" [(ngModel)]="selected.donor"></td> -->
+                    <td>  <input (click)="setDonor(p)" type="checkbox" name="donor" [(ngModel)]="selected.donor"></td>
+                  </tr>
+                </tbody>
+
+              </table>
+
 </div>
 
 
-<!--
-<div *ngIf="selected && updatedBooking">
-  <p class="largerHeader">UPDATE THIS SESSION </p>
-  <div class="container">
-    <div class="row">
-      <div class="col">
-      </div>
-      <div class="col">
 
-    <form>
-      <p class="formP"> FIRST NAME </p><input type="text" name="firstName"  [(ngModel)]="updatedBooking.firstName"/><br />
-      <p class="formP"> LAST NAME </p><input type="text" name="lastName"  [(ngModel)]="updatedBooking.lastName" /><br />
-      <p class="formP"> EMAIL </p><input type="text" name="email"  [(ngModel)]="updatedBooking.email"/><br />
-      <p class="formP"> DATE </p><input type="text" name="date"  placeholder="YYYY-MM-DD"[(ngModel)]="updatedBooking.date" /><br />
-      <p class="formP"> PHOTO TYPE </p><select type="text" name="photoType"  [(ngModel)]="updatedBooking.photoType" >
-      <option value="Portrait Session">Portrait Session</option>
-      <option value="Wedding">Wedding</option>
-      <option value="Newborn Session">Newborn Session</option></select><br /><br />
-      <p class="formP"> LOCATION </p><input type="text" name="location"  [(ngModel)]="updatedBooking.location" /><br />
-      <p class="formP"> DURATION </p><input type="number" name="duration" [(ngModel)]="updatedBooking.duration" /><br />
-      <p class="formP"> NOTES </p><input type="text" name="notes"  [(ngModel)]="updatedBooking.notes" /><br /><br />
-      <div style="text-align: center;">
-      <button (click)="updateBooking(updatedBooking)" class="btn btn-link">SUBMIT</button>
-      </div>
-    </form>
-      </div>
-      <div class="col">
-      </div>
-    </div>
-  </div>
-</div>
-
-<br>
-
-<div style="text-align: center;" *ngIf="selected">
-  <form>
-    <p class="largerHeader"  >DELETE SESSION </p>
-    <button (click)="deleteBooking(selected.id)" class="btn btn-link">DELETE</button>
-
-  </form>
-</div> --> -->

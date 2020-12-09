@@ -1,0 +1,5 @@
+<form>
+  <input type="text" [(ngModel)]="user.username" name="username" placeholder="username">
+  <input type="password" [(ngModel)]="user.password" name="password" placeholder="password">
+  <input type="submit" (click)="login(user)" value="Submit">
+</form>

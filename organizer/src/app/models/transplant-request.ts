@@ -1,4 +1,5 @@
 import { Patient } from './patient';
+import { TransplantType } from './transplant-type';
 
 export class TransplantRequest {
   index() {
@@ -16,7 +17,7 @@ export class TransplantRequest {
   id: number;
   recipient: Patient;
   donor: Patient;
-  //  organType: TransplantType;
+   organType: TransplantType;
   createdAt: String;
   approvalStatus: String;
 
@@ -25,7 +26,7 @@ export class TransplantRequest {
     id?: number,
     recipient?: Patient,
     donor?: Patient,
-    //  organType: TransplantType;
+     organType?: TransplantType,
     createdAt?: String,
     approvalStatus?: String
     ) {
@@ -33,7 +34,7 @@ export class TransplantRequest {
     this.id = id;
     this.recipient = recipient;
     this.donor = donor;
-    //  organType: TransplantType;
+     this.organType= organType;
     this.createdAt = createdAt;
     this.approvalStatus= approvalStatus;
 
