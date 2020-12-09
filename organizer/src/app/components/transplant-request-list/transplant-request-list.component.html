@@ -58,11 +58,6 @@
         Approval Status: <br>
         <input type="text" name="title" placeholder="name" [(ngModel)]="review.approvalStatus" /><br />
 
-        <!-- <input type="text" name="title" placeholder="bloodType" [(ngModel)]="newPatient.bloodType.id" /><br /> -->
-
-
-        <!-- <hr/> -->
-
         <div class="border text-center">
           <button (click)="onSubmit(review, review.id)" data-dismiss="modal" class="btn btn-info">Submit</button>
           </div>
@@ -104,6 +99,10 @@
                 <td><div *ngIf="selected.donor">{{selected.donor.firstName}} {{selected.donor.lastName}}</div></td>
                 <td [ngClass]= "chooseBackground(selected)">{{selected.approvalStatus}}</td>
                 <td>{{selected.createdAt}}</td>
+                <td *ngIf="adminActive()"><div class="border">
+                  <button class="btn btn-md btn-outline-primary" (click)="open(content, selected)">
+                    <i class="fa fa-user"></i>Review</button>
+                </div></td>
               </tr>
             </tbody>
           </table>
@@ -135,6 +134,30 @@
 
               </table>
 
+
+
+              <ng-template #content let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Review Transplant Request</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class = "form-group">
+                    Approval Status: <br>
+                    <input type="text" name="title" placeholder="name" [(ngModel)]="review.approvalStatus" /><br />
+
+                    <div class="border text-center">
+                      <button (click)="onSubmit(review, review.id)" data-dismiss="modal" class="btn btn-info">Submit</button>
+                      </div>
+                  </form>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">cancel</button>
+                </div>
+              </ng-template>
 </div>
 
 
