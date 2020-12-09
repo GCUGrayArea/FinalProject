@@ -1,15 +1,14 @@
   <div *ngIf="!selected">
-    <label for="patients">Find Requests by Organ Type:</label>
-    <form action="">
-
+    <label for="patients">Find Unmatched Requests by Organ Type:</label>
+    <form >
     <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedType">
       <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
-
-
     </select>
       <input type="submit" value="Search"  (click)="findByOrgan(selectedType.id)" />
-    </form>
-
+    </form> <br>
+<form>
+  <input type="submit" value="Find All Unmatched"  (click)="findByDonorIsNull()" />
+</form>
     <table class="table table-striped ">
     <thead>
       <tr>
@@ -19,7 +18,7 @@
         <th>DONOR</th>
         <th>APPROVAL STATUS</th>
         <th>CREATED AT</th>
-
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -31,6 +30,7 @@
         <td><div *ngIf="tRequest.donor">{{tRequest.donor.firstName}} {{tRequest.donor.lastName}}</div></td>
         <td [ngClass]= "chooseBackground(tRequest)" >{{tRequest.approvalStatus}}</td>
         <td>{{tRequest.createdAt}}</td>
+        <td><input type="submit" value="Review"></td>
       </tr>
     </tbody>
   </table>
@@ -64,15 +64,16 @@
                 <td>{{selected.recipient.firstName}} {{selected.recipient.lastName}}</td>
                 <td>{{selected.organType.organ}}</td>
                 <td><div *ngIf="selected.donor">{{selected.donor.firstName}} {{selected.donor.lastName}}</div></td>
-                <td >{{selected.approvalStatus}}</td>
+                <td [ngClass]= "chooseBackground(selected)">{{selected.approvalStatus}}</td>
                 <td>{{selected.createdAt}}</td>
               </tr>
             </tbody>
           </table>
               </div>
 
-              <button *ngIf="selected" (click)="loadViableDonors(selected)">Find Viable Donors</button>
-              <button (click)="displayTable()"  *ngIf="selected">Back</button>
+
+              <button *ngIf="!selected.donor" (click)="loadViableDonors(selected)">Find Viable Donors</button>
+              <button (click)="displayTable()"  ngif="selected">Back</button>
               <table class="table table-striped " *ngIf="selected.donor == null">
                 <thead>
                 </thead>
