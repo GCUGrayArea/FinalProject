@@ -15,6 +15,7 @@ export class Patient {
   transplantTypes: TransplantType[];
   hlaProteins: Hla[];
 
+
   constructor(
      id?: number,
      firstName?: String,
