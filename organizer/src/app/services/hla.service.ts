@@ -27,9 +27,9 @@ export class HlaService {
       );
   }
 
-  createList(data, patientId: number ): Observable<Hla> {
+  createList(data, patientId: number ): Observable<Hla[]> {
     console.log(data)
-    return this.http.post<Hla>( this.postUrlForPatient( patientId ) + '/all' , data)
+    return this.http.post<Hla[]>( this.postUrlForPatient( patientId ) + '/all' , data)
       .pipe(
         catchError((err: any) => {
           console.log(err);

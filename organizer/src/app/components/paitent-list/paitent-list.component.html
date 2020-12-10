@@ -11,7 +11,7 @@
     <label for="patients">Find patient by blood type:</label>
     <form action="">
 
-    <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
+    <select name="types" id="types" (change)="selectBloodType($event.target.value , newPatient )" [(ngModel)]="selectedType">
       <option *ngFor="let t of bloodTypes" value = {{t.id}}>{{t.bloodGroup}} {{t.rh ? "+" :  "-"}}</option>
 
 
@@ -74,7 +74,6 @@
           <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
             <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
           </select>
-          <input type="submit" value="Set Patient BloodType"  (click)="setNewPatientBloodType()" ><br>
           Address: <br>
           <input type="text" name="street1" placeholder="street1" [(ngModel)]="newAddress.street1" /><br />
           <input type="text" name="street1" placeholder="street2" [(ngModel)]="newAddress.street2" /><br />
@@ -83,12 +82,30 @@
           <input type="number" name="zip" placeholder="zip" [(ngModel)]="newAddress.zip" /><br />
           <input type="text" name="weight" placeholder="weight" [(ngModel)]="newPatient.weightKg" /><br />
 
-          <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedHla">
+          <!-- <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedHla">
             <option *ngFor="let h of hla" value = {{h.id}} >{{h.allele}}  </option>
-          </select>
+          </select> -->
+          <table>
+            <thead>
+              <th></th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of arrayZeroToFive()">
+                <td>HLA-{{proteinClasses[i]}} allele</td>
+                <td>
+                  <select (change)="setProteinClassValue(i, $event.target.value)">
+                    <option *ngFor="let j of arrayZeroToFive()" value="{{j + 1 }}">{{j + 1}}</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         <div class="border text-center">
-          <button (click)="onSubmit(newPatient, newAddress)" data-dismiss="modal" class="btn btn-info">Submit</button>
+          <button (click)="onSubmit(newPatient, newAddress, hla)" data-dismiss="modal" class="btn btn-info">Submit</button>
           </div>
+
+
       </form>
 
     </div>
@@ -152,11 +169,9 @@
         <input type="text" name="sex" placeholder="sex" [(ngModel)]="editPatient.sex" /><br />
         Weight: <br>
         <input type="number" name="weight" placeholder="weight" [(ngModel)]="editPatient.weightKg" /><br />
-        <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
+        <select name="types" id="types" (change)="selectBloodType( $event.target.value , editPatient )" [(ngModel)]="selectedType">
           <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
-        </select>
-        <input type="submit" value="Set Patient BloodType"  (click)="setEditPatientBloodType()" ><br>
-
+        </select><br>
 
         <div class="border text-center">
           <button (click)="updatePatient(editPatient)" data-dismiss="modal" class="btn btn-info">Submit</button>
