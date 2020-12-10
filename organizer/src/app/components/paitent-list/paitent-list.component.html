@@ -93,13 +93,7 @@
   </ng-template>
 </div>
 
-<!-- <div *ngIf="selected && !loggedIn()">
-  <blockquote>You must be signed in to access this information.</blockquote>
-  <ul>
-  <li><button type="button" class="btn btn-outline-dark" [routerLink]="['/register']">REGISTER</a>
-    <app-login></app-login></li>
-  </ul>
-</div> -->
+
 
 
 
@@ -179,14 +173,14 @@
     <div class="modal-body">
       <form>
         Address: <br>
-        <input type="text" name="street1" value="{{selected.address.street1}}"  placeholder="{{selected.address.street1}}"[(ngModel)]="newAddress.street1" /><br />
-        <input type="text" name="street1" placeholder="street2" [(ngModel)]="newAddress.street2" /><br />
-        <input type="text" name="city" placeholder="city" [(ngModel)]="newAddress.city" /><br />
-        <input type="text" name="state" placeholder="state" [(ngModel)]="newAddress.state" /><br />
-        <input type="number" name="zip" placeholder="zip" [(ngModel)]="newAddress.zip" /><br />
+        <input type="text" name="street1"   placeholder="{{selected.address.street1}}"[(ngModel)]="editAddress.street1" /><br />
+        <input type="text" name="street2" [(ngModel)]="editAddress.street2" /><br />
+        <input type="text" name="city" placeholder="city" [(ngModel)]="editAddress.city" /><br />
+        <input type="text" name="state" placeholder="state" [(ngModel)]="editAddress.state" /><br />
+        <input type="number" name="zip" placeholder="zip" [(ngModel)]="editAddress.zip" /><br />
 
         <div class="border text-center">
-          <button (click)="updateAddress(editAddress)" data-dismiss="modal" class="btn btn-info">Submit</button>
+          <button (click)="updateAddress(editAddress, selected.address.id, selected)" data-dismiss="modal" class="btn btn-info">Submit</button>
           </div>
       </form>
 
