@@ -1,0 +1,30 @@
+/* <div style="text-align: center;">
+  <img src="assets/img/health.jpeg" class="Responsive image"
+    style="height: 300px; width: 1000px">
+</div>
+
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  &::before {
+    contentL '';
+    background-image: url("assets/img/health.jpeg");
+    background-size: cover;
+    background-position: top center;
+  }
+  h1 {
+    font-size: 8rem;
+    text-align: center;
+  }
+} */
+
+image{
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://www.roadlesstraveledstore.com/wp-content/uploads/2019/04/ResearchAustralia_home006-e1498803804566.jpg");
+  background-size: cover;
+  background-position: center;
+}

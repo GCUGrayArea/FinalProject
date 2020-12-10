@@ -1,6 +1,5 @@
 import { environment } from './../../environments/environment';
 import { TransplantRequest } from 'src/app/models/transplant-request';
-import { Patient } from './../models/patient';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -25,7 +24,7 @@ index(): Observable<Patient[]> {
     }),
     catchError((err: any) => {
       console.log(err);
-      return throwError('PatientService.index(): Error retrieving todo list');
+      return throwError('PatientService.index(): Error retrieving patient list');
     })
   );
 }
@@ -38,7 +37,7 @@ indexViableDonors(tr: TransplantRequest): Observable<Patient[]> {
     // }),
     catchError((err: any) => {
       console.log(err);
-      return throwError('PatientService.index(): Error retrieving todo list');
+      return throwError('PatientService.index(): Error retrieving patient list');
     })
   );
 }
@@ -62,7 +61,7 @@ show(id : number): Observable<Patient>{
       }),
       catchError((err: any) => {
         console.log(err);
-        return throwError('TodoService.index(): Error retrieving todo list');
+        return throwError('PatientService.index(): Error retrieving patient list');
       })
     );
   }
@@ -84,7 +83,7 @@ showByBloodTypeId(id : number): Observable<Patient[]>{
       }),
       catchError((err: any) => {
         console.log(err);
-        return throwError('TodoService.index(): Error retrieving todo list');
+        return throwError('PatientService.index(): Error retrieving patient list');
       })
     );
   }
@@ -95,9 +94,35 @@ showByBloodTypeId(id : number): Observable<Patient[]>{
       .pipe(
         catchError((err: any) => {
           console.log(err);
-          return throwError('KABOOM');
+          return throwError('PATIENT CREATION FAILED');
         })
       );
   }
+
+  update(patient: Patient, id: number) {
+    const httpOptions = {
+      headers: {
+        'Content-type': 'application/json'
+      }
+    };
+    return this.http.put<Patient[]>(this.url + '/' + id, patient, httpOptions).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('PatientService: Error updating patient');
+      })
+    );
+  }
+
+  destroy(patientId: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.url}/${patientId}`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('PatientService.destroy(): Error deleting patient');
+      })
+    );
+  }
+
+
+
 
 }

@@ -311,12 +311,12 @@ INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (15,
 INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (16, 2, 3, 4);
 INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (17, 2, 3, 5);
 INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (18, 4, 3, 6);
-INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (19, 1, 4, 1);
-INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (20, 5, 4, 2);
-INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (21, 2, 4, 3);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (19, 4, 4, 1);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (20, 1, 4, 2);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (21, 5, 4, 3);
 INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (22, 2, 4, 4);
-INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (23, 4, 4, 5);
-INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (24, 3, 4, 6);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (23, 2, 4, 5);
+INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (24, 4, 4, 6);
 INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (25, 2, 5, 1);
 INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (26, 2, 5, 2);
 INSERT INTO `hla` (`id`, `allele`, `patient_id`, `protein_class_id`) VALUES (27, 2, 5, 3);

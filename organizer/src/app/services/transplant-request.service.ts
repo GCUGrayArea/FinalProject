@@ -9,14 +9,21 @@ import { catchError, tap } from 'rxjs/operators';
 })
 export class TransplantRequestService {
  private baseUrl = 'http://localhost:8192/';
-    // private baseUrl = 'BookingsTracker/';
-     // private baseUrl = 'BookingsTracker/';
-    //  private baseUrl =environment.baseUrl;
+
 
   private url = this.baseUrl + 'api/transplant';
 
  index(): Observable<TransplantRequest[]> {
     return this.http.get<TransplantRequest[]>(this.url )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('retrieval failed');
+        })
+      );
+  }
+ indexByApprovalStatus(status: string): Observable<TransplantRequest[]> {
+    return this.http.get<TransplantRequest[]>(this.url + '/status/'+ status)
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -34,7 +41,7 @@ export class TransplantRequestService {
         })
       );
   }
-  update(transplantRequest: TransplantRequest) {
+  update(transplantRequest: TransplantRequest, ) {
     const httpOptions = {
       headers: {
         'Content-type': 'application/json'

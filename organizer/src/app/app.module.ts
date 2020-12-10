@@ -17,6 +17,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { RegisterPatientComponent } from './components/register-patient/register-patient.component';
+
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { LogoutComponent } from './components/logout/logout.component';
     ErrorComponent,
     RegisterComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    RegisterPatientComponent
   ],
   imports: [
     BrowserModule,
