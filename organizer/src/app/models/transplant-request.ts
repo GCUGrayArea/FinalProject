@@ -19,7 +19,7 @@ export class TransplantRequest {
   donor: Patient;
    organType: TransplantType;
   createdAt: String;
-  approvalStatus: String;
+  approvalStatus: string;
 
 
   constructor(
@@ -28,7 +28,7 @@ export class TransplantRequest {
     donor?: Patient,
      organType?: TransplantType,
     createdAt?: String,
-    approvalStatus?: String
+    approvalStatus?: string
     ) {
 
     this.id = id;

@@ -1,73 +1,103 @@
-  <div *ngIf="!selected">
-    <label for="patients">Find Unmatched Requests by Organ Type:</label>
-    <form >
-    <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedType">
-      <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
-    </select>
-      <input type="submit" value="Search"  (click)="findByOrgan(selectedType.id)" />
-    </form> <br>
-    <label for="patients">Find by Approval Status</label>
-    <form >
-    <select name="types" id="types" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
-      <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
-    </select>
-      <input type="submit" value="Search"  (click)="loadByApprovalStatus(status)" />
-    </form> <br>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Review Transplant Request test</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class = "form-group">
+      Approval Statusdfsdfsads: <br>
+      <!-- <input type="text" name="title" placeholder="name" [(ngModel)]="review.approvalStatus" /><br /> -->
+        <select name="types" id="types" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
+          <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
+        </select>
+          <input type="submit" value="set "  (click)="loadByApprovalStatus(status)" />
+        </form> <br>
+      <div class="border text-center">
+        <button (click)="onSubmit(review, review.id)" data-dismiss="modal" class="btn btn-info">Submit</button>
+        </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">cancel</button>
+  </div>
+</ng-template>
+
+
+<div *ngIf="!selected">
+  <label for="patients">Find Unmatched Requests by Organ Type:</label>
+  <form >
+  <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedType">
+    <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
+  </select>
+    <input type="submit" value="Search"  (click)="findByOrgan(selectedType.id)" />
+  </form> <br>
+  <label for="patients">Find by Approval Status</label>
+  <form >
+  <select name="types" id="types" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
+    <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
+  </select>
+    <input type="submit" value="Search"  (click)="loadByApprovalStatus(status)" />
+  </form> <br>
 <form>
-  <input type="submit" value="Find All Unmatched"  (click)="findByDonorIsNull()" />
+<input type="submit" value="Find All Unmatched"  (click)="findByDonorIsNull()" />
 </form>
-    <table class="table table-striped ">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>RECIPIENT</th>
-        <th>ORGAN TYPE</th>
-        <th>DONOR</th>
-        <th>APPROVAL STATUS</th>
-        <th>CREATED AT</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
+  <table class="table table-striped ">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>RECIPIENT</th>
+      <th>ORGAN TYPE</th>
+      <th>DONOR</th>
+      <th>APPROVAL STATUS</th>
+      <th>CREATED AT</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
 
-      <tr *ngFor="let tRequest of transplantRequests" >
-        <td>{{tRequest.id}}</td>
-        <td (click)="selected = tRequest">{{tRequest.recipient.firstName}} {{tRequest.recipient.lastName}}</td>
-        <td>{{tRequest.organType.organ}}</td>
-        <td><div *ngIf="tRequest.donor">{{tRequest.donor.firstName}} {{tRequest.donor.lastName}}</div></td>
-        <td [ngClass]= "chooseBackground(tRequest)" >{{tRequest.approvalStatus}}</td>
-        <td>{{tRequest.createdAt}}</td>
-        <td *ngIf="adminActive()"><div class="border">
-          <button class="btn btn-md btn-outline-primary" (click)="open(content, tRequest)">
-            <i class="fa fa-user"></i>Review</button>
-        </div></td>
-      </tr>
-    </tbody>
-  </table>
-  <button (click)="displayTable()"  *ngIf="filtered">Back</button>
+    <tr *ngFor="let tRequest of transplantRequests" >
+      <td>{{tRequest.id}}</td>
+      <td (click)="selected = tRequest">{{tRequest.recipient.firstName}} {{tRequest.recipient.lastName}}</td>
+      <td>{{tRequest.organType.organ}}</td>
+      <td><div *ngIf="tRequest.donor">{{tRequest.donor.firstName}} {{tRequest.donor.lastName}}</div></td>
+      <td [ngClass]= "chooseBackground(tRequest)" >{{tRequest.approvalStatus}}</td>
+      <td>{{tRequest.createdAt}}</td>
+      <td *ngIf="adminActive() && tRequest.approvalStatus === 'pending' || tRequest.approvalStatus ===null"><div class="border">
+        <button class="btn btn-md btn-outline-primary" (click)="open(content, tRequest)">
+          <i class="fa fa-user"></i>Review</button>
+      </div></td>
+    </tr>
+  </tbody>
+</table>
+<button (click)="displayTable()"  *ngIf="filtered">Back</button>
 
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Review Transplant Request</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form class = "form-group">
-        Approval Status: <br>
-        <input type="text" name="title" placeholder="name" [(ngModel)]="review.approvalStatus" /><br />
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Review Transplant Request</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class = "form-group">
+      Approval Statussdfsa: <br>
+      <!-- <input type="text" name="title" placeholder="name" [(ngModel)]="review.approvalStatus" /><br /> -->
+      <select name="types" id="types" (change)="setStatus($event.target.value)" [(ngModel)]="status">
+        <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
+      </select>
+        <input type="submit" value="set "  (click)="setStatus(status)" />
+      <div class="border text-center">
+        <button (click)="onSubmit(review, review.id)" data-dismiss="modal" class="btn btn-info">Submit</button>
+        </div>
+    </form>
 
-        <div class="border text-center">
-          <button (click)="onSubmit(review, review.id)" data-dismiss="modal" class="btn btn-info">Submit</button>
-          </div>
-      </form>
-
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">cancel</button>
-    </div>
-  </ng-template>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">cancel</button>
+  </div>
+</ng-template>
 </div>
 
 
@@ -75,89 +105,68 @@
 
 <div *ngIf="selected">
 
-        <div *ngIf="selected"  style="text-align: center;" >
-          <h1>{{selected.recipient.firstName}} {{selected.recipient.lastName}}</h1>
+      <div *ngIf="selected"  style="text-align: center;" >
+        <h1>{{selected.recipient.firstName}} {{selected.recipient.lastName}}</h1>
 
-          <table class="table table-striped ">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>RECIPIENT</th>
-                <th>ORGAN TYPE</th>
-                <th>DONOR</th>
-                <th>APPROVAL STATUS</th>
-                <th>CREATED AT</th>
+        <table class="table table-striped ">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>RECIPIENT</th>
+              <th>ORGAN TYPE</th>
+              <th>DONOR</th>
+              <th>APPROVAL STATUS</th>
+              <th>CREATED AT</th>
 
-              </tr>
-            </thead>
-            <tbody>
+            </tr>
+          </thead>
+          <tbody>
 
-              <tr>
-                <td>{{selected.id}}</td>
-                <td>{{selected.recipient.firstName}} {{selected.recipient.lastName}}</td>
-                <td>{{selected.organType.organ}}</td>
-                <td><div *ngIf="selected.donor">{{selected.donor.firstName}} {{selected.donor.lastName}}</div></td>
-                <td [ngClass]= "chooseBackground(selected)">{{selected.approvalStatus}}</td>
-                <td>{{selected.createdAt}}</td>
-                <td *ngIf="adminActive()"><div class="border">
-                  <button class="btn btn-md btn-outline-primary" (click)="open(content, selected)">
-                    <i class="fa fa-user"></i>Review</button>
-                </div></td>
-              </tr>
-            </tbody>
-          </table>
-              </div>
-
-
-              <button *ngIf="!selected.donor" (click)="loadViableDonors(selected)">Find Viable Donors</button>
-              <button (click)="displayTable()"  ngif="selected">Back</button>
-              <table class="table table-striped " *ngIf="selected.donor == null">
-                <thead>
-                </thead>
-                <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th><th>Add</th><th>HLA Compatibility</th></tr>
-                <tbody>
+            <tr>
+              <td>{{selected.id}}</td>
+              <td>{{selected.recipient.firstName}} {{selected.recipient.lastName}}</td>
+              <td>{{selected.organType.organ}}</td>
+              <td><div *ngIf="selected.donor">{{selected.donor.firstName}} {{selected.donor.lastName}}</div></td>
+              <td [ngClass]= "chooseBackground(selected)">{{selected.approvalStatus}}</td>
+              <td>{{selected.createdAt}}</td>
+              <td *ngIf="adminActive() && selected.approvalStatus === 'pending'"><div class="border">
+                <button class="btn btn-md btn-outline-primary" (click)="open(content, selected)">
+                  <i class="fa fa-user"></i>Review</button>
+              </div></td>
+            </tr>
+          </tbody>
+        </table>
+            </div>
 
 
-                  <tr *ngFor="let p of viableDonors">
-                    <td>{{p.id}}</td>
-                    <td>{{p.firstName}} {{p.lastName}}</td>
-                    <td>{{p.birthDate}}</td>
-                    <td>{{p.sex}}</td>
-                    <td>{{p.weightKg}}</td>
-                    <td>{{p.bloodType.bloodGroup}} {{p.bloodType.rh ? "+" :  "-"}}</td>
-                    <td>{{p.address.zip}}</td>
-                    <!-- <td>  <input (click)="setDonor(p)" type="button" name="donor" [(ngModel)]="selected.donor"></td> -->
-                    <td>  <button (click)="setDonor(p)">Add Donor</button></td>
-                    <td>{{selected.recipient.hlaCompatibility(p)}}/{{selected.recipient.hlaProteins.length}}</td>
-                  </tr>
-                </tbody>
-
-              </table>
+            <button *ngIf="!selected.donor" (click)="loadViableDonors(selected)">Find Viable Donors</button>
+            <button (click)="displayTable()"  ngif="selected">Back</button>
+            <table class="table table-striped " *ngIf="selected.donor == null">
+              <thead>
+              </thead>
+              <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th><th>Add</th><th>HLA Compatibility</th></tr>
+              <tbody>
 
 
+                <tr *ngFor="let p of viableDonors">
+                  <td>{{p.id}}</td>
+                  <td>{{p.firstName}} {{p.lastName}}</td>
+                  <td>{{p.birthDate}}</td>
+                  <td>{{p.sex}}</td>
+                  <td>{{p.weightKg}}</td>
+                  <td>{{p.bloodType.bloodGroup}} {{p.bloodType.rh ? "+" :  "-"}}</td>
+                  <td>{{p.address.zip}}</td>
+                  <!-- <td>  <input (click)="setDonor(p)" type="button" name="donor" [(ngModel)]="selected.donor"></td> -->
+                  <td>  <button (click)="setDonor(p)">Add Donor</button></td>
+                  <td>{{selected.recipient.hlaCompatibility(p)}}/{{selected.recipient.hlaProteins.length}}</td>
+                </tr>
+              </tbody>
 
-              <ng-template #content let-modal>
-                <div class="modal-header">
-                  <h4 class="modal-title" id="modal-basic-title">Review Transplant Request</h4>
-                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form class = "form-group">
-                    Approval Status: <br>
-                    <input type="text" name="title" placeholder="name" [(ngModel)]="review.approvalStatus" /><br />
+            </table>
 
-                    <div class="border text-center">
-                      <button (click)="onSubmit(review, review.id)" data-dismiss="modal" class="btn btn-info">Submit</button>
-                      </div>
-                  </form>
 
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">cancel</button>
-                </div>
-              </ng-template>
+
+
 </div>
 
 
