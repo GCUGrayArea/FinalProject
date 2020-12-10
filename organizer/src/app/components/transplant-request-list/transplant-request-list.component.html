@@ -31,8 +31,6 @@
   <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedType">
     <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
   </select>
-  <!-- <button class="btn btn-md btn-outline-primary" (click)="open(content, tRequest)">
-    <i class="fa fa-user"></i>Review</button> -->
     <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="Search"  (click)="findByOrgan(selectedType.id)" />
   </form> <br>
   <label for="patients">Find by Approval Status</label>
@@ -45,7 +43,8 @@
 <form>
 <input type="submit" class="btn btn-primary gradient" value="Find All Unmatched"  (click)="findByDonorIsNull()" />
 </form>
-  <table class="table table-striped ">
+
+<table class="table table-striped ">
   <thead>
     <tr>
       <th>ID</th>

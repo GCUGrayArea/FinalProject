@@ -1,29 +1,30 @@
 
-  <nav class="navbar navbar-expand-lg navbar-light ">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #047779; height: 100%">
     <a class="navbar-brand" [routerLink]="['/home']"><img src="assets/img/logo.png" class="Responsive image"
       style="height: 90px; width: 130px"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
+
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/home']">HOME</a>
+          <a class="nav-link" style="color: white" [routerLink]="['/home']">HOME</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/about']">ABOUT</a>
+          <a class="nav-link" style="color: white" [routerLink]="['/about']">ABOUT</a>
         </li>
         <li class="nav-item" *ngIf="!loggedIn()">
-          <a class="nav-link" [routerLink]="['/register']">REGISTER</a>
+          <a class="nav-link" style="color: white" [routerLink]="['/register']">REGISTER</a>
         </li>
         <li class="nav-item" *ngIf="!loggedIn()">
-          <a class="nav-link" [routerLink]="['/login']">LOGIN</a>
+          <a class="nav-link" style="color: rgb(250, 204, 0)" [routerLink]="['/login']">LOGIN</a>
         </li>
         <li class="nav-item" *ngIf="loggedIn()">
-          <a class="nav-link" [routerLink]="['/transplantRequest']">TRANSPLANT REQUESTS</a>
+          <a class="nav-link" style="color: white" [routerLink]="['/transplantRequest']">TRANSPLANT REQUESTS</a>
         </li>
         <li class="nav-item" *ngIf="loggedIn()">
-          <a class="nav-link" [routerLink]="['/patient']">PATIENTS</a>
+          <a class="nav-link" style="color: white" [routerLink]="['/patient']">PATIENTS</a>
         </li>
         <li class="nav-item" *ngIf=" loggedIn()">
           <app-logout></app-logout>
