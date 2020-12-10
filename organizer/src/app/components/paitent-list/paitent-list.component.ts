@@ -1,3 +1,4 @@
+import { HlaService } from './../../services/hla.service';
 import { AddressService } from './../../services/address.service';
 import { BloodType } from './../../models/blood-type';
 import { Router } from '@angular/router';
@@ -37,7 +38,9 @@ export class PaitentListComponent implements OnInit {
   editAddress = new Address();
   hla: Hla[];
   selectedHla : Hla = new Hla();
-  constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal, private addressService: AddressService) { }
+  proteinClasses = [ "A" , "B" , "C" , "D" , "E" , "F" ];
+
+  constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal, private addressService: AddressService, private hlaService: HlaService ) { }
 
   ngOnInit(): void {
     this.reload();
@@ -49,9 +52,18 @@ export class PaitentListComponent implements OnInit {
       let hla = new Hla();
       hla.proteinClass = new ProteinClass(i + 1);
       hla.allele = 1;
-
-
+      this.hla.push(hla);
     }
+  }
+
+  arrayZeroToFive() {
+    return Array.from({length: 6}, (x, i) => i);
+  }
+
+
+  setProteinClassValue( position: number , value: number ) {
+    console.log(position + "," + value);
+    this.hla[position].allele = value;
   }
 
   reload(): void {
@@ -167,7 +179,8 @@ export class PaitentListComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  onSubmit(patient: Patient, address: Address) {
+  onSubmit(patient: Patient, address: Address, hlaList: Hla[] ) {
+
     this.addressService.create(address).subscribe(
       data => {
         this.newAddress = data;
@@ -175,6 +188,7 @@ export class PaitentListComponent implements OnInit {
       err => console.error('Observer got an error: ' + err)
     )
     this.newPatient.address = this.newAddress;
+
     this.patientService.create(patient).subscribe(
       data => {
         this.reload();
@@ -182,9 +196,17 @@ export class PaitentListComponent implements OnInit {
       err => console.error('Observer got an error: ' + err)
     );
 
+    this.hlaService.createList( hlaList , this.newPatient.id ).subscribe(
+      data => {
+        this.newPatient.hlaProteins = data;
+      } ,
+      err => { console.error('Observer got an error: ' + err ); }
+    );
+
+    console.log(this.newPatient);
+
     this.modalService.dismissAll(); //dismiss the modal
     this.newPatient = new Patient();
-
   }
 
   updatePatient(patient: Patient) {
