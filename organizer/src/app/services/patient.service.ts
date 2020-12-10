@@ -1,4 +1,4 @@
-import { Patient } from 'src/app/models/patient';
+import { environment } from './../../environments/environment';
 import { TransplantRequest } from 'src/app/models/transplant-request';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
@@ -12,8 +12,7 @@ export class PatientService {
 
   constructor(private http : HttpClient) { }
 
-  private baseUrl = 'http://localhost:8192/';
-private url = this.baseUrl + 'api/patients';
+private url = environment.baseUrl + 'api/patients';
 
 
 index(): Observable<Patient[]> {
@@ -89,7 +88,7 @@ showByBloodTypeId(id : number): Observable<Patient[]>{
     );
   }
 
-  create(data) {
+  create(data): Observable<Patient> {
     console.log(data)
     return this.http.post<Patient>(this.url, data)
       .pipe(
