@@ -141,17 +141,12 @@ export class PaitentListComponent implements OnInit {
     this.reload();
     this.filtered = false;
   }
-  selectBloodType(id) {
-    console.log(id);
-    console.log(this.selectedType);
-
-    this.selectedType = null;
-    for (var i = 0; i < this.bloodTypes.length; i++) {
-      if (this.bloodTypes[i].id == id) {
-        this.selectedType = this.bloodTypes[i];
-      }
-    }
+  selectBloodType(id , patient: Patient ) {
+    // console.log(id);
+    patient.bloodType = this.bloodTypes[id - 1];
   }
+
+
   open(content) {
 
     Object.assign(this.editPatient, this.selected)
@@ -181,29 +176,38 @@ export class PaitentListComponent implements OnInit {
   }
   onSubmit(patient: Patient, address: Address, hlaList: Hla[] ) {
 
+  //Nested calls required to ensure that requests occur one after the other,
+  //iff the previous one (on which it depends) succeeded. Patient POST guaranteed
+  //not to work anyway if address POST hasn't happened, and HLA POST guaranteed to fail
+  //if patient POST hasn't already happened. Requests *need* to happen in order, and
+  //without nesting the second and third start before the first has finished.
+
+  //First call, posts new address record
     this.addressService.create(address).subscribe(
       data => {
-        this.newAddress = data;
-      },
-      err => console.error('Observer got an error: ' + err)
-    )
-    this.newPatient.address = this.newAddress;
-
-    this.patientService.create(patient).subscribe(
-      data => {
-        this.reload();
+        patient.address = data;
+        //Second call, after creating address, posts updated patient
+        //so address is non-null
+        this.patientService.create(patient).subscribe(
+          data1 => {
+            // this.reload();
+            patient = data1;
+            //Third and final call: if patient POST succeeded POSTS their
+            //HLA records to server and associates them with patient
+            this.hlaService.createList( hlaList , patient.id ).subscribe(
+              data2 => {
+                this.newPatient.hlaProteins = data2;
+              } ,
+              err2 => { console.error('Observer got an error: ' + err2 ); }
+            );
+          },
+          err1 => console.error('Observer got an error: ' + err1)
+        );
       },
       err => console.error('Observer got an error: ' + err)
     );
 
-    this.hlaService.createList( hlaList , this.newPatient.id ).subscribe(
-      data => {
-        this.newPatient.hlaProteins = data;
-      } ,
-      err => { console.error('Observer got an error: ' + err ); }
-    );
-
-    console.log(this.newPatient);
+    console.log(patient);
 
     this.modalService.dismissAll(); //dismiss the modal
     this.newPatient = new Patient();
@@ -263,12 +267,5 @@ export class PaitentListComponent implements OnInit {
     this.selected = null;
   }
 
-  setNewPatientBloodType() {
-    this.newPatient.bloodType = this.selectedType;
-  }
-
-  setEditPatientBloodType() {
-    this.editPatient.bloodType = this.selectedType;
-  }
 }
 
