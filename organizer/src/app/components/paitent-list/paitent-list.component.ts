@@ -32,6 +32,7 @@ export class PaitentListComponent implements OnInit {
   filtered = false;
   editPatient = new Patient();
   newAddress= new Address();
+  editAddress= new Address();
 
   constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal, private addressService: AddressService) { }
 
@@ -127,6 +128,8 @@ export class PaitentListComponent implements OnInit {
     }
   }
   open(content) {
+    Object.assign(this.editPatient, this.selected)
+    Object.assign(this.editAddress, this.selected.address)
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -163,8 +166,7 @@ export class PaitentListComponent implements OnInit {
   }
 
   updatePatient(patient: Patient) {
-    // this.todos[todo.id - 1] = Object.assign({}, todo);
-    // this.selected = Object.assign({}, todo);
+
     this.patientService.update(patient, this.selected.id).subscribe(
       (good) => {
         this.reload();
@@ -177,7 +179,25 @@ export class PaitentListComponent implements OnInit {
       }
     );
     this.modalService.dismissAll(); //dismiss the modal
-    this.editPatient = null;
+    this.editPatient = new Patient();
+
+  }
+  updateAddress(address: Address, id : number, patient: Patient) {
+
+    this.addressService.update(address, id).subscribe(
+      (good) => {
+        this.reload();
+        this.selected = Object.assign({}, patient);
+        this.selected.address = this.editAddress;
+        this.editAddress = new Address();
+
+      },
+      (bad) => {
+        console.error(bad);
+      }
+    );
+    this.modalService.dismissAll(); //dismiss the modal
+
   }
 
   openDelete(targetModal, patient: Patient) {

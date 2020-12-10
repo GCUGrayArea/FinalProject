@@ -27,6 +27,19 @@ export class AddressService {
       })
     );
   }
+  update(address: Address, id: number) {
+    const httpOptions = {
+      headers: {
+        'Content-type': 'application/json'
+      }
+    };
+    return this.http.put<Address>(this.url + '/' + id, address, httpOptions).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('PatientService: Error updating patient');
+      })
+    );
+  }
 
   create(data): Observable<Address> {
     console.log(data)
