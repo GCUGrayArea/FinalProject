@@ -64,7 +64,7 @@
       <td><div *ngIf="tRequest.donor">{{tRequest.donor.firstName}} {{tRequest.donor.lastName}}</div></td>
       <td [ngClass]= "chooseBackground(tRequest)" >{{tRequest.approvalStatus}}</td>
       <td>{{tRequest.createdAt}}</td>
-      <td *ngIf="adminActive() && tRequest.approvalStatus === 'pending' || tRequest.approvalStatus ===null"><div class="border">
+      <td *ngIf="adminActive() && tRequest.donor !=null && tRequest.approvalStatus === 'pending' || tRequest.approvalStatus ===null"><div class="border">
         <button class="btn btn-md btn-outline-primary" (click)="open(content, tRequest)">
           <i class="fa fa-user"></i>Review</button>
       </div></td>
@@ -129,7 +129,7 @@
               <td><div *ngIf="selected.donor">{{selected.donor.firstName}} {{selected.donor.lastName}}</div></td>
               <td [ngClass]= "chooseBackground(selected)">{{selected.approvalStatus}}</td>
               <td>{{selected.createdAt}}</td>
-              <td *ngIf="adminActive() && selected.approvalStatus === 'pending'"><div class="border">
+              <td *ngIf="adminActive() && selected.approvalStatus === 'pending' && selected.donor != null"><div class="border">
                 <button class="btn btn-md btn-outline-primary" (click)="open(content, selected)">
                   <i class="fa fa-user"></i>Review</button>
               </div></td>

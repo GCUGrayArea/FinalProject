@@ -10,7 +10,9 @@ public interface HlaService {
 
 	Hla show(int id);
 
-	Hla create(Hla hla);
+	Hla create( Hla hla, int patientId );
+	
+	List<Hla> createList( List<Hla> hlaList , int patientId );
 
 	Hla update(Hla hla, int id);
 
