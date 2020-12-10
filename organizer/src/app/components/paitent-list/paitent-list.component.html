@@ -159,7 +159,15 @@
         <input type="text" name="rh" placeholder="" [(ngModel)]="editPatient.bloodType.rh" /><br />
 
         <!-- <input type="text" name="title" placeholder="bloodType" [(ngModel)]="newPatient.bloodType.id" /><br /> -->
+        <form action="">
 
+          <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
+            <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
+
+
+          </select>
+            <input type="submit" value="Set Patient BloodType"  (click)="setEditPatientBloodType()" >
+          </form>
 
         <!-- <hr/> -->
 

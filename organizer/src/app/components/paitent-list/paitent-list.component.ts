@@ -188,5 +188,9 @@ export class PaitentListComponent implements OnInit {
 setNewPatientBloodType(){
   this.newPatient.bloodType= this.selectedType;
 }
+
+setEditPatientBloodType(){
+  this.editPatient.bloodType= this.selectedType;
+}
 }
 
