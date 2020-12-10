@@ -6,7 +6,7 @@ Organizr is a web service for use by health professionals seeking to match patie
 Organizr runs on a Java backend using the Spring framework, a MySQL database and an Angular frontend. Spring Boot and Apache Tomcat are used for the server, and basic authentication is provided by Spring Security. Database transactions are handled on the backend through the Java Persistence API. A RESTful web API is also provided for interaction with the service outside of the defined frontend.
 
 ## Matching
-Patients may be entered in the database as donors by assigning them donor roles. Donors are matched with recipients by filtering these donors according to the roles they have volunteered for and their compatibility with the recipient's blood type, and sorted from their based on their degree of match to the recipient's Human Leukocyte Antigen (HLA) proteins in accordance with established practice. Greater degrees of HLA commonality reduce the risk of transplant rejection, improving outcomes for transplant recipients.
+Patients may be entered in the database as donors by assigning them donor roles. Donors are matched with recipients by filtering these donors according to the roles they have volunteered for and their compatibility with the recipient's blood type, and sorted from there based on their degree of match to the recipient's Human Leukocyte Antigen (HLA) proteins in accordance with established practice. Greater degrees of HLA commonality reduce the risk of transplant rejection, improving outcomes for transplant recipients.
 
 ## REST API
 A RESTful API is used for all database transactions, with the following endpoints:
