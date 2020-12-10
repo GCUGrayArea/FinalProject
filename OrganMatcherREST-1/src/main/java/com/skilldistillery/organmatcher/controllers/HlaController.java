@@ -40,13 +40,14 @@ public Hla findSingleHla(@PathVariable Integer id){
 	return hlaSvc.show(id);
 }
 
-@PostMapping("/hla")
+
+@PostMapping("patients/{patientId}/hla")
 //public Hla createNewHla(@RequestBody Hla hla, HttpServletResponse response,
 //		HttpServletRequest request, Principal principal) {
-public Hla createNewHla(@RequestBody Hla hla, HttpServletResponse response,
+public Hla createNewHla( @PathVariable int patientId, @RequestBody Hla hla, HttpServletResponse response,
 		HttpServletRequest request) {
 //	hla = hlaSvc.create(principal.getName(), hla);
-	hla = hlaSvc.create(hla);
+	hla = hlaSvc.create( hla , patientId );
 
 	if (hla == null) {
 		response.setStatus(404);
@@ -58,6 +59,20 @@ public Hla createNewHla(@RequestBody Hla hla, HttpServletResponse response,
 
 	}
 	return hla;
+}
+
+@PostMapping("patients/{patientId}/hla/all")
+public List<Hla> createNewHla( @PathVariable int patientId , @RequestBody List<Hla> hlaList , HttpServletResponse res ) {
+	
+	hlaList = hlaSvc.createList( hlaList , patientId );
+	
+	if (hlaList == null) {
+		res.setStatus(404);
+	} else {
+		res.setStatus(201);
+	}
+	
+	return hlaList;
 }
 
 @PutMapping("/hla/{id}")
