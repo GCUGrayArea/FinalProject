@@ -100,6 +100,10 @@ export class PaitentListComponent implements OnInit {
     return localStorage.getItem('credentials') ? true : false;
   }
 
+  adminActive(): boolean {
+    return localStorage.getItem('userRole') === 'admin';
+}
+
   displayPatient(patient: Patient) {
     this.selected = patient;
   }

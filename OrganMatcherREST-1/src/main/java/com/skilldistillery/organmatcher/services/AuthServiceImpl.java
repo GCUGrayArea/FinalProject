@@ -29,7 +29,13 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public User getUser( String username ) {
-		return repo.findByUsername( username ).isEnabled() ? repo.findByUsername(username) : null;
+		User user = repo.findByUsername( username );
+		if(user == null || !user.isEnabled()) {
+			return null;
+		}
+		else {
+			return user;
+		}
 	}
 
 }

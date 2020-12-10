@@ -13,11 +13,8 @@ export class RegisterComponent implements OnInit {
   user: User = new User();
 
   constructor( private authService: AuthService , private router: Router ) { }
-
   ngOnInit(): void {
-
   }
-
   register( user: User ) {
     this.authService.register(user).subscribe(
       (good) => {
