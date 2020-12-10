@@ -1,3 +1,4 @@
+import { Address } from './../models/address';
 import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -24,6 +25,19 @@ export class AddressService {
       catchError((err: any) => {
         console.log(err);
         return throwError('TodoService.index(): Error retrieving todo list');
+      })
+    );
+  }
+  update(address: Address, id: number) {
+    const httpOptions = {
+      headers: {
+        'Content-type': 'application/json'
+      }
+    };
+    return this.http.put<Address>(this.url + '/' + id, address, httpOptions).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('PatientService: Error updating patient');
       })
     );
   }

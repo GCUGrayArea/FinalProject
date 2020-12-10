@@ -32,6 +32,7 @@ export class PaitentListComponent implements OnInit {
   filtered = false;
   editPatient = new Patient();
   newAddress= new Address();
+  edutAddres= new Address();
 
   constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal, private addressService: AddressService) { }
 
@@ -171,6 +172,21 @@ export class PaitentListComponent implements OnInit {
         if (this.selected != null) {
           this.selected = Object.assign({}, patient);
         }
+      },
+      (bad) => {
+        console.error(bad);
+      }
+    );
+    this.modalService.dismissAll(); //dismiss the modal
+    this.editPatient = null;
+  }
+  updateAddress(address: Address) {
+    // this.todos[todo.id - 1] = Object.assign({}, todo);
+    // this.selected = Object.assign({}, todo);
+    this.addressService.update(address, this.selected.id).subscribe(
+      (good) => {
+        this.reload();
+
       },
       (bad) => {
         console.error(bad);
