@@ -1,5 +1,4 @@
 <div *ngIf="!selected">
-<!-- <div *ngIf="!selected && loggedIn()"> -->
   <div>
     <form>
       Find patient by id: <br>
@@ -72,23 +71,18 @@
         <input type="text" name="sex" placeholder="sex" [(ngModel)]="newPatient.sex" /><br />
         Weight: <br>
         <input type="text" name="weight" placeholder="weight" [(ngModel)]="newPatient.weightKg" /><br />
-        <form action="">
-
           <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
             <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
-
-
           </select>
-            <input type="submit" value="Set Patient BloodType"  (click)="setNewPatientBloodType()" >
-          </form>
-
-        <!-- <input type="text" name="title" placeholder="bloodType" [(ngModel)]="newPatient.bloodType.id" /><br /> -->
-
-
-        <!-- <hr/> -->
-
+          <input type="submit" value="Set Patient BloodType"  (click)="setNewPatientBloodType()" ><br>
+          Address: <br>
+          <input type="text" name="street1" placeholder="street1" [(ngModel)]="newAddress.street1" /><br />
+          <input type="text" name="street1" placeholder="street2" [(ngModel)]="newAddress.street2" /><br />
+          <input type="text" name="city" placeholder="city" [(ngModel)]="newAddress.city" /><br />
+          <input type="text" name="state" placeholder="state" [(ngModel)]="newAddress.state" /><br />
+          <input type="number" name="zip" placeholder="zip" [(ngModel)]="newAddress.zip" /><br />
         <div class="border text-center">
-          <button (click)="onSubmit(newPatient)" data-dismiss="modal" class="btn btn-info">Submit</button>
+          <button (click)="onSubmit(newPatient, newAddress)" data-dismiss="modal" class="btn btn-info">Submit</button>
           </div>
       </form>
 
@@ -155,21 +149,11 @@
         <input type="text" name="sex" placeholder="sex" [(ngModel)]="editPatient.sex" /><br />
         Weight: <br>
         <input type="number" name="weight" placeholder="weight" [(ngModel)]="editPatient.weightKg" /><br />
-        <input type="text" name="bloodType" placeholder="Blood Type" [(ngModel)]="editPatient.bloodType.bloodGroup" /><br />
-        <input type="text" name="rh" placeholder="" [(ngModel)]="editPatient.bloodType.rh" /><br />
+        <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
+          <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
+        </select>
+        <input type="submit" value="Set Patient BloodType"  (click)="setEditPatientBloodType()" ><br>
 
-        <!-- <input type="text" name="title" placeholder="bloodType" [(ngModel)]="newPatient.bloodType.id" /><br /> -->
-        <form action="">
-
-          <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
-            <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
-
-
-          </select>
-            <input type="submit" value="Set Patient BloodType"  (click)="setEditPatientBloodType()" >
-          </form>
-
-        <!-- <hr/> -->
 
         <div class="border text-center">
           <button (click)="updatePatient(editPatient)" data-dismiss="modal" class="btn btn-info">Submit</button>
