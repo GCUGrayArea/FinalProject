@@ -1,2 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+
+
+.resources{
+ font-size: 20px;
+ text-align: center;
+  font-family: Avenir light
+}
