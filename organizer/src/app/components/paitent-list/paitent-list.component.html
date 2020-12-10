@@ -184,7 +184,7 @@
 
 
 
-  <button class="btn btn-outline-primary mb-2 mr-2" (click)="openDelete(contentDelete, selected)">delete</button>
+  <button *ngIf="adminActive()"class="btn btn-outline-primary mb-2 mr-2" (click)="openDelete(contentDelete, selected)">delete</button>
   <ng-template #contentDelete let-modal>
     <div class="modal-header">
       <h4 class="modal-title">Confirm Delete</h4>
