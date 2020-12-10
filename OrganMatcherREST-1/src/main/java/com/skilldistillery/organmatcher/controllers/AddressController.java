@@ -22,22 +22,22 @@ public class AddressController {
 	@Autowired
 	private AddressService svc;
 	
-	@GetMapping("address/{id}")
+	@GetMapping("/address/{id}")
 	public Address show( @PathVariable int id ) {
 		return svc.show( id );
 	}
 	
-	@PutMapping("address/{id}")
+	@PutMapping("/address/{id}")
 	public Address update( @PathVariable int id, @RequestBody Address address ) {
 		return svc.update( address , id );
 	}
 	
-	@PostMapping("address")
+	@PostMapping("/address")
 	public Address create( @RequestBody Address address ) {
 		return svc.create( address );
 	}
 	
-	@DeleteMapping("address/{id}")
+	@DeleteMapping("/address/{id}")
 	public boolean delete( @PathVariable int id ) {
 		return svc.destroy( id );
 	}
