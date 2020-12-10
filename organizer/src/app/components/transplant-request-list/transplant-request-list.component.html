@@ -7,7 +7,7 @@
   </div>
   <div class="modal-body">
     <form class = "form-group">
-      Approval Statusdfsdfsads: <br>
+      Approval Status: <br>
       <!-- <input type="text" name="title" placeholder="name" [(ngModel)]="review.approvalStatus" /><br /> -->
         <select name="types" id="types" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
           <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
@@ -20,7 +20,7 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">cancel</button>
+    <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
   </div>
 </ng-template>
 
@@ -31,17 +31,19 @@
   <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedType">
     <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
   </select>
-    <input type="submit" value="Search"  (click)="findByOrgan(selectedType.id)" />
+  <!-- <button class="btn btn-md btn-outline-primary" (click)="open(content, tRequest)">
+    <i class="fa fa-user"></i>Review</button> -->
+    <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="Search"  (click)="findByOrgan(selectedType.id)" />
   </form> <br>
   <label for="patients">Find by Approval Status</label>
   <form >
   <select name="types" id="types" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
     <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
   </select>
-    <input type="submit" value="Search"  (click)="loadByApprovalStatus(status)" />
+    <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="Search"  (click)="loadByApprovalStatus(status)" />
   </form> <br>
 <form>
-<input type="submit" value="Find All Unmatched"  (click)="findByDonorIsNull()" />
+<input type="submit" class="btn btn-primary gradient" value="Find All Unmatched"  (click)="findByDonorIsNull()" />
 </form>
   <table class="table table-striped ">
   <thead>
@@ -82,7 +84,7 @@
   </div>
   <div class="modal-body">
     <form class = "form-group">
-      Approval Statussdfsa: <br>
+      Approval Status: <br>
       <!-- <input type="text" name="title" placeholder="name" [(ngModel)]="review.approvalStatus" /><br /> -->
       <select name="types" id="types" (change)="setStatus($event.target.value)" [(ngModel)]="status">
         <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
@@ -95,7 +97,7 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">cancel</button>
+    <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
   </div>
 </ng-template>
 </div>
@@ -139,8 +141,8 @@
             </div>
 
 
-            <button *ngIf="!selected.donor" (click)="loadViableDonors(selected)">Find Viable Donors</button>
-            <button (click)="displayTable()"  ngif="selected">Back</button>
+            <button *ngIf="!selected.donor" class="btn btn-primary btn-sm gradient" (click)="loadViableDonors(selected)">Find Viable Donors</button>
+            <button (click)="displayTable()" class="btn btn-outline-primary btn-sm gradient" ngif="selected">Back</button>
             <table class="table table-striped " *ngIf="selected.donor == null">
               <thead>
               </thead>
@@ -157,7 +159,8 @@
                   <td>{{p.bloodType.bloodGroup}} {{p.bloodType.rh ? "+" :  "-"}}</td>
                   <td>{{p.address.zip}}</td>
                   <!-- <td>  <input (click)="setDonor(p)" type="button" name="donor" [(ngModel)]="selected.donor"></td> -->
-                  <td>  <button (click)="setDonor(p)">Add Donor</button></td>
+                  <td>  <button (click)="setDonor(p)" class="btn btn-primary btn-lg gradient">Add Donor</button>
+
                   <td>{{selected.recipient.hlaCompatibility(p)}}/{{selected.recipient.hlaProteins.length}}</td>
                 </tr>
               </tbody>
