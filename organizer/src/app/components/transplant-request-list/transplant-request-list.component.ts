@@ -266,6 +266,7 @@ private getDismissReason(reason: any): string {
   }
 }
 onSubmit(tr : TransplantRequest, id: number) {
+  this.review.approvalStatus = this.status;
   this.tSvc.update(tr).subscribe(
     data => {
       this.loadTransplantRequest();
@@ -276,5 +277,13 @@ onSubmit(tr : TransplantRequest, id: number) {
     this.modalService.dismissAll(); //dismiss the modal
 
 
+}
+setStatus(status){
+  this.selectedType = null;
+    for (var i = 0; i < this.organTypes.length; i++) {
+      if (this.approvalStatus[i] == status) {
+        this.status = this.approvalStatus[i];
+      }
+    }
 }
 }
