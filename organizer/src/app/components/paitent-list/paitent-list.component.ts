@@ -1,9 +1,11 @@
+import { AddressService } from './../../services/address.service';
 import { BloodType } from './../../models/blood-type';
 import { Router } from '@angular/router';
 import { PatientService } from './../../services/patient.service';
 import { Component, OnInit } from '@angular/core';
 import { Patient } from 'src/app/models/patient';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Address } from 'src/app/models/address';
 
 @Component({
   selector: 'app-paitent-list',
@@ -29,8 +31,9 @@ export class PaitentListComponent implements OnInit {
   selectedType = new BloodType();
   filtered = false;
   editPatient = new Patient();
+  newAddress= new Address();
 
-  constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal) { }
+  constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal, private addressService: AddressService) { }
 
   ngOnInit(): void {
     this.reload();
@@ -139,13 +142,20 @@ export class PaitentListComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  onSubmit(patient : Patient) {
-    this.patientService.create(patient).subscribe(
-      data => {
-        this.reload();
+  onSubmit(patient : Patient, address: Address) {
+    this.addressService.create(address).subscribe(
+      data =>{
+        this.newAddress = data;
       },
       err => console.error('Observer got an error: ' + err)
-      );
+      )
+      this.newPatient.address = this.newAddress;
+      this.patientService.create(patient).subscribe(
+        data => {
+          this.reload();
+        },
+        err => console.error('Observer got an error: ' + err)
+        );
 
       this.modalService.dismissAll(); //dismiss the modal
       this.newPatient = new Patient();
