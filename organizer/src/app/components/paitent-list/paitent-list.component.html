@@ -41,7 +41,7 @@
 
 
   <div class="border">
-    <button class="btn btn-md btn-outline-primary" (click)="open(content)">
+    <button class="btn btn-md btn-outline-primary" (click)="openCreate(content)">
       <i class="fa fa-user"></i>Create new Patient</button>
   </div>
   <ng-template #content let-modal>
@@ -81,6 +81,11 @@
           <input type="text" name="city" placeholder="city" [(ngModel)]="newAddress.city" /><br />
           <input type="text" name="state" placeholder="state" [(ngModel)]="newAddress.state" /><br />
           <input type="number" name="zip" placeholder="zip" [(ngModel)]="newAddress.zip" /><br />
+          <input type="text" name="weight" placeholder="weight" [(ngModel)]="newPatient.weightKg" /><br />
+
+          <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedHla">
+            <option *ngFor="let h of hla" value = {{h.id}} >{{h.allele}}  </option>
+          </select>
         <div class="border text-center">
           <button (click)="onSubmit(newPatient, newAddress)" data-dismiss="modal" class="btn btn-info">Submit</button>
           </div>

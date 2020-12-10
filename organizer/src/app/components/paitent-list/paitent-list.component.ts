@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { Patient } from 'src/app/models/patient';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Address } from 'src/app/models/address';
+import { Hla } from 'src/app/models/hla';
+import { ProteinClass } from 'src/app/models/protein-class';
 
 @Component({
   selector: 'app-paitent-list',
@@ -17,7 +19,7 @@ export class PaitentListComponent implements OnInit {
   patients: Patient[] = [];
   selected = null;
   id = null;
-  newPatient= new Patient();
+  newPatient = new Patient();
   bloodTypes: BloodType[] = [
     new BloodType(1, 'A', true),
     new BloodType(2, 'A', false),
@@ -31,14 +33,25 @@ export class PaitentListComponent implements OnInit {
   selectedType = new BloodType();
   filtered = false;
   editPatient = new Patient();
-  newAddress= new Address();
-  editAddress= new Address();
-
+  newAddress = new Address();
+  editAddress = new Address();
+  hla: Hla[];
+  selectedHla : Hla = new Hla();
   constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal, private addressService: AddressService) { }
 
   ngOnInit(): void {
     this.reload();
 
+  }
+  initHla() {
+    this.hla = [];
+    for (let i = 0; i < 6; i++) {
+      let hla = new Hla();
+      hla.proteinClass = new ProteinClass(i + 1);
+      hla.allele = 1;
+
+
+    }
   }
 
   reload(): void {
@@ -106,7 +119,7 @@ export class PaitentListComponent implements OnInit {
 
   adminActive(): boolean {
     return localStorage.getItem('userRole') === 'admin';
-}
+  }
 
   displayPatient(patient: Patient) {
     this.selected = patient;
@@ -114,7 +127,7 @@ export class PaitentListComponent implements OnInit {
   displayTable(): void {
     this.selected = null;
     this.reload();
-    this.filtered =false;
+    this.filtered = false;
   }
   selectBloodType(id) {
     console.log(id);
@@ -128,8 +141,17 @@ export class PaitentListComponent implements OnInit {
     }
   }
   open(content) {
+
     Object.assign(this.editPatient, this.selected)
     Object.assign(this.editAddress, this.selected.address)
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  openCreate(content) {
+    this.initHla()
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -145,23 +167,23 @@ export class PaitentListComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  onSubmit(patient : Patient, address: Address) {
+  onSubmit(patient: Patient, address: Address) {
     this.addressService.create(address).subscribe(
-      data =>{
+      data => {
         this.newAddress = data;
       },
       err => console.error('Observer got an error: ' + err)
-      )
-      this.newPatient.address = this.newAddress;
-      this.patientService.create(patient).subscribe(
-        data => {
-          this.reload();
-        },
-        err => console.error('Observer got an error: ' + err)
-        );
+    )
+    this.newPatient.address = this.newAddress;
+    this.patientService.create(patient).subscribe(
+      data => {
+        this.reload();
+      },
+      err => console.error('Observer got an error: ' + err)
+    );
 
-      this.modalService.dismissAll(); //dismiss the modal
-      this.newPatient = new Patient();
+    this.modalService.dismissAll(); //dismiss the modal
+    this.newPatient = new Patient();
 
   }
 
@@ -182,7 +204,7 @@ export class PaitentListComponent implements OnInit {
     this.editPatient = new Patient();
 
   }
-  updateAddress(address: Address, id : number, patient: Patient) {
+  updateAddress(address: Address, id: number, patient: Patient) {
 
     this.addressService.update(address, id).subscribe(
       (good) => {
@@ -216,15 +238,15 @@ export class PaitentListComponent implements OnInit {
         console.error(bad);
       }
     );
-    this.selected=null;
+    this.selected = null;
   }
 
-setNewPatientBloodType(){
-  this.newPatient.bloodType= this.selectedType;
-}
+  setNewPatientBloodType() {
+    this.newPatient.bloodType = this.selectedType;
+  }
 
-setEditPatientBloodType(){
-  this.editPatient.bloodType= this.selectedType;
-}
+  setEditPatientBloodType() {
+    this.editPatient.bloodType = this.selectedType;
+  }
 }
 
