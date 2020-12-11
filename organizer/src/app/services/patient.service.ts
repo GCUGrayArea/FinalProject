@@ -1,17 +1,19 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { environment } from './../../environments/environment';
 import { TransplantRequest } from 'src/app/models/transplant-request';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Patient } from '../models/patient';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatientService {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient, private authService : AuthService, private router: Router) { }
 
 private url = environment.baseUrl + 'api/patients';
 
@@ -31,8 +33,18 @@ index(): Observable<Patient[]> {
   );
 }
 indexViableDonors(tr: TransplantRequest): Observable<Patient[]> {
+    const credentials= this.authService.getCredentials();
+    const httpOptions = {
+      headers: new HttpHeaders({
+         'Authorization': `Basic ${credentials}`,
+         'X-Requested-With': 'XMLHttpRequest'
+       })
+      };
+      if(!this.authService.checkLogin()){
+        this.router.navigateByUrl('login')
+      }
 
-  return this.http.get<Patient[]>(`${this.url}/transplant-type/${tr.organType.organ}/blood-type-match/${tr.recipient.bloodType.id}`).pipe(
+  return this.http.get<Patient[]>(`${this.url}/transplant-type/${tr.organType.organ}/blood-type/${tr.recipient.bloodType.id}`).pipe(
     // tap((res) => {
     //   //localStorage.setItem('credentials' , credentials);
     //  return res;
@@ -67,17 +79,7 @@ show(id : number): Observable<Patient>{
       })
     );
   }
-showByBloodTypeId(id : number): Observable<Patient[]>{
-    // const credentials= this.authService.getCredentials();
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //      'Authorization': `Basic ${credentials}`,
-    //      'X-Requested-With': 'XMLHttpRequest'
-    //    })
-    //   };
-    //   if(!this.authService.checkLogin()){
-    //     this.router.navigateByUrl('login')
-    //   }
+showByBloodTypeId(id : number): Observable<Patient[]> {
     return this.http.get<Patient[]>(`${this.url}/blood-type/${id}`).pipe(
       tap((res) => {
         //localStorage.setItem('credentials' , credentials);
@@ -88,7 +90,7 @@ showByBloodTypeId(id : number): Observable<Patient[]>{
         return throwError('PatientService.index(): Error retrieving patient list');
       })
     );
-  }
+}
 
   create(data): Observable<Patient> {
     console.log(data)

@@ -38,7 +38,7 @@
 
   <label for="patients">Find Unmatched Requests by Organ Type:</label>
   <form >
-  <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedType">
+  <select name="types" id="types" (change)="selectOrganType($event.target.value)">
     <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
   </select>
     <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="Search"  (click)="findByOrgan(selectedType.id)" />

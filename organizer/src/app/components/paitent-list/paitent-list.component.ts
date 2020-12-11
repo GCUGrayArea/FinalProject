@@ -50,7 +50,6 @@ export class PaitentListComponent implements OnInit {
   ];
   selectedOrgan = new TransplantType();
 
-
   constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal, private addressService: AddressService, private hlaService: HlaService, private trService: TransplantRequestService) { }
 
   ngOnInit(): void {
@@ -71,7 +70,6 @@ export class PaitentListComponent implements OnInit {
     return Array.from({ length: 6 }, (x, i) => i);
   }
 
-
   setProteinClassValue(position: number, value: number) {
     console.log(position + "," + value);
     this.hla[position].allele = value;
@@ -88,6 +86,7 @@ export class PaitentListComponent implements OnInit {
       }
     );
   }
+
   findById(id) {
     console.log(id);
 
@@ -108,9 +107,8 @@ export class PaitentListComponent implements OnInit {
       this.router.navigateByUrl('invalidId');
     }
     this.id = null;
-
-
   }
+
   findByBloodTypeId(id) {
     console.log(id);
     this.patients = [];
@@ -133,9 +131,6 @@ export class PaitentListComponent implements OnInit {
 
   }
 
-
-
-
   loggedIn(): boolean {
     return localStorage.getItem('credentials') ? true : false;
   }
@@ -152,9 +147,13 @@ export class PaitentListComponent implements OnInit {
     this.reload();
     this.filtered = false;
   }
+
   selectBloodType(id, patient: Patient) {
-    // console.log(id);
-    patient.bloodType = this.bloodTypes[id - 1];
+    if ( patient == null ) {
+      this.selectedType.id = id;
+    } else {
+      patient.bloodType = this.bloodTypes[id - 1];
+    }
   }
 
 
