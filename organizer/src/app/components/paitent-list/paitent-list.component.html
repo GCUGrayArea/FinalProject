@@ -1,26 +1,37 @@
-<div *ngIf="!selected">
-  <div>
-    <form>
-      Find patient by id: <br>
-      <input  type="text" name="id" placeholder="id" [(ngModel)]="id"/>
-      <input class="btn btn-sm btn-outline-primary" type="submit" value="Search"  (click)="findById(id)" />
-    </form>
-  </div>
+<br><br>
+<p class ="patientHeader"> PATIENT INFO</p>
+<br><br><br>
+<div *ngIf="!selected" class ="patient">
+  <div class="container" style="text-align: center;">
+    <div class="row align-items-start">
+      <div class="col">
+        <div>
+          <label for="patientId" > FIND PATIENT BY ID</label>
+          <form id="patientId">
+            <br>
+            <input  type="text" name="id" placeholder="id" [(ngModel)]="id"/>
+            <input class="btn btn-sm btn-outline-primary" type="submit" value="Search"  (click)="findById(id)" />
+          </form>
+        </div>      </div>
+
+      <div class="col">
+        <label for="patients" style="text-align: center;">FIND PATIENT BY BLOOD TYPE:</label>
+        <form action=""> <br>
+        <select name="types" id="types" (change)="selectBloodType($event.target.value , newPatient )" [(ngModel)]="selectedType">
+          <option *ngFor="let t of bloodTypes" value = {{t.id}}>{{t.bloodGroup}} {{t.rh ? "+" :  "-"}}</option>
+        </select>
+          <input class="btn btn-sm btn-outline-primary" type="submit" value="Search"  (click)="findByBloodTypeId(selectedType.id)" />
+        </form>      </div>
+        </div>
+
+<br><br><br>
 
 
-    <label for="patients">Find patient by blood type:</label>
-    <form action="">
-
-    <select name="types" id="types" (change)="selectBloodType($event.target.value , newPatient )" [(ngModel)]="selectedType">
-      <option *ngFor="let t of bloodTypes" value = {{t.id}}>{{t.bloodGroup}} {{t.rh ? "+" :  "-"}}</option>
-    </select>
-      <input class="btn btn-sm btn-outline-primary" type="submit" value="Search"  (click)="findByBloodTypeId(selectedType.id)" />
-    </form>
 
     <table class="table table-hover ">
     <thead>
     </thead>
-    <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th></tr>
+    <tr><th>PATIENT ID</th><th>NAME</th><th>BIRTHDATE</th><th>SEX</th><th>WEIGHT (kg)</th><th>BLOOD TYPE</th><th>ZIP CODE</th></tr>
     <tbody>
 
       <tr *ngFor="let p of patients" (click)="displayPatient(p)">
@@ -37,19 +48,22 @@
   </table>
   <button class="btn btn-info" (click)="displayTable()"  *ngIf="filtered">Back</button>
 
-
-  <div class="border">
+<br><br>
+  <div class="border" class ="patient">
     <button class="btn btn-md btn-outline-primary" (click)="openCreate(content)">
-      <i class="fa fa-user"></i>Create new Patient</button>
+      <i class="fa fa-user"></i>CREATE NEW PATIENT</button>
   </div>
+  <br><br><br><br>
   <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">New Patient</h4>
+    <div class="modal-header" class ="patient">
+      <br>
+      <br>
+      <h4 class="modal-title" id="modal-basic-title" style ="text-align:center"> NEW PATIENT</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" class ="patient">
       <form class = "form-group">
         First Name: <br>
         <input type="text" name="title" placeholder="firstName" [(ngModel)]="newPatient.firstName" /><br />
@@ -66,7 +80,11 @@
           </div>
         </div>
         Sex: <br>
-        <input type="text" name="sex" placeholder="sex" [(ngModel)]="newPatient.sex" /><br />
+        <!-- <input type="text" name="sex" placeholder="sex" [(ngModel)]="newPatient.sex" /><br /> -->
+        <select name="sex" id="cars" type="text" [(ngModel)]="newPatient.sex"><br />
+          <option value=Female>Volvo</option>
+          <option value="Male">Saab</option>
+        </select>
         Weight: <br>
         <input type="text" name="weight" placeholder="weight (kg)" [(ngModel)]="newPatient.weightKg" /><br />
         Blood Type:<select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
@@ -106,7 +124,7 @@
       </form>
 
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer" class ="patient">
       <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
     </div>
   </ng-template>
@@ -116,7 +134,7 @@
 
 
 
-<div *ngIf="selected">
+<div *ngIf="selected" class ="patient">
 <div class= "text-center">
   <h1>{{selected.firstName}} {{selected.lastName}}</h1>
 
@@ -131,15 +149,15 @@
 
 
 
-  <div class="container">
+  <div class="container patient" >
     <button class="btn btn-md btn-outline-primary" (click)="open(content)">
       <i class="fa fa-user" ></i>Update Patient Record</button>
   </div>
-  <div class="container">
+  <div class="container patient">
     <button class="btn btn-md btn-outline-primary" (click)="open(contentEdit)">
       <i class="fa fa-user" ></i>Update Patient Address</button>
   </div>
-  <div class="container">
+  <div class="container patient">
     <button class="btn btn-md btn-outline-primary" (click)="open(contentTR)">
       <i class="fa fa-user" ></i>Create A Transplant Request</button>
   </div>
@@ -150,7 +168,7 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-    <div class="modal-body">
+    <div class="modal-body patient" >
       <form>
         First Name: <br>
         <input type="text" name="firstName" placeholder="First Name" [(ngModel)]="editPatient.firstName" /><br />
@@ -174,13 +192,13 @@
           <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
         </select><br>
 
-        <div class="border text-center">
+        <div class="border text-center patient">
           <button (click)="updatePatient(editPatient)" data-dismiss="modal" class="btn btn-info">Submit</button>
           </div>
       </form>
 
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer patient">
       <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
     </div>
   </ng-template>
@@ -191,7 +209,7 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-    <div class="modal-body">
+    <div class="modal-body patient">
       <form>
         Address: <br>
         <input type="text" name="street1"   placeholder="{{selected.address.street1}}"[(ngModel)]="editAddress.street1" /><br />
@@ -200,7 +218,7 @@
         <input type="text" name="state" placeholder="state" [(ngModel)]="editAddress.state" /><br />
         <input type="number" name="zip" placeholder="zip" [(ngModel)]="editAddress.zip" /><br />
 
-        <div class="border text-center">
+        <div class="border text-center patient">
           <button (click)="updateAddress(editAddress, selected.address.id, selected)" data-dismiss="modal" class="btn btn-info">Submit</button>
           </div>
       </form>
