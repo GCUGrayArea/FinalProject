@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,6 +28,13 @@ public class BloodType {
 	@JsonIgnore
 	@OneToMany(mappedBy = "bloodType")
 	private List<Patient> patients;
+	
+	@ManyToMany
+	@JoinTable(
+	  name = "blood_type_match", 
+	  joinColumns = @JoinColumn( name = "can_accept_type_id" ), 
+	  inverseJoinColumns = @JoinColumn( name = "recipient_type_id" ) )
+	private List<BloodType> canAccept;
 	
 	public BloodType() {
 		super();
@@ -47,7 +57,6 @@ public class BloodType {
 	public void setRh(boolean rh) {
 		this.rh = rh;
 	}
-	
 	
 	public List<Patient> getPatients() {
 		return patients;
