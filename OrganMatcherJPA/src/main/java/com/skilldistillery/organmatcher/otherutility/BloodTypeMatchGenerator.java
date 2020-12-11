@@ -6,7 +6,7 @@ public class BloodTypeMatchGenerator {
 	// generate a table of blood type compatibilities after realizing it would
 	// be needed.
 
-	public static void main(String[] args) {
+	public static void Main(String[] args) {
 		int[] id = { 1 , 2 , 3 , 4 , 5, 6 , 7 , 8 };
 		char[] grp = { 'A' , 'A' , 'B' , 'B' , 'X' , 'X', 'O' , 'O' };
 		boolean[] rh = { true , false , true , false , true , false, true , false };

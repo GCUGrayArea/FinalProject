@@ -14,4 +14,5 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
 //	public List<Patient> findByBloodTypeAndOrganType( @Param("typeId") int typeId , @Param("organType") int transplantId );
 //	@Query("SELECT tt.donors FROM TransplantType tt WHERE tt.organ=:organ AND tt.donors.bloodType.id=:bloodId" )
 	public List<Patient> findByBloodTypeIdAndTransplantTypes_Organ( int id , String organ );
+	public List<Patient> findByBloodType_CanAccept_IdAndTransplantTypes_Organ( int id , String organ );
 }
