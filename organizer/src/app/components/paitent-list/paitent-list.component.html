@@ -131,57 +131,101 @@
 </div>
 
 <div *ngIf="selected">
-<div class= "text-left">
-  <div class="pName">
+  <br>
+
+  <div style="text-align: left; ">
+    <div class="pName">
+      <h1>{{selected.firstName}} {{selected.lastName}}</h1>
+    </div>
+    <div class="id">
+      <h2>ID: {{selected.id}} </h2>
+    </div>
+  <div class="container">
+    <div class="row align-items-start">
+      <div class="col">
+
+
+            <br>
+            <div class="content" style="font-family: Avenir light; font-size: 20px">
+              <p style="font-family: Avenir light;">DOB: {{selected.birthDate}} <p>
+              <p>SEX: {{selected.sex}} </p>
+              <p>WEIGHT (kilograms): {{selected.weightKg}} kg<p>
+              <p>BLOOD  TYPE: {{selected.bloodType.bloodGroup}} {{selected.bloodType.rh ? "+" :  "-"}} <p>
+              <p>ZIP: {{selected.address.zip}} <p>
+                <br>
+                <ul *ngIf="selected.transplantTypes.length > 0">
+                  <br> <br>
+                  <h3 style="font-size: 30px;">REGISTERED DONOR FOR </h3> <br>
+                  <li *ngFor= "let t of selected.transplantTypes">{{t.organ}}</li>
+                </ul>
+              </div>      </div>
+      <div class="col">
+<p class ="singlePatientHeader">NOTES   </p>   </div>
+
+    </div>
+  </div>
+
+
+
+
+<!-- <div class= "text-left"> -->
+  <!-- <div style="text-align: left; "> -->
+
+  <!-- <div class="pName">
     <h1>{{selected.firstName}} {{selected.lastName}}</h1>
   </div>
       <div class="id">
-        <h2>Id: {{selected.id}} </h2>
+        <h2>ID: {{selected.id}} </h2>
       </div>
-      <div class="content">
-        <p>DOB: {{selected.birthDate}} <p>
-        <p>Sex: {{selected.sex}} </p>
-        <p>Weight(kilograms): {{selected.weightKg}} <p>
-        <p>Blood Type: {{selected.bloodType.bloodGroup}} {{selected.bloodType.rh ? "+" :  "-"}} <p>
-        <p>Zip: {{selected.address.zip}} <p>
+      <br>
+      <div class="content" style="font-family: Avenir light; font-size: 20px">
+        <p style="font-family: Avenir light;">DOB: {{selected.birthDate}} <p>
+        <p>SEX: {{selected.sex}} </p>
+        <p>WEIGHT (kilograms): {{selected.weightKg}} kg<p>
+        <p>BLOOD  TYPE: {{selected.bloodType.bloodGroup}} {{selected.bloodType.rh ? "+" :  "-"}} <p>
+        <p>ZIP: {{selected.address.zip}} <p>
+          <br>
           <ul *ngIf="selected.transplantTypes.length > 0">
-            <h3>Registered Donor For:</h3> <br>
+            <br> <br>
+            <h3 style="font-size: 30px;">REGISTERED DONOR FOR </h3> <br>
             <li *ngFor= "let t of selected.transplantTypes">{{t.organ}}</li>
           </ul>
-        </div>
+        </div> -->
+        <br><br>
+
  <div class="buttons">
         <button class="btn btn-md btn-warning" (click)="displayTable()">Back</button> <br>
 
 
-  <div class="update">
+  <div class="update" >
   <button class="btn btn-md btn-outline-primary" (click)="open(content)">
-    <i class="fa fa-user" ></i>Update Patient Record</button>
+    <i class="fa fa-user" ></i>UPDATE PATIENT</button>
   </div>
 
   <div class="address">
   <button class="btn btn-md btn-outline-primary" (click)="open(contentEdit)">
-    <i class="fa fa-user" ></i>Update Patient Address</button>
+    <i class="fa fa-user" ></i>UPDATE PATIENT ADDRESS</button>
   </div>
   <div class="create">
     <button class="btn btn-md btn-outline-primary" (click)="open(contentTR)">
-      <i class="fa fa-user" ></i>Create A Transplant Request</button>
+      <i class="fa fa-user" ></i>CREATE A TRANSPLANT REQUEST</button>
   </div>
   <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Update Patient</h4>
+  <div class="modal-header" style="text-align: center" >
+    <h4 class="modal-title" id="modal-basic-title" >UPDATE PATIENT</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
     <div class="modal-body patient" >
       <form>
-        First Name: <br>
+        FIRST NAME <br>
         <input type="text" name="firstName" placeholder="First Name" [(ngModel)]="editPatient.firstName" /><br />
-        Last Name:  <br>
+        <br>LAST NAME <br>
         <input type="text" name="lastName" placeholder="Last Name" [(ngModel)]="editPatient.lastName" /><br />
-        <div class="form-group">
+        <br> <div class="form-group">
           <div class="input-group">
-          <label>DOB:</label>
+            <label>DOB</label>
             <input class="form-control" placeholder="yyyy-mm-dd"
             name="dp" [(ngModel)]="editPatient.birthDate" type="date">
             <div class="input-group-append">
@@ -189,27 +233,27 @@
             </div>
           </div>
         </div>
-        Sex: <br>
+       SEX <br>
         <input type="text" name="sex" placeholder="sex" [(ngModel)]="editPatient.sex" /><br />
-        Weight: <br>
-        <input type="number" name="weight" placeholder="weight" [(ngModel)]="editPatient.weightKg" /><br />
-        <select name="types" id="types" (change)="selectBloodType( $event.target.value , editPatient )" [(ngModel)]="selectedType">
+        <br>WEIGHT<br>
+       <input type="number" name="weight" placeholder="weight" [(ngModel)]="editPatient.weightKg" /><br />
+       <br> BLOOD TYPE <select name="types" id="types" (change)="selectBloodType( $event.target.value , editPatient )" [(ngModel)]="selectedType">
           <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
         </select><br>
-
+        <br>
         <div class="border text-center patient">
-          <button (click)="updatePatient(editPatient)" data-dismiss="modal" class="btn btn-info">Submit</button>
+          <button (click)="updatePatient(editPatient)" data-dismiss="modal" class="btn btn-info">SUBMIT</button>
           </div>
       </form>
 
     </div>
-    <div class="modal-footer patient">
-      <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
+    <div class="modal-footer patient text-center" >
+      <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">CANCEL</button>
     </div>
   </ng-template>
   <ng-template #contentEdit let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Update Patient Address</h4>
+    <h4 class="modal-title" id="modal-basic-title">UPDATE PATIENT ADDRESS</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -218,11 +262,11 @@
     <div class="modal-body patient">
       <form>
        ADDRESS <br>
-        <input type="text" name="street1"   placeholder="{{selected.address.street1}}"[(ngModel)]="editAddress.street1" /><br />
-        <input type="text" name="street2" [(ngModel)]="editAddress.street2" /><br />
-        <input type="text" name="city" placeholder="city" [(ngModel)]="editAddress.city" /><br />
-        <input type="text" name="state" placeholder="state" [(ngModel)]="editAddress.state" /><br />
-        <input type="number" name="zip" placeholder="zip" [(ngModel)]="editAddress.zip" /><br />
+        <input type="text" name="Address Line 1"   placeholder="{{selected.address.street1}}"[(ngModel)]="editAddress.street1" /><br />
+        <input type="text" name="Address Line 2" [(ngModel)]="editAddress.street2" /><br />
+        <input type="text" name="City" placeholder="city" [(ngModel)]="editAddress.city" /><br />
+        <input type="text" name="State" placeholder="state" [(ngModel)]="editAddress.state" /><br />
+        <input type="number" name="Zip" placeholder="zip" [(ngModel)]="editAddress.zip" /><br />
 
         <div class="border text-center patient">
           <button (click)="updateAddress(editAddress, selected.address.id, selected)" data-dismiss="modal" class="btn btn-info">Submit</button>
