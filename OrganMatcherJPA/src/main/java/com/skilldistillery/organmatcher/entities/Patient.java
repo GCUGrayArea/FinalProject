@@ -1,6 +1,7 @@
 package com.skilldistillery.organmatcher.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -37,8 +38,8 @@ public class Patient {
 	@JoinColumn( name = "address_id" )
 	private Address address;
 	@ManyToMany
-	  @JoinTable(
-		name=" donor_role" ,
+	@JoinTable(
+		name="donor_role" ,
 	    joinColumns=@JoinColumn( name="patient_id"),
 	    inverseJoinColumns=@JoinColumn( name="transplant_type_id" ) )
 	private List<TransplantType> transplantTypes;
@@ -117,7 +118,21 @@ public class Patient {
 	public void setTransplantTypes(List<TransplantType> transplantTypes) {
 		this.transplantTypes = transplantTypes;
 	}
-	//TODO add ID field to HLA table in DB and to HLA class so we can test this
+	public void addTransplantType( TransplantType tt ) {
+		if ( transplantTypes == null ) { transplantTypes = new ArrayList<TransplantType>(); }
+		
+		if ( !transplantTypes.contains( tt ) ) {
+			transplantTypes.add(tt);
+			tt.addDonor(this);
+		}
+	}
+	public void removeTransplantType( TransplantType tt ) {
+		if ( tt != null && transplantTypes.contains(tt) ) {
+			transplantTypes.remove( tt );
+			tt.removeDonor(this);
+		}
+		
+	}
 	public List<Hla> getHlaProteins() {
 		return hlaProteins;
 	}

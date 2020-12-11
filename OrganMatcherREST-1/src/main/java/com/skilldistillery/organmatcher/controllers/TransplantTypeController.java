@@ -85,7 +85,7 @@ public class TransplantTypeController {
 			HttpServletResponse response) {
 		try {
 			if (tts.deleteDonorRole(patientId, transplantId)) {
-				response.setStatus(204);
+//				response.setStatus(204);
 				return pSvc.patientById(patientId);
 			} else {
 				response.setStatus(404);
