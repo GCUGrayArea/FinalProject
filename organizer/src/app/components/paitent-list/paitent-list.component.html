@@ -26,8 +26,6 @@
 
 <br><br><br>
 
-
-
     <table class="table table-hover ">
     <thead>
     </thead>
@@ -54,6 +52,7 @@
       <i class="fa fa-user"></i>CREATE NEW PATIENT</button>
   </div>
   <br><br><br><br>
+  </div>
   <ng-template #content let-modal>
     <div class="modal-header" class ="patient">
       <br>
@@ -65,13 +64,14 @@
     </div>
     <div class="modal-body" class ="patient">
       <form class = "form-group">
-        <p>First Name</p> <br>
-        <input type="text" name="title" placeholder="First Name" [(ngModel)]="newPatient.firstName" /><br />
-        Last Name:  <br>
-        <input type="text" name="title" placeholder="Last Name" [(ngModel)]="newPatient.lastName" /><br />
+        FIRST NAME<br>
+        <input type="text" name="title" placeholder="First Name" [(ngModel)]="newPatient.firstName" /><br /><br>
+        LAST NAME <br>
+        <input type="text" name="title" placeholder="Last Name" [(ngModel)]="newPatient.lastName" /><br /><br>
         <div class="form-group">
           <div class="input-group">
-          <label>DOB:</label>
+          <label>DOB</label><br>
+
             <input class="form-control" placeholder="yyyy-mm-dd"
             name="dp" [(ngModel)]="newPatient.birthDate" type="date">
             <div class="input-group-append">
@@ -79,27 +79,26 @@
             </div>
           </div>
         </div>
-        Sex: <br>
+        SEX<br>
         <!-- <input type="text" name="sex" placeholder="sex" [(ngModel)]="newPatient.sex" /><br /> -->
-        <select name="sex" id="cars" type="text" [(ngModel)]="newPatient.sex"><br />
-          <option value=Female>Volvo</option>
-          <option value="Male">Saab</option>
+        <select name="sex" id="cars" type="text" [(ngModel)]="newPatient.sex"><br /><br />
+          <option value=Female>Female</option>
+          <option value="Male">Male</option>
         </select>
-        Weight: <br>
-        <input type="text" name="weight" placeholder="weight (kg)" [(ngModel)]="newPatient.weightKg" /><br />
-        Blood Type:<select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
+        <br />
+        <br />
+        WEIGHT <br>
+        <input type="number" name="Weight" placeholder="weight (kg)" [(ngModel)]="newPatient.weightKg" /><br ><br>
+        BLOOD TYPE <br /><select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
             <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
-          </select><br>
-          Address: <br>
-          <input type="text" name="street1" placeholder="street1" [(ngModel)]="newAddress.street1" /><br />
-          <input type="text" name="street1" placeholder="street2" [(ngModel)]="newAddress.street2" /><br />
-          <input type="text" name="city" placeholder="city" [(ngModel)]="newAddress.city" /><br />
-          <input type="text" name="state" placeholder="state" [(ngModel)]="newAddress.state" /><br />
-          <input type="number" name="zip" placeholder="zip" [(ngModel)]="newAddress.zip" /><br />
-
-          <!-- <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedHla">
-            <option *ngFor="let h of hla" value = {{h.id}} >{{h.allele}}  </option>
-          </select> -->
+          </select><br><br />
+          ADDRESS <br>
+          <input type="text" name="street1" placeholder="Address line 1" [(ngModel)]="newAddress.street1" /><br />
+          <input type="text" name="street1" placeholder="Address line 2" [(ngModel)]="newAddress.street2" /><br />
+          <input type="text" name="city" placeholder="City" [(ngModel)]="newAddress.city" /><br />
+          <input type="text" name="state" placeholder="State" [(ngModel)]="newAddress.state" /><br />
+          <input type="number" name="zip" placeholder="Zip Code" [(ngModel)]="newAddress.zip" /><br />
+          <br>
           <table>
             <thead>
               <th></th>
@@ -117,15 +116,15 @@
             </tbody>
           </table>
         <div class="border text-center">
-          <button (click)="onSubmit(newPatient, newAddress, hla)" data-dismiss="modal" class="btn btn-info">Submit</button>
+          <button (click)="onSubmit(newPatient, newAddress, hla)" data-dismiss="modal" class="btn btn-info">SUBMIT</button>
           </div>
 
 
       </form>
 
     </div>
-    <div class="modal-footer" class ="patient">
-      <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
+    <div class="modal-footer" class ="patient" style="text-align: center;">
+      <button type="button" class="btn btn-warning"  (click)="modal.close('cancel click')">CANCEL</button>
     </div>
   </ng-template>
 </div>
@@ -214,9 +213,10 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+  <br />
     <div class="modal-body patient">
       <form>
-        Address: <br>
+       ADDRESS <br>
         <input type="text" name="street1"   placeholder="{{selected.address.street1}}"[(ngModel)]="editAddress.street1" /><br />
         <input type="text" name="street2" [(ngModel)]="editAddress.street2" /><br />
         <input type="text" name="city" placeholder="city" [(ngModel)]="editAddress.city" /><br />
