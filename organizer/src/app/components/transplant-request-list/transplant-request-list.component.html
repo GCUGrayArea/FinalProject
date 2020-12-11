@@ -1,4 +1,8 @@
-<ng-template #content let-modal>
+<div style="text-align: center;">
+  <img src="https://www.einstein.edu/upload/images/Transplant_EDU.jpg" class="Responsive image"
+    style="height: 400px; width: 95%;">
+</div><br>
+  <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Review Transplant Request test</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -8,7 +12,7 @@
   <div class="modal-body">
     <form class = "form-group">
       Approval Status: <br>
-      <!-- <input type="text" name="title" placeholder="name" [(ngModel)]="review.approvalStatus" /><br /> -->
+      <input type="text" name="title" placeholder="name" [(ngModel)]="review.approvalStatus" /><br />
         <select name="types" id="types" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
           <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
         </select>
@@ -19,6 +23,7 @@
         </div>
 
   </div>
+
   <div class="modal-footer">
     <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
   </div>
@@ -26,25 +31,37 @@
 
 
 <div *ngIf="!selected">
+
+  <div class="container" style="text-align: center;">
+    <div class="row align-items-start">
+      <div class="col">
+
   <label for="patients">Find Unmatched Requests by Organ Type:</label>
   <form >
   <select name="types" id="types" (change)="selectOrganType($event.target.value)">
     <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
   </select>
     <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="Search"  (click)="findByOrgan(selectedType.id)" />
-  </form> <br>
-  <label for="patients">Find by Approval Status</label>
-  <form >
+  </form></div> <br>
+
+  <div class="col">
+  <label for="patients" style="text-align: center;">Find by Approval Status</label>
+  <form>
   <select name="types" id="types" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
     <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
   </select>
     <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="Search"  (click)="loadByApprovalStatus(status)" />
   </form> <br>
+</div>
+</div>
+</div>
 <form>
+  <div class="container" style="text-align: center;">
 <input type="submit" class="btn btn-primary gradient" value="Find All Unmatched"  (click)="findByDonorIsNull()" />
+</div>
 </form>
 
-<table class="table table table-hover" >
+<table class="table table-hover" >
   <thead>
     <tr>
       <th>ID</th>
@@ -56,6 +73,7 @@
       <th></th>
     </tr>
   </thead>
+
   <tbody>
 
     <tr *ngFor="let tRequest of transplantRequests" >
@@ -68,11 +86,11 @@
       <td *ngIf="adminActive() && tRequest.donor !=null && tRequest.approvalStatus === 'pending' || null"><div class="border">
         <button class="btn btn-md btn-outline-primary" (click)="open(content, tRequest)">
           <i class="fa fa-user"></i>Review</button>
-      </div></td>
-    </tr>
-  </tbody>
-</table>
-<button (click)="displayTable()"  *ngIf="filtered">Back</button>
+        </div></td>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="displayTable()"  *ngIf="!filtered">Back</button>  <!--figure out how to make this disappear when find all unmatched is not selected-->
 
 <ng-template #content let-modal>
   <div class="modal-header">
@@ -98,6 +116,7 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
   </div>
+  <button (click)="displayTable()"  *ngIf="filtered">Back</button>
 </ng-template>
 </div>
 
