@@ -1,16 +1,17 @@
 package com.skilldistillery.organmatcher.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name="transplant_type")
 @Entity
@@ -22,21 +23,50 @@ public class TransplantType {
 	
 	private String organ;
 	@OneToMany(mappedBy = "organType")
+	@JsonIgnore
 	private List<TransplantRequest> transplantRequests;
-	@ManyToMany
-	@JoinTable(
-			name = "donor_role" ,
-			joinColumns = @JoinColumn( name = "transplant_type_id" ) ,
-			inverseJoinColumns = @JoinColumn( name = "patient_id" ) )
+	@ManyToMany( mappedBy="transplantTypes" )
+	@JsonIgnore
 	private List<Patient> donors;
 	
-
 	public TransplantType() {
 		super();
 	}
 
 	public int getId() {
 		return id;
+	}
+
+	public List<TransplantRequest> getTransplantRequests() {
+		return transplantRequests;
+	}
+
+	public void setTransplantRequests(List<TransplantRequest> transplantRequests) {
+		this.transplantRequests = transplantRequests;
+	}
+
+	public List<Patient> getDonors() {
+		return donors;
+	}
+
+	public void setDonors(List<Patient> donors) {
+		this.donors = donors;
+	}
+	
+	public void addDonor( Patient donor ) {
+		if ( donors == null ) { donors = new ArrayList<Patient>(); }
+		
+		if ( !donors.contains( donor ) ) {
+			donors.add(donor);
+			donor.addTransplantType( this );
+		}
+	}
+
+	public void removeDonor( Patient donor ) {
+		if ( donors != null && donors.contains( donor ) ) {
+			donors.remove( donor );
+			donor.removeTransplantType( this );
+		}
 	}
 
 	public void setId(int id) {
