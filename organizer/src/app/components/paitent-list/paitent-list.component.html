@@ -1,3 +1,4 @@
+
 <div *ngIf="!selected">
   <div>
     <form>
@@ -117,38 +118,29 @@
 
 
 <div *ngIf="selected">
-<div class= "text-left">
-  <div class="pName">
-    <h1>{{selected.firstName}} {{selected.lastName}}</h1>
-  </div>
-      <div class="id">
-        <h2>Id: {{selected.id}} </h2>
-      </div>
-      <div class="content">
-        <p>DOB: {{selected.birthDate}} <p>
-        <p>Sex: {{selected.sex}} </p>
-        <p>Weight(kilograms): {{selected.weightKg}} <p>
-        <p>Blood Type: {{selected.bloodType.bloodGroup}} {{selected.bloodType.rh ? "+" :  "-"}} <p>
-        <p>Zip: {{selected.address.zip}} <p>
-          <ul *ngIf="selected.transplantTypes.length > 0">
-            <h3>Registered Donor For:</h3> <br>
-            <li *ngFor= "let t of selected.transplantTypes">{{t.organ}}</li>
-          </ul>
-        </div>
- <div class="buttons">
-        <button class="btn btn-md btn-warning" (click)="displayTable()">Back</button> <br>
+<div class= "text-center">
+  <h1>{{selected.firstName}} {{selected.lastName}}</h1>
+
+      <h3>Id: {{selected.id}} </h3>
+
+      <p>DOB: {{selected.birthDate}} <p>
+      <p>Sex: {{selected.sex}} </p>
+      <p>Weight(kilograms): {{selected.weightKg}} <p>
+      <p>Blood Type: {{selected.bloodType.bloodGroup}} {{selected.bloodType.rh ? "+" :  "-"}} <p>
+      <p>Zip: {{selected.address.zip}} <p>
+        <button (click)="displayTable()">Back</button>
 
 
-  <div class="update">
-  <button class="btn btn-md btn-outline-primary" (click)="open(content)">
-    <i class="fa fa-user" ></i>Update Patient Record</button>
-  </div>
 
-  <div class="address">
-  <button class="btn btn-md btn-outline-primary" (click)="open(contentEdit)">
-    <i class="fa fa-user" ></i>Update Patient Address</button>
+  <div class="container">
+    <button class="btn btn-md btn-outline-primary" (click)="open(content)">
+      <i class="fa fa-user" ></i>Update Patient Record</button>
   </div>
-  <div class="create">
+  <div class="container">
+    <button class="btn btn-md btn-outline-primary" (click)="open(contentEdit)">
+      <i class="fa fa-user" ></i>Update Patient Address</button>
+  </div>
+  <div class="container">
     <button class="btn btn-md btn-outline-primary" (click)="open(contentTR)">
       <i class="fa fa-user" ></i>Create A Transplant Request</button>
   </div>
@@ -158,8 +150,7 @@
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
- </div>
-
+  </div>
     <div class="modal-body">
       <form>
         First Name: <br>
@@ -244,9 +235,8 @@
       </div>
     </ng-template>
 
-<div class="delete">
+
   <button *ngIf="adminActive()"class="btn btn-outline-danger" (click)="openDelete(contentDelete, selected)">Remove Patient</button>
-</div>
   <ng-template #contentDelete let-modal>
     <div class="modal-header">
       <h4 class="modal-title">Confirm Delete</h4>
@@ -265,7 +255,6 @@
     </div>
   </ng-template>
 </div>
-
 
 
 
