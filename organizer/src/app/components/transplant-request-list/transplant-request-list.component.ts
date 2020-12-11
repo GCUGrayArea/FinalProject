@@ -204,6 +204,7 @@ console.log(err);
     }
     // this.id = null;
     this.filtered = true;
+    this.selectedType =null;
 
   }
   displayTable(): void {
@@ -245,7 +246,7 @@ findByDonorIsNull(){
 console.log(err);
 
     });
-
+this.filtered = true;
 
 }
 open(content, tRequest) {
