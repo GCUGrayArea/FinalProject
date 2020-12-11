@@ -37,12 +37,20 @@ public class Patient {
 	@JoinColumn( name = "address_id" )
 	private Address address;
 	@ManyToMany
-	  @JoinTable(name="donor_role",
-	    joinColumns=@JoinColumn(name="patient_id"),
-	    inverseJoinColumns=@JoinColumn(name="transplant_type_id"))
+	  @JoinTable(
+		name=" donor_role" ,
+	    joinColumns=@JoinColumn( name="patient_id"),
+	    inverseJoinColumns=@JoinColumn( name="transplant_type_id" ) )
 	private List<TransplantType> transplantTypes;
 	@OneToMany( mappedBy = "patient" )
 	private List<Hla> hlaProteins;
+	
+//	@ManyToMany
+//	@JoinTable(
+//			  name = "blood_type_match", 
+//			  joinColumns = @JoinColumn( name = "recipient_type_id" ), 
+//			  inverseJoinColumns = @JoinColumn( name = "can_accept_type_id" ) )
+//	private List<BloodType> bloodMatches;
 	
 	public Patient() {
 		super();

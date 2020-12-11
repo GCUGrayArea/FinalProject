@@ -68,17 +68,16 @@
         Sex: <br>
         <input type="text" name="sex" placeholder="sex" [(ngModel)]="newPatient.sex" /><br />
         Weight: <br>
-        <input type="text" name="weight" placeholder="weight" [(ngModel)]="newPatient.weightKg" /><br />
-          <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
+        <input type="text" name="weight" placeholder="weight (kg)" [(ngModel)]="newPatient.weightKg" /><br />
+        Blood Type:<select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
             <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
-          </select>
+          </select><br>
           Address: <br>
           <input type="text" name="street1" placeholder="street1" [(ngModel)]="newAddress.street1" /><br />
           <input type="text" name="street1" placeholder="street2" [(ngModel)]="newAddress.street2" /><br />
           <input type="text" name="city" placeholder="city" [(ngModel)]="newAddress.city" /><br />
           <input type="text" name="state" placeholder="state" [(ngModel)]="newAddress.state" /><br />
           <input type="number" name="zip" placeholder="zip" [(ngModel)]="newAddress.zip" /><br />
-          <input type="text" name="weight" placeholder="weight" [(ngModel)]="newPatient.weightKg" /><br />
 
           <!-- <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedHla">
             <option *ngFor="let h of hla" value = {{h.id}} >{{h.allele}}  </option>
