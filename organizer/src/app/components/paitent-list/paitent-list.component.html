@@ -1,10 +1,9 @@
 <div *ngIf="!selected">
-<!-- <div *ngIf="!selected && loggedIn()"> -->
   <div>
     <form>
       Find patient by id: <br>
-      <input  type="text" name="id" placeholder="id" [(ngModel)]="id"/><br />
-      <input type="submit" value="Search"  (click)="findById(id)" />
+      <input  type="text" name="id" placeholder="id" [(ngModel)]="id"/>
+      <input class="btn btn-sm btn-outline-primary" type="submit" value="Search"  (click)="findById(id)" />
     </form>
   </div>
 
@@ -12,17 +11,13 @@
     <label for="patients">Find patient by blood type:</label>
     <form action="">
 
-    <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
+    <select name="types" id="types" (change)="selectBloodType($event.target.value , newPatient )" [(ngModel)]="selectedType">
       <option *ngFor="let t of bloodTypes" value = {{t.id}}>{{t.bloodGroup}} {{t.rh ? "+" :  "-"}}</option>
-
-
     </select>
-      <input type="submit" value="Search"  (click)="findByBloodTypeId(selectedType.id)" />
+      <input class="btn btn-sm btn-outline-primary" type="submit" value="Search"  (click)="findByBloodTypeId(selectedType.id)" />
     </form>
 
-    <!-- <table class="table table-striped table table-hover" > -->
-  <table class="table table table-hover" >
-
+    <table class="table table-hover ">
     <thead>
     </thead>
     <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th></tr>
@@ -40,11 +35,11 @@
     </tbody>
 
   </table>
-  <button (click)="displayTable()"  *ngIf="filtered">Back</button>
+  <button class="btn btn-info" (click)="displayTable()"  *ngIf="filtered">Back</button>
 
 
   <div class="border">
-    <button class="btn btn-md btn-outline-primary" (click)="open(content)">
+    <button class="btn btn-md btn-outline-primary" (click)="openCreate(content)">
       <i class="fa fa-user"></i>Create new Patient</button>
   </div>
   <ng-template #content let-modal>
@@ -108,28 +103,16 @@
           </div>
 
 
-
-        <!-- <hr/> -->
-
-        <div class="border text-center">
-          <button (click)="onSubmit(newPatient)" data-dismiss="modal" class="btn btn-info">Submit</button>
-          </div>
       </form>
 
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">cancel</button>
+      <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
     </div>
   </ng-template>
 </div>
 
-<!-- <div *ngIf="selected && !loggedIn()">
-  <blockquote>You must be signed in to access this information.</blockquote>
-  <ul>
-  <li><button type="button" class="btn btn-outline-dark" [routerLink]="['/register']">REGISTER</a>
-    <app-login></app-login></li>
-  </ul>
-</div> -->
+
 
 
 
@@ -148,11 +131,10 @@
 
 
 
-  <div class="border">
+  <div class="container">
     <button class="btn btn-md btn-outline-primary" (click)="open(content)">
       <i class="fa fa-user" ></i>Update Patient Record</button>
   </div>
-
   <div class="container">
     <button class="btn btn-md btn-outline-primary" (click)="open(contentEdit)">
       <i class="fa fa-user" ></i>Update Patient Address</button>
@@ -188,21 +170,38 @@
         <input type="text" name="sex" placeholder="sex" [(ngModel)]="editPatient.sex" /><br />
         Weight: <br>
         <input type="number" name="weight" placeholder="weight" [(ngModel)]="editPatient.weightKg" /><br />
-        <input type="text" name="bloodType" placeholder="Blood Type" [(ngModel)]="editPatient.bloodType.bloodGroup" /><br />
-        <input type="text" name="rh" placeholder="" [(ngModel)]="editPatient.bloodType.rh" /><br />
-
-        <!-- <input type="text" name="title" placeholder="bloodType" [(ngModel)]="newPatient.bloodType.id" /><br /> -->
-        <form action="">
-
-          <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
-            <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
-          </select>
-          </form>
-
-        <!-- <hr/> -->
+        <select name="types" id="types" (change)="selectBloodType( $event.target.value , editPatient )" [(ngModel)]="selectedType">
+          <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
+        </select><br>
 
         <div class="border text-center">
           <button (click)="updatePatient(editPatient)" data-dismiss="modal" class="btn btn-info">Submit</button>
+          </div>
+      </form>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
+    </div>
+  </ng-template>
+  <ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update Patient Address</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+    <div class="modal-body">
+      <form>
+        Address: <br>
+        <input type="text" name="street1"   placeholder="{{selected.address.street1}}"[(ngModel)]="editAddress.street1" /><br />
+        <input type="text" name="street2" [(ngModel)]="editAddress.street2" /><br />
+        <input type="text" name="city" placeholder="city" [(ngModel)]="editAddress.city" /><br />
+        <input type="text" name="state" placeholder="state" [(ngModel)]="editAddress.state" /><br />
+        <input type="number" name="zip" placeholder="zip" [(ngModel)]="editAddress.zip" /><br />
+
+        <div class="border text-center">
+          <button (click)="updateAddress(editAddress, selected.address.id, selected)" data-dismiss="modal" class="btn btn-info">Submit</button>
           </div>
       </form>
 
@@ -251,7 +250,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+      <button type="button" class="btn btn-warning" (click)="modal.close('Save click')">Cancel</button>
     </div>
   </ng-template>
 </div>
