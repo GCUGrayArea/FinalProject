@@ -1,21 +1,25 @@
-<ng-template #content let-modal>
+<div style="font-family: Avenir light;"><br><br>
+  <p class ="patientHeader" > TRANSPLANT REQUESTS</p>
+  <br><br><br>
+
+  <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Review Transplant Request test</h4>
+    <h4 class="modal-title" id="modal-basic-title" style="font-family: Avenir light;">REVIEW TRANSPLANT REQUEST TEST</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <form class = "form-group">
-      Approval Status: <br>
+      <p style="font-family: Avenir light;">APPROVAL STATUS: </p><br>
       <!-- <input type="text" name="title" placeholder="name" [(ngModel)]="review.approvalStatus" /><br /> -->
         <select name="types" id="types" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
           <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
         </select>
-          <input type="submit" value="set "  (click)="loadByApprovalStatus(status)" />
+          <input type="submit" value="SET "  (click)="loadByApprovalStatus(status)" />
         </form> <br>
       <div class="border text-center">
-        <button (click)="onSubmit(review, review.id)" data-dismiss="modal" class="btn btn-info">Submit</button>
+        <button (click)="onSubmit(review, review.id)" data-dismiss="modal" class="btn btn-info">SUBMIT</button>
         </div>
 
   </div>
@@ -26,23 +30,56 @@
 
 
 <div *ngIf="!selected">
-  <label for="patients">Find Unmatched Requests by Organ Type:</label>
+
+
+
+  <div class="container" style="font-family: Avenir light;">
+    <div class="row align-items-start">
+
+      <div class="col">
+
+        <label for="patients">FIND UNMATCHED REQUESTS BY ORGAN TYPE</label>
+        <form >
+        <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedType">
+          <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
+        </select>
+          <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="SEARCH"  (click)="findByOrgan(selectedType.id)" />
+        </form> <br>
+            </div>
+      <div class="col">
+
+        <label for="patients">FIND APPROVAL STATUS</label>
+        <form >
+        <select name="types" id="types" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
+          <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
+        </select>
+          <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="SEARCH"  (click)="loadByApprovalStatus(status)" />
+        </form> <br>
+
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      </div>
+    </div>
+<br>
+<div  class="container">
+    <form>
+      <input type="submit" class="btn btn-primary gradient" value="FIND ALL UNMATCHED"  (click)="findByDonorIsNull()" />
+      </form>
+    </div>
+    <br>
+    <br>
+
+
+
+  <!-- <label for="patients">Find Unmatched Requests by Organ Type:</label>
   <form >
   <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedType">
     <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
   </select>
     <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="Search"  (click)="findByOrgan(selectedType.id)" />
-  </form> <br>
-  <label for="patients">Find by Approval Status</label>
-  <form >
-  <select name="types" id="types" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
-    <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
-  </select>
-    <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="Search"  (click)="loadByApprovalStatus(status)" />
-  </form> <br>
-<form>
-<input type="submit" class="btn btn-primary gradient" value="Find All Unmatched"  (click)="findByDonorIsNull()" />
-</form>
+  </form> <br> -->
+
 
 <table class="table table table-hover" >
   <thead>
@@ -72,11 +109,13 @@
     </tr>
   </tbody>
 </table>
+<br>
+<br><br><br>
 <button (click)="displayTable()"  *ngIf="filtered">Back</button>
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Review Transplant Request</h4>
+    <h4 class="modal-title" id="modal-basic-title" style= "font-family: Avenir light;">REVIEW TRANSPLANT REQUEST</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -88,9 +127,9 @@
       <select name="types" id="types" (change)="setStatus($event.target.value)" [(ngModel)]="status">
         <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
       </select>
-        <input type="submit" value="set "  (click)="setStatus(status)" />
+        <input type="submit" value="SET"  (click)="setStatus(status)" />
       <div class="border text-center">
-        <button (click)="onSubmit(review, review.id)" data-dismiss="modal" class="btn btn-info">Submit</button>
+        <button (click)="onSubmit(review, review.id)" data-dismiss="modal" class="btn btn-info">SUBMIT</button>
         </div>
     </form>
 
@@ -107,7 +146,27 @@
 <div *ngIf="selected">
 
       <div *ngIf="selected"  style="text-align: center;" >
-        <h1>{{selected.recipient.firstName}} {{selected.recipient.lastName}}</h1>
+        <br>
+        <h1>{{selected.recipient.firstName}} {{selected.recipient.lastName}}</h1>   <br> <br><br>
+        <div class="container">
+
+          <div class="row align-items-start">
+            <div class="col">
+              <h1 class="singleTransplant"> DOB: <em>{{selected.recipient.birthDate}}</em> </h1>
+            </div>
+            <div class="col">
+              <h1 class="singleTransplant">SEX: <em>{{selected.recipient.sex}}</em> </h1>           </div>
+
+            <div class="col">
+              <h1 class="singleTransplant"> WEIGHT (kg): <em>{{selected.recipient.weightKg}}</em> </h1>           </div>
+             <div class="col">
+              <h1 class="singleTransplant"> BLOOD TYPE: <em>{{selected.recipient.bloodType.bloodGroup}} </em>  </h1>         </div>
+              <div class="col">
+                <h1 class="singleTransplant"> ZIP CODE: <em>{{selected.recipient.address.zip}} </em></h1>           </div>
+          </div>
+        </div>
+        <br>
+        <br>
 
         <table class="table table-striped ">
           <thead>
@@ -132,20 +191,27 @@
               <td>{{selected.createdAt}}</td>
               <td *ngIf="adminActive() && selected.approvalStatus === 'pending' && selected.donor != null"><div class="border">
                 <button class="btn btn-md btn-outline-primary" (click)="open(content, selected)">
-                  <i class="fa fa-user"></i>Review</button>
+                  <i class="fa fa-user"></i>REVIEW</button>
               </div></td>
             </tr>
           </tbody>
         </table>
             </div>
 
-
-            <button *ngIf="!selected.donor" class="btn btn-primary btn-sm gradient" (click)="loadViableDonors(selected)">Find Viable Donors</button>
+            <br>
+<div style="text-align: center;">
+            <button *ngIf="!selected.donor" class="btn btn-primary btn-sm gradient" (click)="loadViableDonors(selected)">FIND VIABLE DONORS</button>
+          </div>
+          <br>
+          <div style="text-align: center;">
             <button (click)="displayTable()" class="btn btn-outline-primary btn-sm gradient" ngif="selected">Back</button>
+          </div>
+          <br>
+          <br>
             <table class="table table-striped " *ngIf="selected.donor == null">
               <thead>
               </thead>
-              <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th><th>Add</th><th>HLA Compatibility</th></tr>
+              <tr><th>PATIENT ID</th><th>NAME</th><th>BIRTH DATE</th><th>SEX</th><th>WEIGHT</th><th>BLOOD TYPE</th><th>ZIP CODE</th><th>ADD</th><th>HLA COMPATABILITY</th></tr>
               <tbody>
 
 
@@ -165,12 +231,13 @@
               </tbody>
 
             </table>
+            <br> <br> <br> <br> <br>
 
 
 
 
 </div>
-
+</div>
 
 
 
