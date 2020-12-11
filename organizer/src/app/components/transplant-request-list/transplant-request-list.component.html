@@ -1,4 +1,8 @@
-<ng-template #content let-modal>
+<div style="text-align: center;">
+  <img src="https://www.einstein.edu/upload/images/Transplant_EDU.jpg" class="Responsive image"
+    style="height: 400px; width: 95%;">
+</div><br>
+  <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Review Transplant Request test</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -19,6 +23,7 @@
         </div>
 
   </div>
+
   <div class="modal-footer">
     <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
   </div>
@@ -42,7 +47,10 @@
   </form> <br>
 <form>
 <input type="submit" class="btn btn-primary gradient" value="Find All Unmatched"  (click)="findByDonorIsNull()" />
+<button (click)="displayTable()"  *ngIf="!filtered">Back</button>  <!--figure out how to make this disappear when find all unmatched is not selected-->
+
 </form>
+
 
 <table class="table table-striped ">
   <thead>
@@ -56,6 +64,7 @@
       <th></th>
     </tr>
   </thead>
+
   <tbody>
 
     <tr *ngFor="let tRequest of transplantRequests" >
@@ -98,6 +107,7 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
   </div>
+  <button (click)="displayTable()"  *ngIf="filtered">Back</button>
 </ng-template>
 </div>
 
