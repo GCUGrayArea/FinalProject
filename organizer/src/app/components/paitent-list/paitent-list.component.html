@@ -1,5 +1,4 @@
-<br><br><br><br>
-</r>iv *ngIf="!selected">
+<div *ngIf="!selected">
   <div>
     <form>
       Find patient by id: <br>
@@ -118,39 +117,45 @@
 
 
 <div *ngIf="selected">
-<div class= "text-center">
-  <h1>{{selected.firstName}} {{selected.lastName}}</h1>
+<div class= "text-left">
+  <div class="pName">
+    <h1>{{selected.firstName}} {{selected.lastName}}</h1>
+  </div>
+      <div class="id">
+        <h2>Id: {{selected.id}} </h2>
+      </div>
+      <div class="content">
+        <p>DOB: {{selected.birthDate}} <p>
+        <p>Sex: {{selected.sex}} </p>
+        <p>Weight(kilograms): {{selected.weightKg}} <p>
+        <p>Blood Type: {{selected.bloodType.bloodGroup}} {{selected.bloodType.rh ? "+" :  "-"}} <p>
+        <p>Zip: {{selected.address.zip}} <p>
+          <ul *ngIf="selected.transplantTypes.length > 0">
+            <h3>Registered Donor For:</h3> <br>
+            <li *ngFor= "let t of selected.transplantTypes">{{t.organ}}</li>
+          </ul>
+        </div>
+ <div class="buttons">
+        <button class="btn btn-md btn-warning" (click)="displayTable()">Back</button> <br>
 
-      <h3>Id: {{selected.id}} </h3>
-
-      <p>DOB: {{selected.birthDate}} <p>
-      <p>Sex: {{selected.sex}} </p>
-      <p>Weight(kilograms): {{selected.weightKg}} <p>
-      <p>Blood Type: {{selected.bloodType.bloodGroup}} {{selected.bloodType.rh ? "+" :  "-"}} <p>
-      <p>Zip: {{selected.address.zip}} <p>
-        <button (click)="displayTable()">Back</button>
 
 
-
-  <div class="container">
     <button class="btn btn-md btn-outline-primary" (click)="open(content)">
       <i class="fa fa-user" ></i>Update Patient Record</button>
-  </div>
-  <div class="container">
+
+
     <button class="btn btn-md btn-outline-primary" (click)="open(contentEdit)">
       <i class="fa fa-user" ></i>Update Patient Address</button>
-  </div>
-  <div class="container">
     <button class="btn btn-md btn-outline-primary" (click)="open(contentTR)">
       <i class="fa fa-user" ></i>Create A Transplant Request</button>
-  </div>
   <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Update Patient</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
-  </div>
+ </div>
+
     <div class="modal-body">
       <form>
         First Name: <br>
