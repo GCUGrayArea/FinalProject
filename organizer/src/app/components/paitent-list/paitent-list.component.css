@@ -1,0 +1,38 @@
+.pName{
+  background-color: rgb(250, 204, 0);
+  padding-left: 100px;
+  font-family: Avenir light
+}
+.id{
+  color: white;
+ background-color: #047779;
+
+  padding-left: 100px;
+  font-family: Avenir light
+}
+.content{
+  padding-left: 100px;
+  font-family: Avenir light;
+  font-size: large;
+  font-weight: bold;
+
+}
+.buttons{
+  padding-left: 100px;
+  font-family: Avenir light;
+  font-size: large;
+  font-weight: bold;
+}
+.update{
+  padding-top: 15px;
+}
+.address{
+  padding-top: 15px;
+}
+.create{
+  padding-top: 15px;
+}
+.delete{
+  padding-top: 15px;
+}
+
