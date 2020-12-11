@@ -16,6 +16,7 @@ export class PatientService {
 private url = environment.baseUrl + 'api/patients';
 
 
+
 index(): Observable<Patient[]> {
 
   return this.http.get<Patient[]>(this.url + '/all').pipe(
@@ -31,7 +32,7 @@ index(): Observable<Patient[]> {
 }
 indexViableDonors(tr: TransplantRequest): Observable<Patient[]> {
 
-  return this.http.get<Patient[]>(`${this.url}/transplant-type/${tr.organType.organ}/blood-type/${tr.recipient.bloodType.id}`).pipe(
+  return this.http.get<Patient[]>(`${this.url}/transplant-type/${tr.organType.organ}/blood-type-match/${tr.recipient.bloodType.id}`).pipe(
     // tap((res) => {
     //   //localStorage.setItem('credentials' , credentials);
     //  return res;
@@ -119,6 +120,26 @@ showByBloodTypeId(id : number): Observable<Patient[]>{
       catchError((err: any) => {
         console.log(err);
         return throwError('PatientService.destroy(): Error deleting patient');
+      })
+    );
+  }
+
+  addDonorRole(patientId: number, transplantTypeId: number): Observable<Patient> {
+    console.log(patientId, transplantTypeId)
+    return this.http.post<Patient>(environment.baseUrl+ 'api/' + patientId +'/transtype/'+ transplantTypeId, null)
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('DONOR ROLE CREATION FAILED');
+        })
+      );
+  }
+
+  deleteDonorRole(patientId: number, transplantTypeId: number): Observable<boolean> {
+    return this.http.delete<boolean>(environment.baseUrl+ 'api/' + patientId +'/transtype/'+ transplantTypeId).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('PatientService.deleteDonorRole(): Error deleting Donor Role');
       })
     );
   }

@@ -54,14 +54,15 @@ public class PatientServiceImpl implements PatientService {
 //		
 //		return resultList;
 		
-		return repo.findByBloodTypeIdAndTransplantTypes_Organ(bloodId, organ);
+//		return repo.findByBloodTypeIdAndTransplantTypes_Organ(bloodId, organ);
+		return repo.findByBloodType_CanAccept_IdAndTransplantTypes_Organ( bloodId , organ );
 		
 	}
 	
 
 	@Override
 	public Patient create(Patient patient) {
-		patient.setAddress(addressRepo.findById(patient.getAddress().getId()).get());
+		patient.setAddress( addressRepo.findById( patient.getAddress().getId() ).get() );
 		repo.saveAndFlush(patient);
 		return patient;
 	}
@@ -100,10 +101,6 @@ public class PatientServiceImpl implements PatientService {
 		}
 	 return deleted;
 	}
-
 	
 	
-	
-	
-
 }

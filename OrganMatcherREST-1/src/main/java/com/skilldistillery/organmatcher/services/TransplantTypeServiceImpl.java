@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.organmatcher.entities.TransplantRequest;
 import com.skilldistillery.organmatcher.entities.TransplantType;
+import com.skilldistillery.organmatcher.repositories.PatientRepository;
 import com.skilldistillery.organmatcher.repositories.TransplantTypeRepository;
 
 @Service
@@ -62,6 +63,21 @@ public class TransplantTypeServiceImpl implements TransplantTypeService {
 		}
 		return transplantType;
 	}
+	
+	@Override 
+	public boolean addingDonorRole(int pid, int tid) {
+		boolean donorRole =ttRepo.addDonorRole(pid, tid);
+		return donorRole;
+
+	}
+	
+
+	@Override 
+	public boolean deleteDonorRole(int pid, int tid) {
+		boolean deleteDonor  = ttRepo.removeDonorRole(pid, tid);
+		return deleteDonor;
+	}
+	
 
 	
 }

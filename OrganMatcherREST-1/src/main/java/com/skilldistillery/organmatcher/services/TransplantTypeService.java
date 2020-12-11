@@ -12,5 +12,7 @@ public interface TransplantTypeService {
 	TransplantType update(TransplantType transplantType, int id);
 	boolean destroy(int id);
 	TransplantType show(int id);
+	boolean addingDonorRole(int pid, int tid);
+	boolean deleteDonorRole(int pid, int tid);
 	
 }

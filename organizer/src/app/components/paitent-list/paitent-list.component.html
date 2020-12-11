@@ -1,4 +1,5 @@
-<div *ngIf="!selected">
+<br><br><br><br>
+</r>iv *ngIf="!selected">
   <div>
     <form>
       Find patient by id: <br>
@@ -17,7 +18,7 @@
       <input class="btn btn-sm btn-outline-primary" type="submit" value="Search"  (click)="findByBloodTypeId(selectedType.id)" />
     </form>
 
-    <table class="table table-striped ">
+    <table class="table table-hover ">
     <thead>
     </thead>
     <tr><th>Patient ID</th><th>Name</th><th>BirthDate</th><th>Sex</th><th>Weight</th><th>Blood Type</th><th>Zip Code</th></tr>
@@ -68,17 +69,16 @@
         Sex: <br>
         <input type="text" name="sex" placeholder="sex" [(ngModel)]="newPatient.sex" /><br />
         Weight: <br>
-        <input type="text" name="weight" placeholder="weight" [(ngModel)]="newPatient.weightKg" /><br />
-          <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
+        <input type="text" name="weight" placeholder="weight (kg)" [(ngModel)]="newPatient.weightKg" /><br />
+        Blood Type:<select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
             <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
-          </select>
+          </select><br>
           Address: <br>
           <input type="text" name="street1" placeholder="street1" [(ngModel)]="newAddress.street1" /><br />
           <input type="text" name="street1" placeholder="street2" [(ngModel)]="newAddress.street2" /><br />
           <input type="text" name="city" placeholder="city" [(ngModel)]="newAddress.city" /><br />
           <input type="text" name="state" placeholder="state" [(ngModel)]="newAddress.state" /><br />
           <input type="number" name="zip" placeholder="zip" [(ngModel)]="newAddress.zip" /><br />
-          <input type="text" name="weight" placeholder="weight" [(ngModel)]="newPatient.weightKg" /><br />
 
           <!-- <select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedHla">
             <option *ngFor="let h of hla" value = {{h.id}} >{{h.allele}}  </option>
@@ -139,6 +139,10 @@
   <div class="container">
     <button class="btn btn-md btn-outline-primary" (click)="open(contentEdit)">
       <i class="fa fa-user" ></i>Update Patient Address</button>
+  </div>
+  <div class="container">
+    <button class="btn btn-md btn-outline-primary" (click)="open(contentTR)">
+      <i class="fa fa-user" ></i>Create A Transplant Request</button>
   </div>
   <ng-template #content let-modal>
   <div class="modal-header">
@@ -207,10 +211,32 @@
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">cancel</button>
     </div>
   </ng-template>
+  <ng-template #contentTR let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Select Organ Needed</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+      <div class="modal-body">
+        <form>
+          OrganType: <br>
+          <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedOrgan">
+            <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
+          </select>
+          <div class="border text-center">
+            <button (click)="createRequest()" data-dismiss="modal" class="btn btn-info">Submit</button>
+            </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">cancel</button>
+      </div>
+    </ng-template>
 
 
-
-  <button *ngIf="adminActive()"class="btn btn-outline-danger" (click)="openDelete(contentDelete, selected)">delete</button>
+  <button *ngIf="adminActive()"class="btn btn-outline-danger" (click)="openDelete(contentDelete, selected)">Remove Patient</button>
   <ng-template #contentDelete let-modal>
     <div class="modal-header">
       <h4 class="modal-title">Confirm Delete</h4>

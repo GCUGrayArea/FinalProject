@@ -29,12 +29,12 @@ public class PatientController {
 	@Autowired
 	private PatientService patientSvc;
 	
-	@GetMapping( "patients/all" )
+	@GetMapping( "/patients/all" )
 	public List<Patient> allPatients() {
 		return patientSvc.index();
 	}
 	
-	@GetMapping("patients/{id}")
+	@GetMapping("/patients/{id}")
 	public Patient patientById( @PathVariable int id, HttpServletResponse res ) {
 		Patient patient = patientSvc.patientById( id );
 		if ( patient == null ) {
@@ -44,7 +44,7 @@ public class PatientController {
 		return patient;
 	}
 	
-	@GetMapping( "patients/blood-type/{typeId}" )
+	@GetMapping( "/patients/blood-type/{typeId}" )
 	public List<Patient> patientsByBloodType( @PathVariable int typeId, HttpServletResponse res ) {
 		List<Patient> resultList = patientSvc.patientsByBloodTypeId( typeId );
 		if ( resultList.size() == 0 ) {
@@ -53,12 +53,12 @@ public class PatientController {
 		return resultList;
 	}
 	
-	@GetMapping( "patients/transplant-type/{organ}/blood-type/{bloodId}" )
+	@GetMapping( "/patients/transplant-type/{organ}/blood-type-match/{bloodId}" )
 	public List<Patient> patientsByBloodAndTransplantType( @PathVariable String organ , @PathVariable int bloodId, HttpServletResponse res ) {
 		List<Patient> resultList = patientSvc.patientsByBloodAndTransplantType(bloodId, organ);
-//		if ( resultList.size() == 0 ) {
-//			res.setStatus(404);
-//		}
+		if ( resultList.size() == 0 ) {
+			res.setStatus(404);
+		}
 		return resultList;
 	}
 	
@@ -119,4 +119,6 @@ public class PatientController {
 		}
 
 	}
+	
+	
 }
