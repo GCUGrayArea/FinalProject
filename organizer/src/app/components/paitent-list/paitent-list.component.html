@@ -139,15 +139,19 @@
         <button class="btn btn-md btn-warning" (click)="displayTable()">Back</button> <br>
 
 
+  <div class="update">
+  <button class="btn btn-md btn-outline-primary" (click)="open(content)">
+    <i class="fa fa-user" ></i>Update Patient Record</button>
+  </div>
 
-    <button class="btn btn-md btn-outline-primary" (click)="open(content)">
-      <i class="fa fa-user" ></i>Update Patient Record</button>
-
-
-    <button class="btn btn-md btn-outline-primary" (click)="open(contentEdit)">
-      <i class="fa fa-user" ></i>Update Patient Address</button>
+  <div class="address">
+  <button class="btn btn-md btn-outline-primary" (click)="open(contentEdit)">
+    <i class="fa fa-user" ></i>Update Patient Address</button>
+  </div>
+  <div class="create">
     <button class="btn btn-md btn-outline-primary" (click)="open(contentTR)">
       <i class="fa fa-user" ></i>Create A Transplant Request</button>
+  </div>
   <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Update Patient</h4>
@@ -240,8 +244,9 @@
       </div>
     </ng-template>
 
-
+<div class="delete">
   <button *ngIf="adminActive()"class="btn btn-outline-danger" (click)="openDelete(contentDelete, selected)">Remove Patient</button>
+</div>
   <ng-template #contentDelete let-modal>
     <div class="modal-header">
       <h4 class="modal-title">Confirm Delete</h4>
@@ -260,6 +265,7 @@
     </div>
   </ng-template>
 </div>
+
 
 
 

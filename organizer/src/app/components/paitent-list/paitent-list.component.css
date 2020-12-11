@@ -17,9 +17,22 @@
   font-weight: bold;
 
 }
-/* .buttons{
+.buttons{
   padding-left: 100px;
   font-family: Avenir light;
   font-size: large;
   font-weight: bold;
-} */
+}
+.update{
+  padding-top: 15px;
+}
+.address{
+  padding-top: 15px;
+}
+.create{
+  padding-top: 15px;
+}
+.delete{
+  padding-top: 15px;
+}
+
