@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skilldistillery.organmatcher.entities.TransplantRequest;
+import com.skilldistillery.organmatcher.entities.Patient;
 import com.skilldistillery.organmatcher.entities.TransplantType;
 import com.skilldistillery.organmatcher.repositories.PatientRepository;
 import com.skilldistillery.organmatcher.repositories.TransplantTypeRepository;
@@ -16,6 +16,9 @@ public class TransplantTypeServiceImpl implements TransplantTypeService {
 
 	@Autowired
 	private TransplantTypeRepository ttRepo;
+	
+	@Autowired
+	private PatientRepository patientRepo;
 	
 	@Override
 	public List<TransplantType> index() {
@@ -66,18 +69,43 @@ public class TransplantTypeServiceImpl implements TransplantTypeService {
 	
 	@Override 
 	public boolean addingDonorRole(int pid, int tid) {
-		boolean donorRole =ttRepo.addDonorRole(pid, tid);
-		return donorRole;
-
+//		return ttRepo.addDonorRole(pid, tid);
+		Optional<Patient> donorOpt = patientRepo.findById( pid );
+		Patient donor;
+		Optional<TransplantType> roleOpt = ttRepo.findById( tid );
+		TransplantType role;
+		if ( donorOpt.isPresent() && roleOpt.isPresent() ) {
+			donor = donorOpt.get();
+			role = roleOpt.get();
+			role.addDonor(donor);
+			donor.addTransplantType(role);
+			ttRepo.saveAndFlush(role);
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 	
 
 	@Override 
 	public boolean deleteDonorRole(int pid, int tid) {
-		boolean deleteDonor  = ttRepo.removeDonorRole(pid, tid);
-		return deleteDonor;
+//		return ttRepo.removeDonorRole(pid, tid);
+//		return deleteDonor;
+		Optional<Patient> donorOpt = patientRepo.findById( pid );
+		Patient donor;
+		Optional<TransplantType> roleOpt = ttRepo.findById( tid );
+		TransplantType role;
+		if ( donorOpt.isPresent() && roleOpt.isPresent() ) {
+			donor = donorOpt.get();
+			role = roleOpt.get();
+			role.removeDonor(donor);
+			donor.removeTransplantType(role);
+			ttRepo.saveAndFlush(role);
+			return true;
+		} else {
+			return false;
+		}
 	}
-	
-
 	
 }

@@ -1,6 +1,10 @@
 <div style="font-family: Avenir light;"><br><br>
   <p class ="patientHeader" > TRANSPLANT REQUESTS</p>
   <br><br><br>
+<div style="text-align: center;">
+  <img src="https://www.einstein.edu/upload/images/Transplant_EDU.jpg" class="Responsive image"
+    style="height: 400px; width: 95%;">
+</div><br>
 
   <ng-template #content let-modal>
   <div class="modal-header">
@@ -20,9 +24,10 @@
         </form> <br>
       <div class="border text-center">
         <button (click)="onSubmit(review, review.id)" data-dismiss="modal" class="btn btn-info">SUBMIT</button>
-        </div>
+      </div>
 
   </div>
+
   <div class="modal-footer">
     <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
   </div>
@@ -30,9 +35,6 @@
 
 
 <div *ngIf="!selected">
-
-
-
   <div class="container" style="font-family: Avenir light;">
     <div class="row align-items-start">
 
@@ -70,18 +72,26 @@
     <br>
     <br>
 
+  </form></div> <br>
 
-
-  <!-- <label for="patients">Find Unmatched Requests by Organ Type:</label>
-  <form >
-  <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedType">
-    <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
+  <div class="col">
+  <label for="patients" style="text-align: center;">Find by Approval Status</label>
+  <form>
+  <select name="types" id="types" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
+    <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
   </select>
-    <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="Search"  (click)="findByOrgan(selectedType.id)" />
-  </form> <br> -->
+    <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="Search"  (click)="loadByApprovalStatus(status)" />
+  </form> <br>
+</div>
+</div>
+</div>
+<form>
+  <div class="container" style="text-align: center;">
+<input type="submit" class="btn btn-primary gradient" value="Find All Unmatched"  (click)="findByDonorIsNull()" />
+</div>
+</form>
 
-
-<table class="table table table-hover" >
+<table class="table table-hover" >
   <thead>
     <tr>
       <th>ID</th>
@@ -93,6 +103,7 @@
       <th></th>
     </tr>
   </thead>
+
   <tbody>
 
     <tr *ngFor="let tRequest of transplantRequests" >
@@ -137,6 +148,7 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-warning" (click)="modal.close('cancel click')">cancel</button>
   </div>
+  <button (click)="displayTable()"  *ngIf="filtered">Back</button>
 </ng-template>
 </div>
 
@@ -232,10 +244,6 @@
 
             </table>
             <br> <br> <br> <br> <br>
-
-
-
-
 </div>
 </div>
 
