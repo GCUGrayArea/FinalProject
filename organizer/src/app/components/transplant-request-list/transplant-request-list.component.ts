@@ -73,6 +73,7 @@ export class TransplantRequestListComponent implements OnInit {
 console.log(err);
 
       });
+      this.filtered=false;
 
   }
   loadByApprovalStatus(status){
