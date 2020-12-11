@@ -67,17 +67,7 @@ show(id : number): Observable<Patient>{
       })
     );
   }
-showByBloodTypeId(id : number): Observable<Patient[]>{
-    // const credentials= this.authService.getCredentials();
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //      'Authorization': `Basic ${credentials}`,
-    //      'X-Requested-With': 'XMLHttpRequest'
-    //    })
-    //   };
-    //   if(!this.authService.checkLogin()){
-    //     this.router.navigateByUrl('login')
-    //   }
+showByBloodTypeId(id : number): Observable<Patient[]> {
     return this.http.get<Patient[]>(`${this.url}/blood-type/${id}`).pipe(
       tap((res) => {
         //localStorage.setItem('credentials' , credentials);
@@ -88,7 +78,7 @@ showByBloodTypeId(id : number): Observable<Patient[]>{
         return throwError('PatientService.index(): Error retrieving patient list');
       })
     );
-  }
+}
 
   create(data): Observable<Patient> {
     console.log(data)
