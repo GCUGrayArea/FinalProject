@@ -140,6 +140,10 @@
     <button class="btn btn-md btn-outline-primary" (click)="open(contentEdit)">
       <i class="fa fa-user" ></i>Update Patient Address</button>
   </div>
+  <div class="container">
+    <button class="btn btn-md btn-outline-primary" (click)="open(contentTR)">
+      <i class="fa fa-user" ></i>Create A Transplant Request</button>
+  </div>
   <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Update Patient</h4>
@@ -207,10 +211,32 @@
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">cancel</button>
     </div>
   </ng-template>
+  <ng-template #contentTR let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Select Organ Needed</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+      <div class="modal-body">
+        <form>
+          OrganType: <br>
+          <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedOrgan">
+            <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
+          </select>
+          <div class="border text-center">
+            <button (click)="createRequest()" data-dismiss="modal" class="btn btn-info">Submit</button>
+            </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">cancel</button>
+      </div>
+    </ng-template>
 
 
-
-  <button *ngIf="adminActive()"class="btn btn-outline-danger" (click)="openDelete(contentDelete, selected)">delete</button>
+  <button *ngIf="adminActive()"class="btn btn-outline-danger" (click)="openDelete(contentDelete, selected)">Remove Patient</button>
   <ng-template #contentDelete let-modal>
     <div class="modal-header">
       <h4 class="modal-title">Confirm Delete</h4>

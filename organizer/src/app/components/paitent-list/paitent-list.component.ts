@@ -1,3 +1,5 @@
+import { TransplantRequestService } from './../../services/transplant-request.service';
+import { TransplantRequest } from './../../models/transplant-request';
 import { HlaService } from './../../services/hla.service';
 import { AddressService } from './../../services/address.service';
 import { BloodType } from './../../models/blood-type';
@@ -9,6 +11,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Address } from 'src/app/models/address';
 import { Hla } from 'src/app/models/hla';
 import { ProteinClass } from 'src/app/models/protein-class';
+import { TransplantType } from 'src/app/models/transplant-type';
 
 @Component({
   selector: 'app-paitent-list',
@@ -37,10 +40,18 @@ export class PaitentListComponent implements OnInit {
   newAddress = new Address();
   editAddress = new Address();
   hla: Hla[];
-  selectedHla : Hla = new Hla();
-  proteinClasses = [ "A" , "B" , "C" , "D" , "E" , "F" ];
+  selectedHla: Hla = new Hla();
+  proteinClasses = ["A", "B", "C", "D", "E", "F"];
+  newTr = new TransplantRequest();
+  organTypes: TransplantType[] = [
+    new TransplantType(1, 'bonemarrow'),
+    new TransplantType(2, 'kidney'),
+    new TransplantType(3, 'teeth'),
+  ];
+  selectedOrgan = new TransplantType();
 
-  constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal, private addressService: AddressService, private hlaService: HlaService ) { }
+
+  constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal, private addressService: AddressService, private hlaService: HlaService, private trService: TransplantRequestService) { }
 
   ngOnInit(): void {
     this.reload();
@@ -57,11 +68,11 @@ export class PaitentListComponent implements OnInit {
   }
 
   arrayZeroToFive() {
-    return Array.from({length: 6}, (x, i) => i);
+    return Array.from({ length: 6 }, (x, i) => i);
   }
 
 
-  setProteinClassValue( position: number , value: number ) {
+  setProteinClassValue(position: number, value: number) {
     console.log(position + "," + value);
     this.hla[position].allele = value;
   }
@@ -141,7 +152,7 @@ export class PaitentListComponent implements OnInit {
     this.reload();
     this.filtered = false;
   }
-  selectBloodType(id , patient: Patient ) {
+  selectBloodType(id, patient: Patient) {
     // console.log(id);
     patient.bloodType = this.bloodTypes[id - 1];
   }
@@ -174,15 +185,15 @@ export class PaitentListComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  onSubmit(patient: Patient, address: Address, hlaList: Hla[] ) {
+  onSubmit(patient: Patient, address: Address, hlaList: Hla[]) {
 
-  //Nested calls required to ensure that requests occur one after the other,
-  //iff the previous one (on which it depends) succeeded. Patient POST guaranteed
-  //not to work anyway if address POST hasn't happened, and HLA POST guaranteed to fail
-  //if patient POST hasn't already happened. Requests *need* to happen in order, and
-  //without nesting the second and third start before the first has finished.
+    //Nested calls required to ensure that requests occur one after the other,
+    //iff the previous one (on which it depends) succeeded. Patient POST guaranteed
+    //not to work anyway if address POST hasn't happened, and HLA POST guaranteed to fail
+    //if patient POST hasn't already happened. Requests *need* to happen in order, and
+    //without nesting the second and third start before the first has finished.
 
-  //First call, posts new address record
+    //First call, posts new address record
     this.addressService.create(address).subscribe(
       data => {
         patient.address = data;
@@ -194,11 +205,11 @@ export class PaitentListComponent implements OnInit {
             patient = data1;
             //Third and final call: if patient POST succeeded POSTS their
             //HLA records to server and associates them with patient
-            this.hlaService.createList( hlaList , patient.id ).subscribe(
+            this.hlaService.createList(hlaList, patient.id).subscribe(
               data2 => {
                 this.newPatient.hlaProteins = data2;
-              } ,
-              err2 => { console.error('Observer got an error: ' + err2 ); }
+              },
+              err2 => { console.error('Observer got an error: ' + err2); }
             );
           },
           err1 => console.error('Observer got an error: ' + err1)
@@ -264,6 +275,34 @@ export class PaitentListComponent implements OnInit {
         console.error(bad);
       }
     );
+    this.selected = null;
+  }
+  selectOrganType(id) {
+    console.log(id);
+    console.log(this.selectedOrgan);
+
+    this.selectedOrgan = null;
+    for (var i = 0; i < this.organTypes.length; i++) {
+      if (this.organTypes[i].id == id) {
+        this.selectedOrgan = this.organTypes[i];
+      }
+    }
+  }
+  createRequest() {
+    this.newTr.organType = this.selectedOrgan;
+    this.newTr.recipient = this.selected;
+    this.trService.create(this.newTr).subscribe(
+      data => {
+        this.router.navigateByUrl('transplantRequest');
+        console.log('TransplantRequestListComponent.loadTransplantRequest(): transplantRequest retrieved')
+      },
+
+      err => {
+        console.error('create failed');
+        console.log(err);
+
+      });
+    this.newTr = new TransplantRequest();
     this.selected = null;
   }
 
