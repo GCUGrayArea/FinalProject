@@ -153,8 +153,11 @@ export class PaitentListComponent implements OnInit {
     this.filtered = false;
   }
   selectBloodType(id, patient: Patient) {
-    // console.log(id);
-    patient.bloodType = this.bloodTypes[id - 1];
+    if ( patient == null ) {
+      this.selectedType.id = id;
+    } else {
+      patient.bloodType = this.bloodTypes[id - 1];
+    }
   }
 
 
