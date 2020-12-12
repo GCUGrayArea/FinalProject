@@ -21,12 +21,12 @@ export class TransplantRequestListComponent implements OnInit {
   newTransplantRequest: TransplantRequest = new TransplantRequest();
   updatedTransplantRequest: TransplantRequest = null;
   viableDonors : Patient[] = [];
-  selectedType =null;
   organTypes: TransplantType[] = [
     new TransplantType(1, 'bonemarrow'),
     new TransplantType(2, 'kidney'),
     new TransplantType(3, 'teeth'),
   ];
+  selectedType = this.organTypes[0];
   filtered = false;
   patientToAdd =new Patient()
   approvalStatus =  ['pending', 'approved', 'denied']
