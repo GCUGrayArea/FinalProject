@@ -10,6 +10,18 @@
   background-color: rgb(138, 238, 138, 0.3);
   /* background-color: green; */
 }
-
+.patientHeader{
+  background-color: rgb(250, 204, 0);
+}
+.selectedHeader{
+  background-color: rgb(250, 204, 0);
+}
+.g{
+  background-color: #047779;
+}
+.id{
+  background-color: #047779;
+  color: white;
+}
 
 
