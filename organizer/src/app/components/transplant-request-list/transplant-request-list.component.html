@@ -42,29 +42,29 @@
 
         <label for="patients">FIND UNMATCHED REQUESTS BY ORGAN TYPE</label>
         <form >
-        <select name="types" id="types" (change)="selectOrganType($event.target.value)" [(ngModel)]="selectedType">
+        <select name="types" id="types" (change)="selectOrganType($event.target.value)">
           <option *ngFor="let t of organTypes" value = {{t.id}}>{{t.organ}}</option>
         </select>
           <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="SEARCH"  (click)="findByOrgan(selectedType.id)" />
         </form> <br>
             </div>
-      <div class="col">
+      <!-- <div class="col"> -->
 
-        <label for="patients">FIND APPROVAL STATUS</label>
+        <!-- <label for="patients">FIND APPROVAL STATUS</label>
         <form >
         <select name="types" id="types" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
           <option *ngFor="let t of approvalStatus" value = {{t}}>{{t}}</option>
         </select>
           <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="SEARCH"  (click)="loadByApprovalStatus(status)" />
-        </form> <br>
+        </form> <br> -->
 
-      </div>
+      <!-- </div> -->
       <div class="col"></div>
       <div class="col"></div>
       </div>
     </div>
 <br>
-<div  class="container">
+<!-- <div  class="container">
     <form>
       <input type="submit" class="btn btn-primary gradient" value="FIND ALL UNMATCHED"  (click)="findByDonorIsNull()" />
       </form>
@@ -72,7 +72,7 @@
     <br>
     <br>
 
-  </form></div> <br>
+  </div> <br> -->
 
   <div class="col">
   <label for="patients" style="text-align: center;">Find by Approval Status</label>
@@ -83,12 +83,11 @@
     <input class="btn btn-md btn-outline-primary btn-sm" type="submit" value="Search"  (click)="loadByApprovalStatus(status)" />
   </form> <br>
 </div>
-</div>
-</div>
+
 <form>
   <div class="container" style="text-align: center;">
-<input type="submit" class="btn btn-primary gradient" value="Find All Unmatched"  (click)="findByDonorIsNull()" />
-</div>
+    <input type="submit" class="btn btn-primary gradient" value="Find All Unmatched"  (click)="findByDonorIsNull()" />
+  </div>
 </form>
 
 <table class="table table-hover" >
@@ -116,15 +115,16 @@
       <td *ngIf="adminActive() && tRequest.donor !=null && tRequest.approvalStatus === 'pending' || null"><div class="border">
         <button class="btn btn-md btn-outline-primary" (click)="open(content, tRequest)">
           <i class="fa fa-user"></i>Review</button>
-      </div></td>
-    </tr>
-  </tbody>
-</table>
-<br>
-<br><br><br>
-<button (click)="displayTable()"  *ngIf="filtered">Back</button>
+        </div></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <br><br><br>
+  <button (click)="displayTable()"  *ngIf="filtered">Back</button>
 
-<ng-template #content let-modal>
+</div>
+  <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title" style= "font-family: Avenir light;">REVIEW TRANSPLANT REQUEST</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -150,7 +150,6 @@
   </div>
   <button (click)="displayTable()"  *ngIf="filtered">Back</button>
 </ng-template>
-</div>
 
 
 
@@ -245,7 +244,7 @@
             </table>
             <br> <br> <br> <br> <br>
 </div>
-</div>
+
 
 
 
