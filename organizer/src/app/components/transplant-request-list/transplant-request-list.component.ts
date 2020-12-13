@@ -74,6 +74,7 @@ console.log(err);
 
       });
       this.filtered=false;
+      this.viableDonors=null;
 
   }
   loadByApprovalStatus(status){
