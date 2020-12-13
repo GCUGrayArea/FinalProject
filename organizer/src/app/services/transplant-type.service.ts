@@ -14,7 +14,7 @@ export class TransplantTypeService {
 
   create( donorId: number , ttId: number ): Observable<TransplantType> {
     console.log( donorId + " , " + ttId );
-    return this.http.post<TransplantType>( environment.baseUrl + 'api/' + donorId + '/transtype/' + ttId, null )
+    return this.http.post<TransplantType>( environment.baseUrl + 'api/donor/' + donorId + '/transtype/' + ttId, null )
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -25,7 +25,7 @@ export class TransplantTypeService {
 
   delete( donorId: number , ttId: number ): Observable<boolean> {
     console.log( donorId + " , " + ttId );
-    return this.http.delete<boolean>( environment.baseUrl + 'api/' + donorId + '/transtype/' + ttId )
+    return this.http.delete<boolean>( environment.baseUrl + 'api/donor/' + donorId + '/transtype/' + ttId )
       .pipe(
         catchError((err: any) => {
           console.log(err);
