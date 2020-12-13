@@ -221,7 +221,7 @@
                             <!-- <td>  <input (click)="setDonor(p)" type="button" name="donor" [(ngModel)]="selected.donor"></td> -->
                             <td>  <button (click)="setDonor(p)" class="btn btn-primary btn-lg gradient">Add Donor</button>
 
-                              <td>{{selected.recipient.hlaCompatibility(p)}}/{{selected.recipient.hlaProteins.length}}</td>
+                              <td [ngClass]= "chooseDonor(selected.recipient.hlaCompatibility(p))">{{selected.recipient.hlaCompatibility(p)}}/{{selected.recipient.hlaProteins.length}}</td>
                             </tr>
                           </tbody>
 

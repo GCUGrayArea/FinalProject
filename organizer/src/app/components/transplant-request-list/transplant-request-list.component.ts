@@ -230,6 +230,16 @@ console.log(err);
     return 'approved';
   }
 }
+ chooseDonor(hla : number) {
+
+  if (hla == 6) {
+    return 'approved';
+  } else if (hla == 5) {
+    return 'pending';
+  } else if(hla < 5){
+    return 'denied';
+  }
+}
 findByDonorIsNull(){
   this.tSvc.indexDonorIsNull().subscribe(
     data=>{
