@@ -25,7 +25,7 @@ export class Patient {
      weightKg?: number,
      bloodType?: BloodType,
      address?:Address ,
-     transplantTypes?: TransplantType[] ) {
+     transplantTypes?: TransplantType[]) {
   this.id= id;
   this.firstName= firstName;
 	this.lastName= lastName ;

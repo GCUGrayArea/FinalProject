@@ -1,3 +1,4 @@
+import { TransplantTypeService } from './../../services/transplant-type.service';
 import { TransplantRequestService } from './../../services/transplant-request.service';
 import { TransplantRequest } from './../../models/transplant-request';
 import { HlaService } from './../../services/hla.service';
@@ -49,8 +50,10 @@ export class PaitentListComponent implements OnInit {
     new TransplantType(3, 'teeth'),
   ];
   selectedOrgan = new TransplantType();
+  donorRolesToCreate: boolean[];
 
-  constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal, private addressService: AddressService, private hlaService: HlaService, private trService: TransplantRequestService) { }
+  constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal, private addressService: AddressService,
+    private hlaService: HlaService, private trService: TransplantRequestService, private ttService: TransplantTypeService) { }
 
   ngOnInit(): void {
     this.reload();
@@ -65,9 +68,18 @@ export class PaitentListComponent implements OnInit {
       this.hla.push(hla);
     }
   }
+  initDonorRoles() {
+    this.donorRolesToCreate =[];
+    for(let o of this.organTypes){
+      this.donorRolesToCreate.push(false);
+    }
+  }
+  setCreateDonorRole(i: number, val: boolean){
+    this.donorRolesToCreate[i]= val;
+  }
 
-  arrayZeroToFive() {
-    return Array.from({ length: 6 }, (x, i) => i);
+  arrayOfLength(n: number) {
+    return Array.from({ length: n }, (x, i) => i);
   }
 
   setProteinClassValue(position: number, value: number) {
@@ -170,7 +182,8 @@ export class PaitentListComponent implements OnInit {
     });
   }
   openCreate(content) {
-    this.initHla()
+    this.initHla();
+    this.initDonorRoles();
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -209,6 +222,28 @@ export class PaitentListComponent implements OnInit {
             this.hlaService.createList(hlaList, patient.id).subscribe(
               data2 => {
                 this.newPatient.hlaProteins = data2;
+                for(let t = 0; t < this.donorRolesToCreate.length; t++){
+                  if(this.donorRolesToCreate[t]){
+                    this.ttService.create(patient.id, this.organTypes[t].id).subscribe(
+                      data3 => {
+                        console.log(patient.id + ", " + this.organTypes[t].id);
+                      },
+                      err3 => {
+                        console.error("Donor Role creation failed: " + err3);
+                      }
+                    );
+                  }
+                  else {
+                    this.ttService.delete(patient.id, this.organTypes[t].id).subscribe(
+                      data3 => {
+                        console.log(patient.id + ", " + this.organTypes[t].id);
+                      },
+                      err3 => {
+                        console.error("Donor Role deletion failed: " + err3);
+                      }
+                    );
+                  }
+                }
                 this.reload();
               },
               err2 => { console.error('Observer got an error: ' + err2); }
