@@ -149,6 +149,8 @@ export class PaitentListComponent implements OnInit {
   }
 
   selectBloodType(id, patient: Patient) {
+    console.log(this.selectedType);
+
     if ( patient == null ) {
       this.selectedType.id = id;
     } else {
@@ -207,6 +209,7 @@ export class PaitentListComponent implements OnInit {
             this.hlaService.createList(hlaList, patient.id).subscribe(
               data2 => {
                 this.newPatient.hlaProteins = data2;
+                this.reload();
               },
               err2 => { console.error('Observer got an error: ' + err2); }
             );
@@ -275,6 +278,8 @@ export class PaitentListComponent implements OnInit {
       }
     );
     this.selected = null;
+    this.modalService.dismissAll(); //dismiss the modal
+    this.reload();
   }
   selectOrganType(id) {
     console.log(id);

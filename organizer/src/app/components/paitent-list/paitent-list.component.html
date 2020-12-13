@@ -1,6 +1,7 @@
 <div *ngIf="!selected" class ="patient">
   <br><br>
   <p class ="patientHeader"> PATIENT INFO</p>
+  <p class="g">.</p>
   <br><br><br>
   <div class="container" style="text-align: center;">
     <div class="row align-items-start">
@@ -89,7 +90,7 @@
         <br />
         WEIGHT <br>
         <input type="number" name="Weight" placeholder="weight (kg)" [(ngModel)]="newPatient.weightKg" /><br ><br>
-        BLOOD TYPE <br /><select name="types" id="types" (change)="selectBloodType($event.target.value)" [(ngModel)]="selectedType">
+        BLOOD TYPE <br /><select name="types" id="types" (change)="selectBloodType($event.target.value, newPatient)">
             <option *ngFor="let t of bloodTypes" value = {{t.id}} >{{t.bloodGroup}} {{t.rh ? "+" :  "-"}} </option>
           </select><br><br />
           ADDRESS <br>
