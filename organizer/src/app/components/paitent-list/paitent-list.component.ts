@@ -278,6 +278,8 @@ export class PaitentListComponent implements OnInit {
       }
     );
     this.selected = null;
+    this.modalService.dismissAll(); //dismiss the modal
+    this.reload();
   }
   selectOrganType(id) {
     console.log(id);
