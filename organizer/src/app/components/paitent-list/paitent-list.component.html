@@ -30,14 +30,13 @@
     <table class="table table-hover ">
     <thead>
     </thead>
-    <tr><th>PATIENT ID</th><th>NAME</th><th>BIRTHDATE</th><th>ROLE</th><th>SEX</th><th>WEIGHT (kg)</th><th>BLOOD TYPE</th><th>ZIP CODE</th></tr>
+    <tr><th>PATIENT ID</th><th>NAME</th><th>BIRTHDATE</th><th>SEX</th><th>WEIGHT (kg)</th><th>BLOOD TYPE</th><th>ZIP CODE</th></tr>
     <tbody>
 
       <tr *ngFor="let p of patients" (click)="displayPatient(p)">
         <td>{{p.id}}</td>
         <td>{{p.firstName}} {{p.lastName}}</td>
         <td>{{p.birthDate}}</td>
-        <td>{{p.role}}</td>
         <td>{{p.sex}}</td>
         <td>{{p.weightKg}}</td>
         <td>{{p.bloodType.bloodGroup}} {{p.bloodType.rh ? "+" :  "-"}}</td>
@@ -109,16 +108,31 @@
               <th></th>
             </thead>
             <tbody>
-              <tr *ngFor="let i of arrayZeroToFive()">
+              <tr *ngFor="let i of arrayOfLength(6)">
                 <td>HLA-{{proteinClasses[i]}} allele</td>
                 <td>
                   <select (change)="setProteinClassValue(i, $event.target.value)">
-                    <option *ngFor="let j of arrayZeroToFive()" value="{{j + 1 }}">{{j + 1}}</option>
+                    <option *ngFor="let j of arrayOfLength(6)" value="{{j + 1 }}">{{j + 1}}</option>
                   </select>
                 </td>
               </tr>
             </tbody>
           </table>
+            ORGANS WILLING TO DONATE: <br>
+          <table>
+            <thead>
+              <th></th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of arrayOfLength(organTypes.length)">
+                <td>{{organTypes[i].organ}}</td>
+                <td><input type="checkbox" (change)="setCreateDonorRole(i, !donorRolesToCreate[i])" /></td>
+              </tr>
+            </tbody>
+          </table>
+
+
         <div class="border text-center">
           <button (click)="onSubmit(newPatient, newAddress, hla)" data-dismiss="modal" class="btn btn-info">SUBMIT</button>
           </div>
