@@ -35,4 +35,9 @@
 .delete{
   padding-top: 15px;
 }
-
+.patientHeader{
+  background-color: rgb(250, 204, 0);
+}
+.g{
+  background-color: #047779;
+}
