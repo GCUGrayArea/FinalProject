@@ -41,17 +41,12 @@ export class Patient {
     let matches: number = 0;
     for ( let hla of this.hlaProteins ) {
       for ( let otherHla of donor.hlaProteins ) {
-      // console.log(hla.proteinClass.id);
-      // console.log(otherHla.proteinClass.id);
-      // console.log(hla.allele);
-      // console.log(otherHla.allele);
         if ( hla.proteinClass.id === otherHla.proteinClass.id && hla.allele === otherHla.allele ) {
           matches++;
           break;
         }
       }
     }
-    // console.log(matches);
     return matches;
   }
 
