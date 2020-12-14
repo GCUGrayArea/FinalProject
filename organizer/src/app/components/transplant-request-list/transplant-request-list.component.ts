@@ -24,7 +24,7 @@ export class TransplantRequestListComponent implements OnInit {
   organTypes: TransplantType[] = [
     new TransplantType(1, 'bonemarrow'),
     new TransplantType(2, 'kidney'),
-    new TransplantType(3, 'teeth'),
+    new TransplantType(3, 'liver'),
   ];
   selectedType = this.organTypes[0];
   filtered = false;

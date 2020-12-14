@@ -35,7 +35,7 @@ export class PaitentListComponent implements OnInit {
     new BloodType(7, 'O', true),
     new BloodType(8, 'O', false)
   ];
-  selectedType = new BloodType();
+  selectedType = this.bloodTypes[0];
   filtered = false;
   editPatient = new Patient();
   newAddress = new Address();
@@ -47,9 +47,9 @@ export class PaitentListComponent implements OnInit {
   organTypes: TransplantType[] = [
     new TransplantType(1, 'bonemarrow'),
     new TransplantType(2, 'kidney'),
-    new TransplantType(3, 'teeth'),
+    new TransplantType(3, 'liver'),
   ];
-  selectedOrgan = new TransplantType();
+  selectedOrgan = this.organTypes[0];
   donorRolesToCreate: boolean[];
 
   constructor(private patientService: PatientService, private router: Router, private modalService: NgbModal, private addressService: AddressService,
@@ -320,7 +320,7 @@ export class PaitentListComponent implements OnInit {
     console.log(id);
     console.log(this.selectedOrgan);
 
-    this.selectedOrgan = null;
+    this.selectedOrgan = new TransplantType();
     for (var i = 0; i < this.organTypes.length; i++) {
       if (this.organTypes[i].id == id) {
         this.selectedOrgan = this.organTypes[i];
@@ -343,6 +343,7 @@ export class PaitentListComponent implements OnInit {
       });
     this.newTr = new TransplantRequest();
     this.selected = null;
+    this.modalService.dismissAll(); //dismiss the modal
   }
 
 }

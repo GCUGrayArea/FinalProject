@@ -19,7 +19,7 @@
         <label for="patients" style="text-align: center;">FIND PATIENT BY BLOOD TYPE:</label>
         <form action=""> <br>
         <select name="types" id="types" (change)="selectBloodType($event.target.value)">
-          <option *ngFor="let t of bloodTypes" (change)="selectedType.id=$event.target.value" value = {{t.id}}>{{t.bloodGroup}} {{t.rh ? "+" :  "-"}}</option>
+          <option *ngFor="let t of bloodTypes"  value = {{t.id}}>{{t.bloodGroup}} {{t.rh ? "+" :  "-"}}</option>
         </select>
           <input class="btn btn-sm btn-outline-primary" type="submit" value="Search"  (click)="findByBloodTypeId(selectedType.id)" />
         </form>      </div>
