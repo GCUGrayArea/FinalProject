@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { TransplantRequest } from './../models/transplant-request';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -8,10 +9,8 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TransplantRequestService {
- private baseUrl = 'http://localhost:8192/';
 
-
-  private url = this.baseUrl + 'api/transplant';
+  private url = environment.baseUrl + 'api/transplant';
 
  index(): Observable<TransplantRequest[]> {
     return this.http.get<TransplantRequest[]>(this.url )
