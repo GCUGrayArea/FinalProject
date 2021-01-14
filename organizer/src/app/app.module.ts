@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { TransplantRequestService } from './services/transplant-request.service';
 import { TransplantRequestListComponent } from './components/transplant-request-list/transplant-request-list.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { AboutComponent } from './components/about/about.component';
 import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -38,7 +38,8 @@ import { FooterComponent } from './components/footer/footer.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    NgbCollapseModule
   ],
   providers: [TransplantRequestService, PatientService],
   bootstrap: [AppComponent]
